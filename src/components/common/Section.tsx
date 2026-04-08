@@ -1,42 +1,19 @@
-import React from "react";
-import clsx from "clsx";
-import Container from "./Container";
+// src/components/Common/Section.tsx
+import React from 'react';
+import { Container } from './Container';
 
 interface SectionProps {
-  children: React.ReactNode;
-  className?: string;
-  containerClassName?: string;
   id?: string;
-  variant?: "default" | "light" | "dark";
+  className?: string;
+  children: React.ReactNode;
 }
 
-
-const variants = {
-  default: "bg-white",
-  dark: "bg-black text-white",
-  light: "bg-gray-100",
-};
-
-
-export default function Section({
-  children,
-  className,
-  containerClassName,
-  id,
-  variant = "default", // ✅ default value
-}: SectionProps) {
+export const Section: React.FC<SectionProps> = ({ id, className = '', children }) => {
   return (
-    <section
-      id={id}
-      className={clsx(
-        "py-12 sm:py-16 lg:py-20",
-        variants[variant], // ✅ apply variant
-        className
-      )}
-    >
-      <Container className={containerClassName}>
+    <section id={id} className={`py-16 md:py-24 ${className}`}>
+      <Container>
         {children}
       </Container>
     </section>
   );
-}
+};

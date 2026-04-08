@@ -1,56 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Setting Montserrat as the default sans font in Tailwind v4 */
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  
+  /* Brand Colors */
+  --color-parqon-brown: #837B55;
+  --color-parqon-beige: #D6D3C9;
+  --color-parqon-light: #F1F1F1;
+}
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* Default Mobile Sizes (320px - 425px) */
+  --fs-h1: 2.25rem;   /* 36px */
+  --fs-h2: 1.75rem;   /* 28px */
+  --fs-h3: 1.25rem;   /* 20px */
+  --fs-body: 0.875rem; /* 14px */
+  --fs-small: 0.75rem; /* 12px */
 }
 
-@media (prefers-color-scheme: dark) {
+/* Breakpoint: 425px (Large Phones) */
+@media (min-width: 425px) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --fs-h1: 2.5rem;
+    --fs-body: 0.938rem; /* 15px */
   }
 }
 
-body {
-  margin: 0;
+/* Breakpoint: 768px (Tablets) */
+@media (min-width: 768px) {
+  :root {
+    --fs-h1: 3rem;       /* 48px */
+    --fs-h2: 2.25rem;    /* 36px */
+    --fs-h3: 1.5rem;     /* 24px */
+    --fs-body: 1rem;     /* 16px */
+  }
 }
 
+/* Breakpoint: 1440px (Desktop) */
+@media (min-width: 1440px) {
+  :root {
+    --fs-h1: 3.5rem;     /* 56px */
+    --fs-h2: 2.5rem;     /* 40px */
+    --fs-body: 1.125rem; /* 18px */
+  }
+}
+
+/* Breakpoint: 2560px (4K / Ultra Wide) */
+@media (min-width: 2560px) {
+  :root {
+    --fs-h1: 4.5rem;     /* 72px */
+    --fs-h2: 3.5rem;     /* 56px */
+    --fs-h3: 2rem;       /* 32px */
+    --fs-body: 1.25rem;  /* 20px */
+  }
+}
+
+/* Applying dynamic typography to base elements */
+@layer base {
+  body {
+    font-size: var(--fs-body);
+    @apply text-gray-900 antialiased leading-relaxed;
+  }
+
+  h1 { 
+    font-size: var(--fs-h1); 
+    @apply font-bold leading-tight uppercase tracking-tighter; 
+  }
+  
+  h2 { 
+    font-size: var(--fs-h2); 
+    @apply font-bold leading-tight tracking-tight; 
+  }
+  
+  h3 { 
+    font-size: var(--fs-h3); 
+    @apply font-bold leading-snug; 
+  }
+}
+
+/* Custom dynamic utility classes */
+@utility text-dynamic-h1 { font-size: var(--fs-h1); }
+@utility text-dynamic-h2 { font-size: var(--fs-h2); }
+@utility text-dynamic-h3 { font-size: var(--fs-h3); }
+@utility text-dynamic-body { font-size: var(--fs-body); }
+@utility text-dynamic-small { font-size: var(--fs-small); }

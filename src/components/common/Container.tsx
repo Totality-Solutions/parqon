@@ -1,32 +1,10 @@
-import clsx from "clsx";
+// src/components/Common/Container.tsx
+import React from 'react';
 
-interface ContainerProps {
-  children: React.ReactNode;
-  className?: string;
-  px?: "none" | "sm" | "md" | "lg";
-}
-
-const paddingX = {
-  none: "px-0",
-  sm: "px-4",
-  md: "px-6",
-  lg: "px-8",
-};
-
-export default function Container({
-  children,
-  className,
-  px = "md", // default
-}: ContainerProps) {
+export const Container: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = '' }) => {
   return (
-    <div
-      className={clsx(
-        "w-full max-w-7xl mx-auto",
-        paddingX[px],
-        className
-      )}
-    >
+    <div className={`max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 ${className}`}>
       {children}
     </div>
   );
-}
+};
