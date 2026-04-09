@@ -3,6 +3,7 @@ import React from 'react';
 import { Section } from '../../../components/common/Section';
 import livingRoomImg from '../../../assets/images/cat-living.png';
 import kitchenImg from '../../../assets/images/cat-kitchen.png';
+import { Button } from '../../../components/common/Button';
 
 const categories = [
   { 
@@ -21,7 +22,7 @@ const categories = [
 
 export const CategorySection: React.FC = () => {
   return (
-    <Section id="category" className="py-20 2xl:py-32">
+    <Section id="category" className="pt-20 2xl:pt-22">
       {/* Header Section utilizing dynamic typography */}
       <div className="flex justify-between items-end mb-12 2xl:mb-20">
         <div>
@@ -65,26 +66,14 @@ export const CategorySection: React.FC = () => {
               </div>
 
               {/* Bottom Button with North-East Arrow alignment */}
-              <div className="translate-y-8 group-hover:translate-y-0 transition-transform duration-500 delay-150">
-                <button className="flex items-center bg-parqon-light hover:bg-white transition-all group/btn border border-transparent hover:border-gray-100">
-                  <span className="text-dynamic-small font-bold text-gray-800 px-6 md:px-10 py-3 md:py-4 uppercase tracking-widest">
-                    Explore
-                  </span>
-                  <span className="bg-parqon-brown text-white h-full px-4 md:px-5 py-3 md:py-4 flex items-center justify-center group-hover/btn:bg-[#6D6546] transition-colors">
-                    <svg 
-                      viewBox="0 0 24 24" 
-                      className="w-4 h-4 md:w-5 md:h-5 fill-none stroke-current"
-                    >
-                      <path 
-                        d="M7 17L17 7M17 7H7M17 7V17" 
-                        strokeWidth="2.5" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
+              
+                <Button 
+                          label="Explore" 
+                          variant="primary"
+                          className="mt-3 w-fit" // w-fit ensures it doesn't span full width of card
+                          arrowDirection="ne"
+                          arrowColor="fill-white"
+                        />
 
             </div>
           </div>

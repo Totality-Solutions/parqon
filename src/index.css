@@ -1,88 +1,101 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
+/* 1. REFINED BREAKPOINTS */
+:root {
+  /* 320px (iPhone SE) - Very tight mobile */
+  --fs-h1: 1.75rem;    /* 28px - Smaller to prevent overflow */
+  --fs-h2: 1.375rem;   /* 22px */
+  --fs-h3: 1.125rem;   /* 18px */
+  --fs-body: 0.813rem; /* 13px */
+  --fs-small: 0.75rem; /* 12px */
+  --lh-h1: 1.1;
+  --ls-h1: -0.02em;
+}
+
+@media (min-width: 375px) {
+  :root {
+    --fs-h1: 2rem;      /* 32px */
+    --fs-h2: 1.5rem;    /* 24px */
+    --fs-body: 0.875rem;/* 14px */
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    /* Tablet - Balanced */
+    --fs-h1: 3rem;      /* 48px */
+    --fs-h2: 2.25rem;   /* 36px */
+    --fs-h3: 1.5rem;    /* 24px */
+    --fs-body: 1rem;    /* 16px */
+    --lh-h1: 1.05;      /* Tighter for large screens */
+    --ls-h1: -0.05em;   /* Extra tight editorial look */
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    /* Desktop - Elegant */
+    --fs-h1: 3.75rem;   /* 60px */
+    --fs-h2: 2.75rem;   /* 44px */
+    --fs-body: 1.125rem;/* 18px */
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    /* 4K - Grand */
+    --fs-h1: 5rem;      /* 80px */
+    --fs-h2: 3.5rem;    /* 56px */
+    --fs-h3: 2.25rem;   /* 36px */
+    --fs-body: 1.375rem;/* 22px */
+  }
+}
+
+/* 2. TAILWIND V4 THEME */
 @theme {
-  /* Setting Montserrat as the default sans font in Tailwind v4 */
-  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Montserrat', sans-serif;
   
-  /* Brand Colors */
   --color-parqon-brown: #837B55;
   --color-parqon-beige: #D6D3C9;
   --color-parqon-light: #F1F1F1;
+
+  --font-size-dynamic-h1: var(--fs-h1);
+  --font-size-dynamic-h2: var(--fs-h2);
+  --font-size-dynamic-h3: var(--fs-h3);
+  --font-size-dynamic-body: var(--fs-body);
+  --font-size-dynamic-small: var(--fs-small);
 }
 
-:root {
-  /* Default Mobile Sizes (320px - 425px) */
-  --fs-h1: 2.25rem;   /* 36px */
-  --fs-h2: 1.75rem;   /* 28px */
-  --fs-h3: 1.25rem;   /* 20px */
-  --fs-body: 0.875rem; /* 14px */
-  --fs-small: 0.75rem; /* 12px */
-}
-
-/* Breakpoint: 425px (Large Phones) */
-@media (min-width: 425px) {
-  :root {
-    --fs-h1: 2.5rem;
-    --fs-body: 0.938rem; /* 15px */
-  }
-}
-
-/* Breakpoint: 768px (Tablets) */
-@media (min-width: 768px) {
-  :root {
-    --fs-h1: 3rem;       /* 48px */
-    --fs-h2: 2.25rem;    /* 36px */
-    --fs-h3: 1.5rem;     /* 24px */
-    --fs-body: 1rem;     /* 16px */
-  }
-}
-
-/* Breakpoint: 1440px (Desktop) */
-@media (min-width: 1440px) {
-  :root {
-    --fs-h1: 3.5rem;     /* 56px */
-    --fs-h2: 2.5rem;     /* 40px */
-    --fs-body: 1.125rem; /* 18px */
-  }
-}
-
-/* Breakpoint: 2560px (4K / Ultra Wide) */
-@media (min-width: 2560px) {
-  :root {
-    --fs-h1: 4.5rem;     /* 72px */
-    --fs-h2: 3.5rem;     /* 56px */
-    --fs-h3: 2rem;       /* 32px */
-    --fs-body: 1.25rem;  /* 20px */
-  }
-}
-
-/* Applying dynamic typography to base elements */
+/* 3. BASE STYLES */
 @layer base {
   body {
+    font-family: var(--font-sans);
     font-size: var(--fs-body);
-    @apply text-gray-900 antialiased leading-relaxed;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6; /* Standard for readability */
   }
 
   h1 { 
     font-size: var(--fs-h1); 
-    @apply font-bold leading-tight uppercase tracking-tighter; 
+    font-weight: 800; /* Extra Bold for architectural impact */
+    line-height: var(--lh-h1);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-h1);
   }
   
   h2 { 
     font-size: var(--fs-h2); 
-    @apply font-bold leading-tight tracking-tight; 
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
   
   h3 { 
     font-size: var(--fs-h3); 
-    @apply font-bold leading-snug; 
+    font-weight: 700;
+    line-height: 1.3;
   }
 }
-
-/* Custom dynamic utility classes */
-@utility text-dynamic-h1 { font-size: var(--fs-h1); }
-@utility text-dynamic-h2 { font-size: var(--fs-h2); }
-@utility text-dynamic-h3 { font-size: var(--fs-h3); }
-@utility text-dynamic-body { font-size: var(--fs-body); }
-@utility text-dynamic-small { font-size: var(--fs-small); }

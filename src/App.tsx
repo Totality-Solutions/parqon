@@ -1,18 +1,23 @@
 // src/App.tsx
+import { Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
 import HomePage from './pages/Home/Home';
-import './App.css';
+import { ContactPage } from './pages/Contact/Contact';
+import AboutPage from './pages/About/About';
+// import AboutPage from './pages/About/Sections/AboutPage';
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <> {/* Use a Fragment or <div> instead of <Router> */}
       <Navbar />
-      <div className="flex-grow">
-        <HomePage />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 

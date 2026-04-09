@@ -1,66 +1,173 @@
-// src/pages/Home/Sections/HeroSection.tsx
-import React from 'react';
-import HeroImage from '../../../assets/images/hero-sofa.jpg';
-import SwatchImage from '../../../assets/images/hero-swatch.jpg';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+// Fixed the Type import to prevent Vite SyntaxError
+import type { Variants } from 'framer-motion'; 
+import { Button } from '../../../components/common/Button';
+
+const heroSlides = [
+  {
+    id: 1,
+    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2560&auto=format&fit=crop',
+    swatch: 'https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=600&auto=format&fit=crop',
+    title: 'Oaken Wood',
+    subtitle: 'European Oak Collection'
+  },
+  {
+    id: 2,
+    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2560&auto=format&fit=crop',
+    swatch: 'https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=600&auto=format&fit=crop',
+    title: 'Smoked Walnut',
+    subtitle: 'Artisan Series'
+  },
+  {
+    id: 3,
+    image: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=2560&auto=format&fit=crop',
+    swatch: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=600&auto=format&fit=crop',
+    title: 'Arctic Pine',
+    subtitle: 'Minimalist Selection'
+  }
+];
 
 export const HeroSection: React.FC = () => {
-  return (
-    <section id="hero" className="relative w-full">
-      {/* Main Hero Image Wrapper 
-          Responsive height scale: 60vh (mobile) -> 85vh (desktop) -> 90vh (4k)
-      */}
-      <div className="w-full h-[60vh] md:h-[80vh] lg:h-[85vh] 2xl:h-[90vh] overflow-hidden">
-        <img 
-          src={HeroImage} 
-          alt="Modern interior with wooden flooring" 
-          className="w-full h-full object-cover object-center transition-transform duration-1000 hover:scale-105"
-        />
-      </div>
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-      {/* Floating Swatch Card 
-          Positioning: bottom-10 (mobile) -> bottom-20 (4k)
-      */}
-      <div className="absolute bottom-6 left-4 md:bottom-10 md:left-16 bg-white p-2 shadow-2xl flex items-stretch gap-4 max-w-[90%] sm:max-w-[400px] 2xl:max-w-[500px] z-10 transition-all duration-500">
-        
-        {/* Left: Swatch Image (Fixed aspect ratio) */}
-        <div className="w-28 sm:w-36 h-24 sm:h-28 overflow-hidden flex-shrink-0">
-          <img 
-            src={SwatchImage} 
-            alt="Oaken Wood Finish" 
-            className="w-full h-full object-cover"
-          />
+  const nextSlide = () => {
+    setDirection(1);
+    setIndex((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setDirection(-1);
+    setIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, [index]);
+
+  const slideVariants: Variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 1
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] }
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 1,
+      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] }
+    })
+  };
+
+  return (
+    <section id="hero" className="relative w-full overflow-hidden">
+      {/* Background Slider */}
+      <div className="w-full h-[70vh] md:h-[85vh] 2xl:h-[82 vh] bg-[#F1F1F1] relative overflow-hidden">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={heroSlides[index].id}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0 w-full h-full"
+          >
+            <img src={heroSlides[index].image} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/5" />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Navigation UI */}
+        <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between md:hidden z-40">
+          <button onClick={prevSlide} className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
+            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white rotate-180"><path d="M10.3 18.7l6.3-6.3-6.3-6.3L9 7.5l4.9 4.9L9 17.3l1.3 1.4z" /></svg>
+          </button>
+          <button onClick={nextSlide} className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
+            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white"><path d="M10.3 18.7l6.3-6.3-6.3-6.3L9 7.5l4.9 4.9L9 17.3l1.3 1.4z" /></svg>
+          </button>
         </div>
 
-        {/* Right: Text and Button - Using dynamic typography classes */}
-        <div className="flex flex-col justify-between pr-3 py-1 sm:py-2 flex-grow">
-          <div>
-            <h2 className="text-dynamic-h3 text-gray-900 tracking-tight">
-              Oaken Wood
-            </h2>
-            <p className="text-dynamic-small text-gray-400 uppercase tracking-[0.2em] mt-1 font-medium">
-              Lorem Ipsum
-            </p>
-          </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 z-30">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => { setDirection(i > index ? 1 : -1); setIndex(i); }}
+              className={`h-1 transition-all duration-700 rounded-full ${index === i ? 'w-16 bg-white' : 'w-8 bg-white/30'}`}
+            />
+          ))}
+        </div>
+      </div>
 
-          {/* Button with exact arrow micro-interaction */}
-          <button className="mt-4 flex items-center bg-[#F1F1F1] hover:bg-white transition-all group cursor-pointer w-fit border border-transparent hover:border-gray-100">
-            <span className="text-dynamic-small font-bold text-gray-800 px-4 sm:px-6 py-2.5 uppercase tracking-tighter">
-              Explore This Finish
-            </span>
-            <span className="bg-[#837B55] text-white h-full px-3 py-2.5 flex items-center justify-center group-hover:bg-[#6D6546] transition-colors">
-              <svg 
-                viewBox="0 0 24 24" 
-                className="w-3.5 h-3.5 md:w-4 md:h-4 fill-none stroke-current"
-              >
-                <path 
-                  d="M7 17L17 7M17 7H7M17 7V17" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-          </button>
+      {/* --- SWATCH CARD (Restored original width/spacing) --- */}
+      <div className="
+        /* Base (Mobile < 640px): Centered at bottom, 92% width */
+        absolute bottom-6 left-1/2 -translate-x-1/2 w-[92%] p-2
+        
+        /* Custom Mobile Widths */
+        min-[325px]:w-[82%] 
+        min-[425px]:w-[72%] 
+
+        /* sm (Small Tablets >= 640px): Snap to left, minimum width */
+        sm:left-12 sm:translate-x-0 sm:w-auto sm:max-w-[580px]
+        
+        /* md (Tablets >= 768px): More bottom spacing, larger width */
+        md:bottom-12 md:p-3 md:max-w-[500px]
+        
+        /* lg & xl logic */
+        lg:max-w-[500px]
+        xl:max-w-[500px] xl:p-4
+        
+        /* Utility & Design Styles */
+        bg-white shadow-2xl z-40 flex items-stretch gap-3 md:gap-4 overflow-hidden
+      ">
+        {/* Left: Swatch Image */}
+        <div className="w-24 sm:w-32 md:w-36 lg:w-40 aspect-square overflow-hidden flex-shrink-0 bg-gray-100">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={heroSlides[index].swatch}
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              src={heroSlides[index].swatch}
+              className="w-full h-full object-cover"
+            />
+          </AnimatePresence>
+        </div>
+
+        {/* Right: Info Section */}
+        <div className="flex flex-col flex-grow min-w-0 py-1 ">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={heroSlides[index].title}
+              initial={{ x: 10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -10, opacity: 0 }}
+              className="flex-grow"
+            >
+              <h2 className="text-gray-900 text-base sm:text-lg md:text-xl font-bold tracking-tight leading-tight truncate">
+                {heroSlides[index].title}
+              </h2>
+              <p className="text-gray-500 text-[10px] sm:text-xs md:text-sm mt-0.5 md:mt-1 truncate">
+                {heroSlides[index].subtitle}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="mt-auto pt-3 md:pt-4">
+            <Button
+              label="Explore This Finish"
+              variant="primary"
+              className="w-fit scale-[0.6] sm:scale-[0.8] md:scale-[0.8] xl:scale-[0.7] origin-left transition-transform"
+              arrowDirection="ne"
+            />
+          </div>
         </div>
       </div>
     </section>

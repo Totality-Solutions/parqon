@@ -1,0 +1,27 @@
+import React from 'react';
+// import { AboutHero } from './Sections/AboutStory';
+// import { AboutIntro } from './Sections/AboutIntro';
+import { AboutCollections } from './Sections/AboutCollections';
+import { AboutHistory } from './Sections/AboutHistory';
+import { ProjectCallout } from '../Home/Sections/ProjectCallout'; // Reuse your existing CTA
+import { AboutIntro } from './Sections/AboutIntro';
+import { AboutStory } from './Sections/AboutStory';
+import { AboutHero } from './Sections/AboutHero';
+
+const AboutPage: React.FC = () => {
+    return (
+        <main className="bg-white">
+            {/* <AboutHero /> */}
+            <AboutHero />
+            <AboutIntro />
+            <AboutCollections />
+            <AboutStory />
+            <AboutHistory />
+            <div className="pb-20">
+                <ProjectCallout />
+            </div>
+        </main>
+    );
+};
+
+export default AboutPage;

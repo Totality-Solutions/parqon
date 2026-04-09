@@ -9,37 +9,38 @@ const mainBlog = {
 };
 
 const otherBlogs = [
-  { 
-    title: 'Modern Interiors', 
+  {
+    title: 'Modern Interiors',
     desc: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     image: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=400&q=80'
   },
-  { 
-    title: 'Natural Texture', 
+  {
+    title: 'Natural Texture',
     desc: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=400&q=80'
   },
-  { 
-    title: 'Sustainable Design', 
+  {
+    title: 'Sustainable Design',
     desc: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     image: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=400&q=80'
   },
-  { 
-    title: 'Material Beyond', 
+  {
+    title: 'Material Beyond',
     desc: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     image: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=400&q=80'
   },
 ];
 
+
 export const BlogSection: React.FC = () => {
   return (
-    <Section id="blogs" className="py-20 2xl:py-32 transition-all">
+    <Section id="blogs" className="pt-10 2xl:pt-12 transition-all ">
       {/* Dynamic Header utilizing Montserrat */}
       <div className="flex justify-between items-end mb-16 2xl:mb-24 border-b border-gray-100 pb-8">
         <h2 className="text-dynamic-h2 font-bold text-gray-900 tracking-tighter uppercase">Blogs</h2>
         <button className="text-parqon-brown transition-transform duration-300 hover:translate-x-2">
-           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="2xl:w-16 2xl:h-16">
-             <path d="M10.3 18.7l6.3-6.3-6.3-6.3L9 7.5l4.9 4.9L9 17.3l1.3 1.4z" fill="currentColor"/>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="2xl:w-16 2xl:h-16">
+            <path d="M10.3 18.7l6.3-6.3-6.3-6.3L9 7.5l4.9 4.9L9 17.3l1.3 1.4z" fill="currentColor" />
           </svg>
         </button>
       </div>
@@ -48,10 +49,10 @@ export const BlogSection: React.FC = () => {
         {/* Main Featured Blog */}
         <div className="group cursor-pointer">
           <div className="overflow-hidden mb-8 2xl:mb-12">
-            <img 
-              src={mainBlog.image} 
-              alt="Featured Showroom" 
-              className="w-full h-[350px] md:h-[450px] 2xl:h-[600px] object-cover transition-transform duration-1000 group-hover:scale-105" 
+            <img
+              src={mainBlog.image}
+              alt="Featured Showroom"
+              className="w-full h-[350px] md:h-[450px] 2xl:h-[600px] object-cover transition-transform duration-1000 group-hover:scale-105"
             />
           </div>
           <div className="flex justify-between items-end">
@@ -73,13 +74,17 @@ export const BlogSection: React.FC = () => {
         </div>
 
         {/* Right Side: Blog List */}
+        {/* Right Side: Blog List */}
         <div className="flex flex-col">
           {otherBlogs.map((blog, idx) => (
-            <div 
-              key={idx} 
-              className="group flex gap-8 py-8 2xl:py-12 border-b border-gray-100 first:pt-0 last:border-0 cursor-pointer transition-all"
+            <div
+              key={idx}
+              className="group flex flex-col md:flex-row gap-6 md:gap-8 py-8 2xl:py-12 border-b border-gray-100 first:pt-0 last:border-0 cursor-pointer transition-all"
             >
-              <div className="flex-grow">
+              {/* Text Container: Reordered to appear after image on mobile if desired, 
+          but usually, text then image is standard. I've kept text first, 
+          then image below it for mobile stack. */}
+              <div className="flex-grow order-2 md:order-1">
                 <h4 className="text-dynamic-h3 font-bold text-gray-900 mb-2 uppercase tracking-tight">
                   {blog.title}
                 </h4>
@@ -87,11 +92,13 @@ export const BlogSection: React.FC = () => {
                   {blog.desc}
                 </p>
               </div>
-              <div className="w-28 h-20 md:w-40 md:h-28 2xl:w-60 2xl:h-40 overflow-hidden flex-shrink-0 shadow-sm">
-                <img 
-                  src={blog.image} 
-                  alt={blog.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+
+              {/* Image Container: Full width on mobile, fixed width on desktop */}
+              <div className="w-full md:w-40 md:h-28 2xl:w-60 2xl:h-40 aspect-video md:aspect-auto overflow-hidden flex-shrink-0 shadow-sm order-1 md:order-2">
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               </div>
             </div>
@@ -101,3 +108,5 @@ export const BlogSection: React.FC = () => {
     </Section>
   );
 };
+
+{ `i want the right side blog list images shoould cover full width in mobile ` }
