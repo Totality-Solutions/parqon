@@ -21,12 +21,12 @@ export const AboutHistory: React.FC = () => {
               <div className="overflow-hidden mb-6">
                 <img 
                   src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=600" 
-                  className="w-full aspect-[3/4] object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                  className="w-full aspect-[3/2] object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
                   alt={year.toString()}
                 />
               </div>
               <h4 className="font-bold text-2xl mb-2">{year}</h4>
-              <p className="text-gray-500 text-xs leading-relaxed max-w-[200px]">
+              <p className="text-gray-500 text-xs leading-relaxed ">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </p>
             </div>
