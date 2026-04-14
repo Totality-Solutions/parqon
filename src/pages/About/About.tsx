@@ -9,6 +9,7 @@ import { AboutStory } from './Sections/AboutStory';
 import { AboutHero } from './Sections/AboutHero';
 import { AboutWhy } from './Sections/AboutWhy';
 
+
 const AboutPage: React.FC = () => {
     return (
         <main className="bg-white">
@@ -18,7 +19,7 @@ const AboutPage: React.FC = () => {
             <AboutCollections />
             <AboutStory />
             <AboutHistory />
-            <AboutWhy />
+            <AboutWhy/>
             <div className="pb-20">
                 <ProjectCallout />
             </div>

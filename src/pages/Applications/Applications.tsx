@@ -3,6 +3,7 @@ import { AppHero } from './Sections/AppHero';
 
 import heroVideo from '../../assets/videos/application-hero.mp4';
 import { AppUsage } from './Sections/AppUsage';
+import { AppFAQ } from './Sections/AppFAQ';
 
 
 export const ApplicationsPage: React.FC = () => {
@@ -13,7 +14,8 @@ export const ApplicationsPage: React.FC = () => {
                 mediaUrl={heroVideo}
             />
             <AppUsage />
-         
+            <AppFAQ />
+
         </main>
     );
 };
