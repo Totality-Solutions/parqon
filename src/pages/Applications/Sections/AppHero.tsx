@@ -1,0 +1,62 @@
+import React from 'react';
+import { Button } from '../../../components/common/Button';
+
+interface AppHeroProps {
+  title?: string;
+  description?: string;
+  mediaUrl?: string;
+  mediaType?: 'image' | 'video';
+}
+
+export const AppHero: React.FC<AppHeroProps> = ({
+  title = "Designed for Every Environment",
+  description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy t..",
+  mediaUrl = "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600",
+  mediaType = 'image'
+}) => {
+  return (
+    /* Changed min-h-[80vh] to h-auto or h-[70vh] for better control */
+    <section className="w-full lg:h-[75vh] flex flex-col lg:flex-row items-stretch overflow-hidden">
+      
+      {/* Left Column: Fixed height on mobile, matches section on desktop */}
+      <div className="w-full lg:w-1/2 h-[45vh] lg:h-full bg-gray-200">
+        {mediaType === 'video' ? (
+          <video
+            src={mediaUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            /* object-cover is key to keeping the video from stretching */
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <img 
+            src={mediaUrl} 
+            alt={title} 
+            className="w-full h-full object-cover"
+          />
+        )}
+      </div>
+
+      {/* Right Column: Content */}
+      <div className="w-full lg:w-1/2 bg-[#E9E9E4] flex items-center justify-center px-8 py-16 md:px-20 lg:px-24">
+        <div className="max-w-xl">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-6 tracking-tighter">
+            {title}
+          </h1>
+          <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-10 font-medium">
+            {description}
+          </p>
+          
+          <Button 
+            label="Explore" 
+            variant="primary" 
+            scale={0.9} 
+            className="origin-left" 
+          />
+        </div>
+      </div>
+    </section>
+  );
+};

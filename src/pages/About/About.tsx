@@ -7,6 +7,7 @@ import { ProjectCallout } from '../Home/Sections/ProjectCallout'; // Reuse your 
 import { AboutIntro } from './Sections/AboutIntro';
 import { AboutStory } from './Sections/AboutStory';
 import { AboutHero } from './Sections/AboutHero';
+import { AboutWhy } from './Sections/AboutWhy';
 
 const AboutPage: React.FC = () => {
     return (
@@ -17,9 +18,11 @@ const AboutPage: React.FC = () => {
             <AboutCollections />
             <AboutStory />
             <AboutHistory />
+            <AboutWhy />
             <div className="pb-20">
                 <ProjectCallout />
             </div>
+            
         </main>
     );
 };

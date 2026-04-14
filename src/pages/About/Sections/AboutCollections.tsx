@@ -1,113 +1,50 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Container } from '../../../components/common/Container';
-import { Button } from '../../../components/common/Button';
+import React from 'react';
+import { ExpandableList, type ExpandableListItem } from '../../../components/common/ExpandableList';
+
+const usageData: ExpandableListItem[] = [
+  {
+    id: 'interior',
+    title: 'Interior',
+    shortDesc: 'Refined finishes that enhance living and working environments with warmth and precision.',
+    previews: [
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400",
+      "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=400",
+      "https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=400"
+    ]
+  },
+  {
+    id: 'exterior',
+    title: 'Exterior',
+    shortDesc: 'Durable surfaces built to withstand environmental conditions without compromising on design.',
+    previews: [
+      "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=400",
+       "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=400"
+    ]
+  },
+  {
+    id: 'commercial',
+    title: 'Commercial',
+    shortDesc: 'Engineered for high-traffic spaces where performance and visual consistency are critical.',
+    previews: [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=400",
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400",
+      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=400"
+    ]
+  },
+
+
+];
 
 export const AboutCollections: React.FC = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const items = [
-    {
-      title: "Materials & Collections",
-      images: [
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=400",
-        "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=400",
-        "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400"
-      ]
-    },
-    {
-      title: "Materials & Collections",
-      images: [
-        "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=400",
-         "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200",
-        "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400"
-      ]
-    },
-    {
-      title: "Materials & Collections",
-      images: [
-       "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400",
-        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200",
-        "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400"
-      ]
-    },
-    {
-      title: "Materials & Collections",
-      images: [
-        "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400",
-        "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=400",
-        "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=400"
-      ]
-    }
-  ];
-
   return (
-    <section className="mb-32">
-      <Container>
-        {/* Split Section - Unchanged */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-          <div className="order-2 lg:order-1">
-            <h2 className="text-2xl md:text-4xl font-bold mb-6 tracking-tighter uppercase">Lorem Ipsum is simply <br /> dummy text.</h2>
-            <p className="text-gray-500 mb-8 leading-relaxed max-w-lg font-medium">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-            </p>
-            <Button label="Explore" variant="primary" scale={0.8} className="origin-left" />
-          </div>
-          <div className="order-1 lg:order-2 bg-gray-50">
-            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200" alt="Detail" className="w-full h-auto" />
-          </div>
-        </div>
-
-        {/* List Section - Updated for Down-to-Up Motion */}
-        <div className="border-t border-gray-100">
-          {items.map((item, i) => (
-            <div 
-              key={i} 
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className="group flex justify-between items-center py-10 border-b border-gray-100 cursor-pointer transition-all duration-300 relative"
-            >
-              {/* Title */}
-              <span className="text-gray-900 font-bold uppercase tracking-widest text-sm z-10 relative">
-                {item.title}
-              </span>
-
-              {/* Animated Images Container */}
-              <div className="absolute right-32 flex items-center h-full overflow-hidden pointer-events-none">
-                <AnimatePresence>
-                  {hoveredIndex === i && (
-                    <motion.div 
-                      initial={{ y: 60, opacity: 0 }}   // Start from below
-                      animate={{ y: 0, opacity: 1 }}    // Rise to center
-                      exit={{ y: -60, opacity: 0 }}     // Exit to top
-                      transition={{ 
-                        duration: 0.5, 
-                        ease: [0.33, 1, 0.68, 1]        // Smooth "Quart" easing
-                      }}
-                      className="flex gap-4"
-                    >
-                      {item.images.map((img, idx) => (
-                        <div key={idx} className="w-32 h-20 overflow-hidden shadow-sm">
-                          <img 
-                            src={img} 
-                            alt="preview" 
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Explore Link */}
-              <span className="text-gray-400 group-hover:text-black transition-colors text-xs uppercase tracking-[0.2em] flex items-center gap-2 z-10 relative">
-                Explore <span className="text-lg">→</span>
-              </span>
-            </div>
-          ))}
-        </div> 
-      </Container>
-    </section>
+    <ExpandableList 
+      heading="Where Will You Use It?" 
+      items={usageData} 
+      expandedHeight={220} // Optional: customize the height
+    />
   );
 };
+
+
+// AboutCollections

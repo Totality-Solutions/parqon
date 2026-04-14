@@ -9,7 +9,8 @@ const navItems = [
   { name: 'Home', path: '/' },
   { name: 'About Us', path: '/about' },
   { name: 'Products', path: '/products' },
-  { name: 'Contact Us', path: '/contact' }
+  { name: 'Contact Us', path: '/contact' },
+  { name: 'Applications', path: '/applications' }
 ];
 
 export const Navbar: React.FC = () => {
