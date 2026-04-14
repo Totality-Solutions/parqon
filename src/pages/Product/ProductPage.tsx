@@ -2,6 +2,7 @@ import React from 'react';
 import { ProductHero } from './Sections/ProductHero';
 import { ProductListing } from './Sections/ProductListing';
 import { ProjectCallout } from '../Home/Sections/ProjectCallout';
+import { ProductSupport } from './Sections/ProductSupport';
 
 const ProductPage: React.FC = () => {
     return (
@@ -12,6 +13,7 @@ const ProductPage: React.FC = () => {
             <div className="pb-20">
                 <ProjectCallout />
             </div>
+            <ProductSupport />
         </main>
 
     );
