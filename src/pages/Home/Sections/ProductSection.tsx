@@ -51,7 +51,7 @@ export const ProductSection: React.FC = () => {
 
   const handleTabChange = (tab: Category) => {
     setActiveTab(tab);
-    setIsDropdownOpen(false); // Close dropdown on selection
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -73,7 +73,7 @@ export const ProductSection: React.FC = () => {
 
       <div className="flex flex-col lg:flex-row gap-8 2xl:gap-24">
 
-        {/* MOBILE DROPDOWN - Only visible below 'lg' breakpoint */}
+        {/* MOBILE DROPDOWN */}
         <div className="lg:hidden relative z-20">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -102,8 +102,7 @@ export const ProductSection: React.FC = () => {
                   <button
                     key={tab}
                     onClick={() => handleTabChange(tab)}
-                    className={`w-full text-left px-6 py-4 uppercase tracking-wider text-sm font-bold border-b border-gray-50 last:border-0 ${activeTab === tab ? 'text-parqon-brown bg-gray-50' : 'text-gray-500'
-                      }`}
+                    className={`w-full text-left px-6 py-4 uppercase tracking-wider text-sm font-bold border-b border-gray-50 last:border-0 ${activeTab === tab ? 'text-parqon-brown bg-gray-50' : 'text-gray-500'}`}
                   >
                     {tab}
                   </button>
@@ -113,22 +112,20 @@ export const ProductSection: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        {/* DESKTOP SIDEBAR - Hidden on Mobile */}
+        {/* DESKTOP SIDEBAR */}
         <div className="hidden lg:flex lg:w-1/4 flex-col overflow-visible">
           {(Object.keys(productData) as Category[]).map((tab) => (
             <button
               key={tab}
               onClick={() => handleTabChange(tab)}
               className={`group flex items-center gap-5 w-full text-left px-8 py-6 transition-all duration-500 border-b border-gray-50 ${activeTab === tab
-                  ? 'bg-gray-50/50 text-parqon-brown border-parqon-brown'
-                  : 'text-gray-400 hover:text-gray-900 border-transparent'
+                ? 'bg-gray-50/50 text-parqon-brown border-parqon-brown'
+                : 'text-gray-400 hover:text-gray-900 border-transparent'
                 }`}
             >
-              <div className={`w-5 h-5 rounded-full border-2 items-center justify-center flex transition-all duration-500 ${activeTab === tab ? 'border-parqon-brown bg-white' : 'border-gray-200 group-hover:border-gray-400'
-                }`}>
+              <div className={`w-5 h-5 rounded-full border-2 items-center justify-center flex transition-all duration-500 ${activeTab === tab ? 'border-parqon-brown bg-white' : 'border-gray-200 group-hover:border-gray-400'}`}>
                 {activeTab === tab && <div className="w-2 h-2 rounded-full bg-parqon-brown" />}
               </div>
-
               <span className={`text-dynamic-body font-bold uppercase tracking-[0.15em] transition-all duration-300 ${activeTab === tab ? 'translate-x-2' : ''}`}>
                 {tab}
               </span>
@@ -153,8 +150,8 @@ export const ProductSection: React.FC = () => {
                 loading="lazy"
               />
 
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center px-8">
+              {/* Hover Overlay - Added overflow-visible and z-index */}
+              <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center px-8 overflow-visible z-10">
                 <span className="text-dynamic-small text-gray-400 mb-3 uppercase tracking-[0.2em] font-bold">
                   Collection
                 </span>
@@ -162,26 +159,15 @@ export const ProductSection: React.FC = () => {
                   Stable. Versatile. Built for modern living.
                 </h3>
 
-                {/* <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <button className="flex items-center bg-parqon-light hover:bg-white transition-all group/btn">
-                    <span className="text-dynamic-small font-bold text-gray-800 px-6 py-3 uppercase tracking-widest">
-                      Explore
-                    </span>
-                    <span className="bg-parqon-brown text-white h-full px-4 py-3 flex items-center justify-center group-hover/btn:bg-[#6D6546] transition-colors">
-                      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  </button>
-                </div> */}
-
-                <Button
-                  label="Explore"
-                  variant="primary"
-                  className="mt-3 w-fit" // w-fit ensures it doesn't span full width of card
-                  arrowDirection="ne"
-                  arrowColor="fill-white"
-                />
+                <div className="overflow-visible relative">
+                  <Button
+                    label="Explore"
+                    variant="primary"
+                    className="mt-3 w-fit"
+                    arrowDirection="ne"
+                    arrowColor="fill-white"
+                  />
+                </div>
               </div>
             </div>
           ))}

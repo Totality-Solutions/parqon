@@ -164,7 +164,7 @@ export const HeroSection: React.FC = () => {
             <Button
               label="Explore This Finish"
               variant="primary"
-              className="w-fit scale-[0.6] sm:scale-[0.8] md:scale-[0.8] xl:scale-[0.7] origin-left transition-transform"
+              className="w-fit origin-left transition-transform"
               arrowDirection="ne"
             />
           </div>

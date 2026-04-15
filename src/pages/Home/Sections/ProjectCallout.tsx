@@ -13,7 +13,7 @@ export const ProjectCallout: React.FC = () => {
           <p className="text-gray-600 text-dynamic-body mb-2 font-medium tracking-wide">
             We’re here to help
           </p>
-          <h3 className="text-dynamic-h2 text-gray-900 tracking-tighter leading-tight uppercase font-bold">
+          <h3 className="text-dynamic-h2 text-gray-900 tracking-tighter leading-tight  font-bold">
             Let's Talk About Your <br className="hidden lg:block" /> New Project
           </h3>
         </div>
