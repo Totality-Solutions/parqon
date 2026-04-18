@@ -16,7 +16,7 @@ const heroSlides = [
     id: 2,
     image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2560&auto=format&fit=crop',
     swatch: 'https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=600&auto=format&fit=crop',
-    title: 'Smoked Walnut',
+    title: 'NordWood',
     subtitle: 'Artisan Series'
   },
   {
@@ -24,7 +24,7 @@ const heroSlides = [
     image: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=2560&auto=format&fit=crop',
     swatch: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=600&auto=format&fit=crop',
     title: 'Arctic Pine',
-    subtitle: 'Minimalist Selection'
+    subtitle: 'Oaken'
   }
 ];
 

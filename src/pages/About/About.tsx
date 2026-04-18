@@ -18,7 +18,7 @@ const AboutPage: React.FC = () => {
             <AboutIntro />
             <AboutCollections />
             <AboutStory />
-            <AboutHistory />
+            {/* <AboutHistory /> */}
             <AboutWhy/>
             <div className="pb-20">
                 <ProjectCallout />

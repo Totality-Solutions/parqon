@@ -8,13 +8,13 @@ import { Button } from '../../../components/common/Button';
 const categories = [
   { 
     id: 1, 
-    subTitle: 'Wall Panels',
+    subTitle: 'Oaken Wood',
     title: 'Extend the material beyond the floor.', 
     img: livingRoomImg 
   },
   { 
     id: 2, 
-    subTitle: 'Flooring',
+    subTitle: 'Nord Wood',
     title: 'Discover the natural grain of oak.', 
     img: kitchenImg 
   },

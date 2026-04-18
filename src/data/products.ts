@@ -37,7 +37,7 @@ export const ALL_PRODUCTS: Product[] = [
   // --- ENGINEERED FLOORING (1-11) ---
   {
     id: 1,
-    title: "Oak Natural AB",
+    title: "Oaken",
     category: "Engineered Flooring",
     collection: "Herringbone",
     image: "https://images.unsplash.com/photo-1581850518616-bcb8186c3988?auto=format&fit=crop&q=80&w=800",
@@ -57,7 +57,7 @@ export const ALL_PRODUCTS: Product[] = [
   },
   {
     id: 2,
-    title: "Smoked Grey Oak",
+    title: "NordWood",
     category: "Engineered Flooring",
     collection: "Chevron",
     image: "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&q=80&w=800",
