@@ -6,8 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '../../../components/common/Container';
 
 // Data & Type Imports (Fixes TS 1484/6133)
-import { ALL_PRODUCTS } from '../../../data/products';
-import type { Product, Finish } from '../../../data/products';
+import { ALL_PRODUCTS, type Finish } from '../../../data/products';
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -55,7 +54,6 @@ export const ProductDetail: React.FC = () => {
   const handleInquiry = () => {
     setIsInquirySent(true);
     // Construct dynamic WhatsApp message for Lynx Studio leads
-    const text = encodeURIComponent(`Hi, I'm interested in the ${product.title} (${product.category}) with the ${selectedFinish?.name} finish.`);
     // window.open(`https://wa.me/YOUR_NUMBER?text=${text}`, '_blank');
     
     setTimeout(() => setIsInquirySent(false), 3000);

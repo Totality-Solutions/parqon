@@ -25,8 +25,6 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   variant = 'primary',
   showArrow = true,
-  arrowDirection = 'ne',
-  arrowColor = 'fill-white',
   scale = 1
 }) => {
   

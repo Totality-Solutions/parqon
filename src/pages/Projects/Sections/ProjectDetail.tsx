@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Share2 } from 'lucide-react';
+import { ArrowLeft, Share2 } from 'lucide-react';
 import { PROJECTS } from '../../../data/projectsData';
 import { ProductSupport } from '../../Product/Sections/ProductSupport';
 import { Container } from '../../../components/common/Container';
