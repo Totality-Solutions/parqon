@@ -45,7 +45,7 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ searchQuery }) => {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 text-[11px] font-medium tracking-wide transition-all ${
+              className={`px-5 py-2 text-dynamic-body font-medium tracking-wide transition-all ${
                 activeCategory === cat ? 'bg-[#837B55] text-white' : 'bg-[#F9F9F9] text-gray-400 hover:text-gray-900'
               }`}
             >
@@ -84,7 +84,7 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ searchQuery }) => {
         {/* Pagination logic remains same */}
         {totalPages > 1 && (
           <div className="mt-24 pt-8 border-t border-gray-100 flex items-center justify-center gap-8">
-             <span className="text-[10px] font-bold tracking-[0.3em] text-gray-900 uppercase">
+             <span className="text-[14px] font-bold tracking-[0.3em] text-gray-900 uppercase">
                 {String(currentPage).padStart(2, '0')} / {String(totalPages).padStart(2, '0')}
              </span>
              <div className="flex gap-4">

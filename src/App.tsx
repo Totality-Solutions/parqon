@@ -10,11 +10,13 @@ import ProductPage from './pages/Product/ProductPage';
 import { ProductDetail } from './pages/Product/Sections/ProductDetail';
 import Projects from './pages/Projects/Projects';
 import { ProjectDetail } from './pages/Projects/Sections/ProjectDetail';
+import { ScrollToTop } from './components/common/ScrollToTop';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
 function App() {
   return (
     <> {/* Use a Fragment or <div> instead of <Router> */}
+    <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />

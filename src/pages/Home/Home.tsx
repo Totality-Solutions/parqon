@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
       <BannerCarousel />
 
       {/* 7. Blog / News Section */}
-      <BlogSection />
+      {/* <BlogSection /> */}
 
       {/* 8. Final Call to Action */}
       <ProjectCallout /> 

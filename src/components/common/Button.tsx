@@ -61,7 +61,7 @@ export const Button: React.FC<ButtonProps> = ({
         }}
       >
         <span 
-          className="flex-1 font-bold uppercase tracking-[0.15em] whitespace-nowrap flex items-center justify-center text-dynamic-small"
+          className="flex-1  font-medium tracking-[0.15em] whitespace-nowrap flex items-center justify-center text-dynamic-body"
           style={{ padding: 'var(--btn-py) var(--btn-px)' }}
         >
           {label}
@@ -77,7 +77,7 @@ export const Button: React.FC<ButtonProps> = ({
           >
             <svg 
               viewBox="0 0 24 24" 
-              className="w-[1.2em] h-[1.2em] fill-current transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              className="w-[1.2em] h-[1.2em] fill-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             >
               <path d="M21,2.5c-0.2-0.2-0.5-0.3-0.8-0.2l-17,6c-0.4,0.1-0.7,0.5-0.7,0.9c0,0.4,0.3,0.8,0.7,0.9l7.5,2.5l2.5,7.5 c0.1,0.4,0.5,0.7,0.9,0.7c0,0,0,0,0,0c0.4,0,0.8-0.3,0.9-0.7l6-17C21.3,3,21.2,2.7,21,2.5z" />
             </svg>

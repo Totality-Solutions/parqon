@@ -98,7 +98,7 @@ export const ProductSupport: React.FC = () => {
               </div>
               
               <div className="space-y-4">
-                <h4 className="text-lg font-bold tracking-tight text-gray-900">
+                <h4 className="text-dynamic-body font-bold tracking-tight text-gray-900">
                   {feature.title}
                 </h4>
                 <p className="text-gray-400 text-sm leading-relaxed">

@@ -6,7 +6,7 @@
   --fs-h1: 3.75rem;
   --fs-h2: 2.75rem;
   --fs-h3: 1.5rem;
-  --fs-body: 1.125rem;
+  --fs-body: 1.250rem;
   --fs-small: 0.75rem;
   --lh-h1: 1.05;
   --ls-h1: -0.05em;
@@ -22,9 +22,9 @@
 }
 
 /* MOBILE SCALE (Down from 768px) */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   :root {
-    --fs-h1: 1.75rem; 
+    --fs-h1: 1.75rem;
     --fs-h2: 1.375rem;
     --fs-h3: 1.125rem;
     --fs-body: 0.875rem;
@@ -57,31 +57,41 @@
 }
 
 @layer components {
+
   /* DEFAULT: Desktop / Large Screens (1440px+) */
   .btn-responsive-cta {
-    --btn-px: 2.5rem;   
-    --btn-py: 1.5rem;   
-    --arrow-w: 3.5rem;  
-    --btn-scale: 0.8;      /* Base scale for desktop */
+    --btn-px: 2.5rem;
+    --btn-py: 1.5rem;
+    --arrow-w: 3.5rem;
+    --btn-scale: 0.8;
+    /* Base scale for desktop */
   }
 
   /* Tablets (below 1024px) */
   @media (max-width: 1024px) {
     .btn-responsive-cta {
-      --btn-px: 2rem;   
-      --btn-py: 1.25rem; 
-      --arrow-w: 3rem;   
-      --btn-scale: 0.95;  /* Slightly shrink for better fit on tablets */
+      --btn-px: 2rem;
+      --btn-py: 1.25rem;
+      --arrow-w: 3rem;
+      --btn-scale: 0.95;
+      /* Slightly shrink for better fit on tablets */
     }
   }
 
   /* Mobile (below 768px) */
   @media (max-width: 768px) {
     .btn-responsive-cta {
-      --btn-px: 1.5rem;  
-      --btn-py: 1rem;    
-      --arrow-w: 2.5rem; 
-      --btn-scale: 0.9;   /* Scaled down for mobile screens */
+      --btn-px: 1.5rem;
+      --btn-py: 1rem;
+      --arrow-w: 2.5rem;
+      --btn-scale: 0.9;
+      /* Scaled down for mobile screens */
     }
   }
+
+
+  
+
+ 
+
 }

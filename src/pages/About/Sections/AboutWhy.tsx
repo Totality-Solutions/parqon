@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Container } from '../../../components/common/Container';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -36,16 +37,17 @@ const features = [
 ];
 
 export const AboutWhy: React.FC = () => {
-  // Set the first item open by default to match your screenshot
   const [openId, setOpenId] = useState<string | null>('premium');
 
   return (
-    <section className="py-24 md:py-32 bg-white">
+    <section className="pb-24 md:pb-32 bg-white">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+        {/* CHANGED: added items-start to ensure the sticky child doesn't stretch to full height */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
           {/* Left Column: Heading */}
-          <div className="lg:col-span-5">
+          {/* CHANGED: added top-32 (offset) and self-start to make sticky work reliably */}
+          <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.1] mb-8 tracking-tighter">
               Why Choose <br /> Parqon?
             </h2>

@@ -5,7 +5,7 @@ import { Button } from '../../../components/common/Button';
 
 export const HeroIntro: React.FC = () => {
   return (
-    <section className="bg-parqon-beige py-20 md:py-32 2xl:py-32                                                                                                     transition-all duration-500">
+    <section className="bg-parqon-beige py-20 md:py-32 2xl:py-27                                                                                                     transition-all duration-500">
       <Container className="flex flex-col items-center text-center">
 
         {/* Paragraph text utilizing dynamic typography variables */}
@@ -24,7 +24,7 @@ export const HeroIntro: React.FC = () => {
         <Button
           label="Start Exploring"
           variant="primary"
-          className="mt-3 w-fit p-0" // w-fit ensures it doesn't span full width of card
+          className="mt-3 w-fit p-0 scale-[1.1] md:scale-[1.2] lg:scale-[1.1]" // w-fit ensures it doesn't span full width of card
           arrowDirection="ne"
           arrowColor="fill-white"
         />

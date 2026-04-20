@@ -160,11 +160,11 @@ export const HeroSection: React.FC = () => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="mt-auto pt-3 md:pt-4">
+          <div className="mt-auto pt-3 md:pt-4 ">
             <Button
               label="Explore This Finish"
               variant="primary"
-              className="w-fit origin-left transition-transform"
+              className="w-fit origin-left transition-transform scale-[0.7] md:scale-[0.9] lg:scale-[0.9]`"
               arrowDirection="ne"
             />
           </div>

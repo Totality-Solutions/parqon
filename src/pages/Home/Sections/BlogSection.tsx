@@ -109,4 +109,3 @@ export const BlogSection: React.FC = () => {
   );
 };
 
-{ `i want the right side blog list images shoould cover full width in mobile ` }

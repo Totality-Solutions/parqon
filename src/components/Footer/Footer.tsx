@@ -83,10 +83,10 @@ export const Footer: React.FC = () => {
             {/* Column 1: Main Nav */}
             <div className="flex flex-col items-start">
               {/* Optional Header for Column 1 to match Column 2 */}
-              <h4 className="font-bold text-parqon-brown text-dynamic-small tracking-widest mb-4 uppercase">
+              <h4 className="font-bold text-parqon-brown text-dynamic-body tracking-widest mb-4 ">
                 Menu
               </h4>
-              <ul className="space-y-4 text-dynamic-small tracking-wider font-semibold uppercase">
+              <ul className="space-y-4 text-dynamic-body tracking-wider font-semibold">
                 <FooterNavLink to="/" label="Home" />
                 <FooterNavLink to="/about" label="About us" />
                 <FooterNavLink to="/visualizer" label="Visualizer" />
@@ -96,10 +96,10 @@ export const Footer: React.FC = () => {
 
             {/* Column 2: Products Nav */}
             <div className="flex flex-col items-start">
-              <h4 className="font-bold text-parqon-brown text-dynamic-small tracking-widest mb-4 uppercase">
+              <h4 className="font-bold text-parqon-brown text-dynamic-body tracking-widest mb-4 ">
                 Products
               </h4>
-              <ul className="space-y-4 text-dynamic-small tracking-wider text-gray-400 font-semibold uppercase">
+              <ul className="space-y-4 text-dynamic-body tracking-wider text-gray-400 font-semibold ">
                 {['Engineered Wood', 'Laminate', 'Vinyl', 'Quartz'].map((item) => (
                   <li key={item}>
                     <Link 

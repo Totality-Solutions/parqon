@@ -15,7 +15,7 @@ export const ProductSubmenu: React.FC<ProductSubmenuProps> = ({ onClose }) => {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 10 }}
-      className="w-full bg-white shadow-[0_30px_60px_rgba(0,0,0,0.08)] border-t border-gray-100 py-16"
+      className="w-full bg-white  border-t border-gray-100 py-16"
     >
       {/* Tighter max-width (1100px) pulls the left and right columns closer together */}
       <div className="max-w-[1100px] mx-auto px-10 grid grid-cols-12 gap-0">

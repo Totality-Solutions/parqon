@@ -4,6 +4,7 @@ import { Section } from '../../../components/common/Section';
 import livingRoomImg from '../../../assets/images/cat-living.png';
 import kitchenImg from '../../../assets/images/cat-kitchen.png';
 import { Button } from '../../../components/common/Button';
+import CategoryHeader from '../../../components/common/CategoryHeader';
 
 const categories = [
   { 
@@ -24,9 +25,9 @@ export const CategorySection: React.FC = () => {
   return (
     <Section id="category" className="pt-20 2xl:pt-22">
       {/* Header Section utilizing dynamic typography */}
-      <div className="flex justify-between items-end mb-12 2xl:mb-20">
+      {/* <div className="flex justify-between items-end mb-12 2xl:mb-20">
         <div>
-          <h2 className="text-dynamic-h2 uppercase tracking-tighter">Category</h2>
+          <h2 className="text-dynamic-h2 uppercase tracking-tighter font-bold">Category</h2>
           <p className="text-gray-500 mt-3 text-dynamic-body font-medium">
             Designed for every space, built for lasting performance.
           </p>
@@ -36,8 +37,21 @@ export const CategorySection: React.FC = () => {
              <path d="M10.3 18.7l6.3-6.3-6.3-6.3L9 7.5l4.9 4.9L9 17.3l1.3 1.4z" fill="currentColor"/>
           </svg>
         </button>
-      </div>
+      </div> */}
 
+      {/* <CategoryHeader 
+        title="Category"
+        description="Designed for every space, built for lasting performance."
+        onClick={() => console.log('View more about Category')}
+      /> */}
+
+<CategoryHeader 
+  title="Our Collections"
+  description="Explore our curated sets."
+  // Just use the path relative to the public folder
+  iconSrc="/icons/arrow-right.png" 
+  onClick={() => console.log("Navigating...")}
+/>
       {/* Grid Section - Responsive heights from 320px to 2560px */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 2xl:gap-16">
         {categories.map((cat) => (
@@ -57,7 +71,7 @@ export const CategorySection: React.FC = () => {
               
               {/* Top Content */}
               <div>
-                <span className="text-dynamic-small text-gray-500 block mb-4 uppercase tracking-[0.2em] font-semibold translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                <span className="text-dynamic-small text-gray-500 block mb-4  tracking-[0.2em] font-semibold translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
                   {cat.subTitle}
                 </span>
                 <h3 className="text-dynamic-h3 text-gray-900 max-w-[90%] leading-tight translate-y-8 group-hover:translate-y-0 transition-transform duration-500 delay-75">

@@ -1,3 +1,5 @@
+
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -5,8 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Component Imports
 import { Container } from '../../../components/common/Container';
 
-// Data & Type Imports (Fixes TS 1484/6133)
-import { ALL_PRODUCTS, type Finish } from '../../../data/products';
+// Data & Type Imports
+import { ALL_PRODUCTS, type Finish, type Product } from '../../../data/products';
+import { FeaturesGrid } from '../../../components/common/FeaturesGrid';
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,7 +23,7 @@ export const ProductDetail: React.FC = () => {
   // 2. States for Interactivity
   const [selectedFinish, setSelectedFinish] = useState<Finish | null>(null);
   const [activeImage, setActiveImage] = useState('');
-  const [isInquirySent, setIsInquirySent] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   // 3. Sync State when Product changes or loads
   useEffect(() => {
@@ -33,7 +36,36 @@ export const ProductDetail: React.FC = () => {
     }
   }, [product]);
 
-  // 4. Intelligent Recommendations (Filtering by same category)
+  // 4. Action Handlers
+  const handleGetQuote = () => {
+    if (!product) return;
+    setIsRedirecting(true);
+
+    const phoneNumber = "91XXXXXXXXXX"; // Replace with your WhatsApp number
+    const message = `*Inquiry from Website*%0A%0A*Product:* ${product.title}%0A*Collection:* ${product.collection}%0A*Category:* ${product.category}%0A*Selected Finish:* ${selectedFinish?.name || 'Standard'}%0A%0AHi, I would like to get a quote and check availability for this product.`;
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+      setIsRedirecting(false);
+    }, 800);
+  };
+
+  const handleDownloadSpecs = () => {
+    if (!product) return;
+    // Simulate a PDF download
+    const fileName = `${product.title.replace(/\s+/g, '_')}_Technical_Specs.pdf`;
+    alert(`Technical Specification Sheet for ${product.title} is being prepared for download.`);
+    console.log(`Action: Downloading ${fileName}`);
+  };
+
+  const handleRequestSample = () => {
+    if (!product) return;
+    alert(`A sample request for "${product.title} - ${selectedFinish?.name}" has been added. Our concierge team will reach out to verify your shipping address.`);
+  };
+
+  // 5. Intelligent Recommendations
   const recommendations = useMemo(() => {
     if (!product) return [];
     return ALL_PRODUCTS
@@ -49,15 +81,6 @@ export const ProductDetail: React.FC = () => {
       </div>
     );
   }
-
-  // Handle Inquiry Logic
-  const handleInquiry = () => {
-    setIsInquirySent(true);
-    // Construct dynamic WhatsApp message for Lynx Studio leads
-    // window.open(`https://wa.me/YOUR_NUMBER?text=${text}`, '_blank');
-    
-    setTimeout(() => setIsInquirySent(false), 3000);
-  };
 
   return (
     <section className="py-20 bg-white font-sans text-gray-900 overflow-hidden">
@@ -90,7 +113,6 @@ export const ProductDetail: React.FC = () => {
               </AnimatePresence>
             </div>
             
-            {/* THUMBNAILS GRID */}
             <div className="grid grid-cols-4 gap-4">
               {product.gallery?.map((img: string, i: number) => (
                 <button 
@@ -104,7 +126,7 @@ export const ProductDetail: React.FC = () => {
             </div>
           </div>
 
-          {/* RIGHT: CONTENT SECTION (Sticky for better UX) */}
+          {/* RIGHT: CONTENT SECTION */}
           <div className="flex-1 lg:sticky lg:top-32 h-fit">
             <div className="mb-2">
                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{product.collection}</span>
@@ -158,17 +180,32 @@ export const ProductDetail: React.FC = () => {
             {/* ACTIONS */}
             <div className="flex flex-col gap-3">
               <button 
-                onClick={handleInquiry}
-                className={`w-full py-5 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-xl ${isInquirySent ? 'bg-green-600 text-white' : 'bg-gray-900 text-white hover:bg-black hover:shadow-2xl'}`}
+                onClick={handleGetQuote}
+                disabled={isRedirecting}
+                className={`w-full py-5 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-xl ${isRedirecting ? 'bg-green-600 text-white cursor-wait' : 'bg-gray-900 text-white hover:bg-black hover:shadow-2xl'}`}
               >
-                {isInquirySent ? 'Inquiry Logged ✓' : 'Get a Quote'}
+                {isRedirecting ? 'Opening WhatsApp...' : 'Get a Quote'}
               </button>
               <div className="grid grid-cols-2 gap-3">
-                <button className="py-4 border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-gray-900 transition-all">Request Sample</button>
-                <button className="py-4 border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-gray-900 transition-all">Download Specs</button>
+                <button 
+                  onClick={handleRequestSample}
+                  className="py-4 border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-gray-900 hover:bg-gray-50 transition-all active:scale-95"
+                >
+                  Request Sample
+                </button>
+                <button 
+                  onClick={handleDownloadSpecs}
+                  className="py-4 border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-gray-900 hover:bg-gray-50 transition-all active:scale-95"
+                >
+                  Download Specs
+                </button>
               </div>
             </div>
           </div>
+        </div>
+
+        <div>
+          <FeaturesGrid />
         </div>
 
         {/* RELATED PRODUCTS */}

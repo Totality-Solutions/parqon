@@ -6,13 +6,13 @@ export const AboutIntro: React.FC = () => {
     <section className="mb-24 md:mb-12">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
-          <div className="text-xl md:text-2xl font-bold leading-tight uppercase tracking-tight text-gray-900">
-            Designed for every space, built for lasting performance.
+          <div className="text-dynamic-h2  font-bold leading-tight tracking-tight text-gray-900">
+            Designed for every space.
           </div>
-          <p className="text-gray-500 font-medium leading-relaxed text-sm md:text-base">
+          <p className="text-gray-500 text-dynamic-body  font-medium leading-relaxed ">
             Parqon is a material-focused brand dedicated to creating refined surface solutions for contemporary spaces.
           </p>
-          <p className="text-gray-500 font-medium leading-relaxed text-sm md:text-base">
+          <p className="text-gray-500 text-dynamic-body  font-medium leading-relaxed">
             We believe materials are not just finishes — they shape how a space feels, functions, and endures.
           </p>
         </div>
