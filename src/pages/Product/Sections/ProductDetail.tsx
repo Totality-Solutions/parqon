@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '../../../components/common/Container';
 
 // Data & Type Imports
-import { ALL_PRODUCTS, type Finish, type Product } from '../../../data/products';
+import { ALL_PRODUCTS, type Finish } from '../../../data/products';
 import { FeaturesGrid } from '../../../components/common/FeaturesGrid';
 
 export const ProductDetail: React.FC = () => {

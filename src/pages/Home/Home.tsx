@@ -3,8 +3,7 @@ import React from 'react';
 import { HeroSection } from './Sections/HeroSection';
 import { HeroIntro } from './Sections/HeroIntro'; // New exact UI component
 import { CategorySection } from './Sections/CategorySection';
-import { ProductSection } from './Sections/ProductSection';  
-import { BlogSection } from './Sections/BlogSection';      
+import { ProductSection } from './Sections/ProductSection';    
 import { ProjectCallout } from './Sections/ProjectCallout';
 import { BannerCarousel } from './Sections/BannerCarousel';
 
