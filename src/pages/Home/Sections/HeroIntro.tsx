@@ -9,12 +9,12 @@ export const HeroIntro: React.FC = () => {
       <Container className="flex flex-col items-center text-center">
 
         {/* Paragraph text utilizing dynamic typography variables */}
-        <div className="max-w-5xl mx-auto px-4 md:px-0">
-          <p className="text-gray-900 text-dynamic-body leading-[1.8] tracking-normal font-normal">
+        <div className="max-w-6xl mx-auto px-4 md:px-0">
+          <p className="text-gray-900 text-dynamic-body  tracking-normal font-normal">
             We believe flooring is not a background element - it is the foundation of every space.
-            <br className="hidden md:block" />
+            {/* <br className="hidden md:block" /> */}
             The texture, tone, and grain of wood shape how light moves, how spaces feel, and how people experience them.
-            <br className="hidden md:block" />
+            {/* <br className="hidden md:block" /> */}
             At Parqon, every surface is designed to balance aesthetics, performance, and longevity - without compromise.
           </p>
         </div>
