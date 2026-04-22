@@ -4,9 +4,9 @@
 :root {
   /* DESKTOP DEFAULTS (Large screens) */
   --fs-h1: 3.75rem;
-  --fs-h2: 2.75rem;
+  --fs-h2: 2.5rem;
   --fs-h3: 1.5rem;
-  --fs-body: 1.250rem;
+  --fs-body: 1rem;
   --fs-small: 0.75rem;
   --lh-h1: 1.05;
   --ls-h1: -0.05em;
@@ -38,7 +38,7 @@
   --font-sans: 'Montserrat', sans-serif;
   --color-parqon-brown: #837B55;
   --color-parqon-beige: #D6D3C9;
-  --color-parqon-light: #F1F1F1;
+  --color-parqon-light: #EEEEEE;
 
   --text-dynamic-h1: var(--fs-h1);
   --text-dynamic-h2: var(--fs-h2);

@@ -9,14 +9,14 @@ export const AboutStory: React.FC = () => {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 md:mb-24">
           <div className="lg:col-span-4 flex flex-col justify-start">
-            <h2 className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4 font-bold">
+            <h2 className="text-dynamic-body  tracking-[0.04em] text-dark mb-4 ">
               The Start of
             </h2>
             <div className="group overflow-hidden">
               <img 
                 src={PAROONLogo}  // Replace with {PAROONLogo} if using import
                 alt="PAROON Logo" 
-                className="h-10 md:h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105 origin-left" 
+                className="h-15 md:h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-105 origin-left" 
               />
             </div>
           </div>

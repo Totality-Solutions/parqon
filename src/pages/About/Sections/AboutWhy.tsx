@@ -48,7 +48,7 @@ export const AboutWhy: React.FC = () => {
           {/* Left Column: Heading */}
           {/* CHANGED: added top-32 (offset) and self-start to make sticky work reliably */}
           <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.1] mb-8 tracking-tighter">
+            <h2 className="text-dynamic-h2 font-bold text-dark leading-[1.1] mb-8 tracking-tighter font-medium ">
               Why Choose <br /> Parqon?
             </h2>
             <p className="text-gray-500 text-lg leading-relaxed max-w-sm font-medium">
@@ -57,54 +57,91 @@ export const AboutWhy: React.FC = () => {
           </div>
 
           {/* Right Column: Functional Accordion */}
-          <div className="lg:col-span-7">
-            <div className="border-t border-gray-100">
-              {features.map((item) => (
-                <div 
-                  key={item.id} 
-                  className="border-b border-gray-100 overflow-hidden"
-                >
-                  <button
-                    onClick={() => setOpenId(openId === item.id ? null : item.id)}
-                    className="w-full py-8 flex justify-between items-center group transition-all"
-                  >
-                    <span className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${openId === item.id ? 'text-parqon-brown' : 'text-gray-900'}`}>
-                      {item.title}
-                    </span>
-                    <span className={`transition-transform duration-500 ${openId === item.id ? 'rotate-[-45deg]' : ''}`}>
-                      <svg viewBox="0 0 24 24" className={`w-6 h-6 ${openId === item.id ? 'fill-parqon-brown' : 'fill-gray-400'}`}>
-                         <path d="M21,2.5c-0.2-0.2-0.5-0.3-0.8-0.2l-17,6c-0.4,0.1-0.7,0.5-0.7,0.9c0,0.4,0.3,0.8,0.7,0.9l7.5,2.5l2.5,7.5 c0.1,0.4,0.5,0.7,0.9,0.7c0,0,0,0,0,0c0.4,0,0.8-0.3,0.9-0.7l6-17C21.3,3,21.2,2.7,21,2.5z" />
-                      </svg>
-                    </span>
-                  </button>
+      <div className="lg:col-span-7">
+  <motion.div 
+    layout // Ensures the overall list container handles height changes smoothly
+    className="border-t border-gray-100"
+  >
+    {features.map((item) => (
+      <motion.div 
+        layout
+        key={item.id} 
+        className="border-b border-gray-100 overflow-hidden"
+        onMouseEnter={() => setOpenId(item.id)}
+      >
+        <button
+          onClick={() => setOpenId(openId === item.id ? null : item.id)}
+          className="w-full py-8 flex justify-between items-center group transition-all"
+        >
+          <span className={`text-xl md:text-2xl font-medium transition-colors duration-500 ease-out ${
+            openId === item.id ? 'text-[#924321]' : 'text-gray-900'
+          }`}>
+            {item.title}
+          </span>
+          
+          <span className={`transition-transform duration-700 ease-[0.22,1,0.36,1] ${
+            openId === item.id ? 'rotate-[-45deg]' : ''
+          }`}>
+            <svg viewBox="0 0 24 24" className={`w-6 h-6 transition-colors duration-500 ${
+              openId === item.id ? 'fill-[#924321]' : 'fill-gray-400'
+            }`}>
+               <path d="M21,2.5c-0.2-0.2-0.5-0.3-0.8-0.2l-17,6c-0.4,0.1-0.7,0.5-0.7,0.9c0,0.4,0.3,0.8,0.7,0.9l7.5,2.5l2.5,7.5 c0.1,0.4,0.5,0.7,0.9,0.7c0,0,0,0,0,0c0.4,0,0.8-0.3,0.9-0.7l6-17C21.3,3,21.2,2.7,21,2.5z" />
+            </svg>
+          </span>
+        </button>
 
-                  <AnimatePresence>
-                    {openId === item.id && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
-                      >
-                        <div className="pb-10 flex flex-col md:flex-row gap-8 items-center">
-                          <div className="w-full md:w-56 h-36 overflow-hidden bg-gray-100 shrink-0">
-                            <img 
-                              src={item.image} 
-                              alt={item.title} 
-                              className="w-full h-full object-cover" 
-                            />
-                          </div>
-                          <p className="text-gray-500 font-medium leading-relaxed max-w-xs">
-                            {item.description}
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
-            </div>
-          </div>
+        <AnimatePresence initial={false} mode="wait">
+          {openId === item.id && (
+            <motion.div
+              key="content"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ 
+                height: 'auto', 
+                opacity: 1,
+                transition: {
+                  height: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+                  opacity: { duration: 0.4, delay: 0.1 }
+                }
+              }}
+              exit={{ 
+                height: 0, 
+                opacity: 0,
+                transition: {
+                  height: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                  opacity: { duration: 0.2 }
+                }
+              }}
+            >
+              <div className="pb-10 flex flex-col md:flex-row gap-8 items-center">
+                <motion.div 
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="w-full md:w-56 h-36 overflow-hidden bg-gray-100 shrink-0 "
+                >
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" 
+                  />
+                </motion.div>
+                
+                <motion.p 
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="text-gray-500 font-medium leading-relaxed max-w-xs"
+                >
+                  {item.description}
+                </motion.p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    ))}
+  </motion.div>
+</div>
           
         </div>
       </Container>

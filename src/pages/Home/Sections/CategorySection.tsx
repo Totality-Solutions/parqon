@@ -1,21 +1,21 @@
 // src/pages/Home/Sections/CategorySection.tsx
 import React from 'react';
 import { Section } from '../../../components/common/Section';
-import livingRoomImg from '../../../assets/images/cat-living.png';
-import kitchenImg from '../../../assets/images/cat-kitchen.png';
+import livingRoomImg from '/images/home/collection-1.png';
+import kitchenImg from '/images/home/collection-2.png';
 import { Button } from '../../../components/common/Button';
 import CategoryHeader from '../../../components/common/CategoryHeader';
 
 const categories = [
   { 
     id: 1, 
-    subTitle: 'Oaken Wood',
+    subTitle: 'Oaken',
     title: 'Extend the material beyond the floor.', 
     img: livingRoomImg 
   },
   { 
     id: 2, 
-    subTitle: 'Nord Wood',
+    subTitle: 'NordWood',
     title: 'Discover the natural grain of oak.', 
     img: kitchenImg 
   },
@@ -23,7 +23,7 @@ const categories = [
 
 export const CategorySection: React.FC = () => {
   return (
-    <Section id="category" className="pt-20 2xl:pt-22">
+    <Section id="category" className="pt-20 sm:py-0 2xl:pt-22">
       {/* Header Section utilizing dynamic typography */}
       {/* <div className="flex justify-between items-end mb-12 2xl:mb-20">
         <div>

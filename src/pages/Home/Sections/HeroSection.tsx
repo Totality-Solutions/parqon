@@ -7,22 +7,22 @@ import { Button } from '../../../components/common/Button';
 const heroSlides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2560&auto=format&fit=crop',
-    swatch: 'https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=600&auto=format&fit=crop',
+    image: '/images/home/hero6.png',
+    swatch: '/images/home/hero1.jpg',
     title: 'Oaken Wood',
     subtitle: 'European Oak Collection'
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2560&auto=format&fit=crop',
-    swatch: 'https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=600&auto=format&fit=crop',
+    image: '/images/home/hero5.png',
+    swatch: '/images/home/hero3.jpg',
     title: 'NordWood',
     subtitle: 'Artisan Series'
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=2560&auto=format&fit=crop',
-    swatch: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=600&auto=format&fit=crop',
+    image: '/images/home/hero4.png',
+    swatch: '/images/home/hero2.jpg',
     title: 'Arctic Pine',
     subtitle: 'Oaken'
   }

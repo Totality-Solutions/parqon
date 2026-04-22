@@ -122,13 +122,13 @@ export const ProjectDetail: React.FC = () => {
           <div className="flex justify-between items-center pt-12 border-t border-gray-200">
             <button 
               onClick={() => navigate(`/projects/${prevProject.slug}`)}
-              className="px-10 py-4 border border-gray-300 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all duration-300"
+              className="px-10 py-4 text-dynamic-body border border-gray-300 text-[10px] font-bold  hover:bg-[#837B55] hover:text-white transition-all duration-300"
             >
               Go back
             </button>
             <button 
               onClick={() => navigate(`/projects/${nextProject.slug}`)}
-              className="px-10 py-4 border border-gray-300 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all duration-300"
+              className="px-10 py-4 text-dynamic-body border border-gray-300 text-[10px] font-bold  hover:bg-[#837B55] hover:text-white transition-all duration-300"
             >
               Move to next
             </button>

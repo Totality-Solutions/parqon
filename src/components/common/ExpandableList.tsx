@@ -36,7 +36,7 @@ export const ExpandableList: React.FC<ExpandableListProps> = ({
     <section className="py-12 md:py-24 bg-white overflow-hidden">
       <Container>
         {heading && (
-          <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 tracking-tight text-gray-900 px-4 md:px-0">
+          <h2 className="text-dynamic-h2 font-bold mb-8 md:mb-12 tracking-tight text-gray-900  md:px-0">
             {heading}
           </h2>
         )}
@@ -64,7 +64,7 @@ export const ExpandableList: React.FC<ExpandableListProps> = ({
               >
                 {/* 1. TITLE */}
                 <div className="relative z-20 flex-shrink-0">
-                  <span className={`text-lg md:text-xl font-bold tracking-[0.1em] transition-colors duration-300 ${isActive ? 'text-amber-900' : 'text-gray-900'}`}>
+                  <span className={`text-lg md:text-xl font-bold tracking-[0.0] transition-colors duration-300 ${isActive ? 'text-amber-900' : 'text-gray-900'}`}>
                     {item.title}
                   </span>
                 </div>

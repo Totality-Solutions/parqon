@@ -42,10 +42,10 @@ export const AppHero: React.FC<AppHeroProps> = ({
       {/* Right Column: Content */}
       <div className="w-full lg:w-1/2 bg-[#E9E9E4] flex items-center justify-center px-8 py-16 md:px-20 lg:px-24">
         <div className="max-w-xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-6 tracking-tighter capitalize">
+          <h1 className="text-dynamic-h2 font-medium text-dark leading-[1.1] mb-6 tracking-tighter capitalize">
             {title}
           </h1>
-          <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-10 font-medium capitalize">
+          <p className="text-dynamic-body  text-gray-600 leading-relaxed mb-10 font-medium capitalize">
             {description}
           </p>
           

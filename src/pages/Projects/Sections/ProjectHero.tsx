@@ -25,10 +25,10 @@ export const ProjectHero: React.FC<ProjectHeroProps> = ({ onSearch }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 leading-[1.1] mb-8">
+              <h1 className="text-dynamic-h2 font-bold tracking-tight text-gray-900 leading-[1.1] mb-8">
                 A curated space <br /> for design that speaks
               </h1>
-              <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-lg">
+              <p className="text-gray-500 text-dynamic-body leading-relaxed max-w-lg">
                 Explore a collection of thoughtful projects - where material, form, and function come together with clarity and intent.
               </p>
             </motion.div>
@@ -56,7 +56,7 @@ export const ProjectHero: React.FC<ProjectHeroProps> = ({ onSearch }) => {
                 />
                 <button 
                   type="submit"
-                  className="bg-gray-50 px-10 py-5 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all border-l border-gray-100"
+                  className="bg-gray-50 px-10 py-5 text-dynamic-body font-bold  text-dark hover:bg-gray-100 hover:text-gray-900 transition-all border-l border-gray-100"
                 >
                   Search
                 </button>
@@ -70,7 +70,7 @@ export const ProjectHero: React.FC<ProjectHeroProps> = ({ onSearch }) => {
               <img 
                 src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1000" 
                 alt="Architectural Plan" 
-                className="w-full h-auto object-contain select-none pointer-events-none drop-shadow-2xl"
+                className="w-full h-auto object-contain select-none pointer-events-none"
               />
             </div>
           </div>

@@ -50,18 +50,18 @@ const supportFeatures = [
 
 export const ProductSupport: React.FC = () => {
   return (
-    <section className="py-24 bg-white border-t border-gray-50">
+    <section className="pt-0 bg-white border-t border-gray-50">
       <Container>
         {/* Top Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-24">
           <div className="max-w-xl">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-[1.1]">
+            <h2 className="text-dynamic-h2 font-bold tracking-tight text-gray-900 leading-[1.1]">
               Get the support that simplifies every decision.
             </h2>
           </div>
           
           <div className="max-w-md lg:text-right flex flex-col lg:items-end">
-            <p className="text-gray-500 text-lg mb-8 leading-relaxed">
+            <p className="text-gray-500 text-dynamic-body mb-8 leading-relaxed">
               We don't just assist — we guide you with clarity, expertise, and the right solutions for your space.
             </p>
             

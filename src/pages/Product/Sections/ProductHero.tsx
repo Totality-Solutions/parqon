@@ -20,13 +20,13 @@ export const ProductHero: React.FC = () => {
 
                 {/* Content Row */}
                 {/* Change items-end to items-center */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="max-w-2xl">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+                    <div className="">
                         <motion.h1
                             initial={{ y: 30, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.5, duration: 0.8 }}
-                            className="text-4xl md:text-4xl font-bold tracking-tighter text-gray-900 leading-[1.1] capitalize"
+                            className="text-dynamic-h2 font-bold tracking-tighter text-gray-900 leading-[1.1] capitalize"
                         >
                             Styles that cater to <br /> different spaces and budgets
                         </motion.h1>
@@ -34,7 +34,7 @@ export const ProductHero: React.FC = () => {
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.7, duration: 0.8 }}
-                            className="text-gray-500 text-lg mt-4 font-medium capitalize"
+                            className="text-gray-500 text-dynamic-body mt-4 font-medium capitalize"
                         >
                             Designs that impress the Earth as well
                         </motion.p>

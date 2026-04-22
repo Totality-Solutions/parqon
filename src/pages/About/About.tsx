@@ -7,6 +7,8 @@ import { AboutIntro } from './Sections/AboutIntro';
 import { AboutStory } from './Sections/AboutStory';
 import { AboutHero } from './Sections/AboutHero';
 import { AboutWhy } from './Sections/AboutWhy';
+import { AboutBase } from './Sections/Aboutbase';
+// import { HeroSection } from './Sections/AboutBase';
 
 
 const AboutPage: React.FC = () => {
@@ -15,6 +17,7 @@ const AboutPage: React.FC = () => {
             {/* <AboutHero /> */}
             <AboutHero />
             <AboutIntro />
+            <AboutBase/>
             <AboutCollections />
             <AboutStory />
             {/* <AboutHistory /> */}

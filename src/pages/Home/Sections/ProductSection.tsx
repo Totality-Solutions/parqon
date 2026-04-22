@@ -5,40 +5,40 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../../../components/common/Button';
 
 const productData = {
-  'Living Room': {
-    description: 'Modern living spaces designed for comfort and style.',
-    images: [
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80'
-    ]
-  },
+  // 'Living Room': {
+  //   description: 'Modern living spaces designed for comfort and style.',
+  //   images: [
+  //     'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80',
+  //     'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80',
+  //     'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=600&q=80',
+  //     'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80'
+  //   ]
+  // },
   'Indoor': {
     description: 'Seamless transitions between classic and contemporary surfaces.',
     images: [
       'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=600&q=80',
       'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=600&q=80',
+      'images/home/indoor-1.jpg',
       'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80'
     ]
   },
-  'Bed Room': {
+  'Outdoor': {
     description: 'Quiet, serene environments with natural wood textures.',
     images: [
-      'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80',
+      'images/home/outdoor-1.jpg',
+      'images/home/outdoor-2.jpg',
+      'images/home/outdoor-3.jpg',
       'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=80'
     ]
   },
-  'Outdoor': {
+  'Oaken': {
     description: 'Visualize how each surface transforms real environments.',
     images: [
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=600&q=80'
+      'images/home/Oaken-1.png',
+      'images/home/Oaken-2.png',
+      'images/home/Oaken-3.png',
+      'images/home/Oaken-4.png'
     ]
   }
 };
@@ -58,7 +58,7 @@ export const ProductSection: React.FC = () => {
   return (
     <Section id="products" className="py-0 2xl:py-0 transition-all">
       {/* Dynamic Header */}
-      <div className="flex justify-between items-end mb-16 2xl:mb-24 border-b border-gray-100 pb-8">
+      <div className="flex justify-between items-end  2xl:mb-24 border-b border-gray-100 pb-8">
         <div className="max-w-2xl">
           <h2 className="text-dynamic-h2 font-bold tracking-tighter ">Products</h2>
           <p className="text-gray-500 mt-5 text-dynamic-body font-medium h-auto md:h-16 transition-all duration-300">
@@ -133,7 +133,7 @@ export const ProductSection: React.FC = () => {
               <div className={`w-5 h-5 rounded-full border-2 items-center justify-center flex transition-all duration-500 ${activeTab === tab ? 'border-parqon-brown bg-white' : 'border-gray-200 group-hover:border-gray-400'}`}>
                 {activeTab === tab && <div className="w-2 h-2 rounded-full bg-parqon-brown" />}
               </div>
-              <span className={`text-dynamic-body font-bold  tracking-[0.15em] transition-all duration-300 ${activeTab === tab ? 'translate-x-2' : ''}`}>
+              <span className={`text-dynamic-body font-bold  tracking-[0.05em] transition-all duration-300 ${activeTab === tab ? 'translate-x-2' : ''}`}>
                 {tab}
               </span>
             </button>
