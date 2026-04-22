@@ -246,7 +246,7 @@ import { Container } from '../../../components/common/Container';
 import { FeaturesGrid } from '../../../components/common/FeaturesGrid';
 
 // Data & Type Imports
-import { ALL_PRODUCTS, type Finish, type Product } from '../../../data/products';
+import { ALL_PRODUCTS, type Finish } from '../../../data/products';
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
