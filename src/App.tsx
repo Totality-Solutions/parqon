@@ -11,12 +11,13 @@ import { ProductDetail } from './pages/Product/Sections/ProductDetail';
 import Projects from './pages/Projects/Projects';
 import { ProjectDetail } from './pages/Projects/Sections/ProjectDetail';
 import { ScrollToTop } from './components/common/ScrollToTop';
+import { NotFoundPage } from './pages/NotFound/NotFoundPage';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
 function App() {
   return (
     <> {/* Use a Fragment or <div> instead of <Router> */}
-    <ScrollToTop />
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -25,9 +26,9 @@ function App() {
         <Route path="/applications" element={<ApplicationsPage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
-
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/projects" element={<Projects />} />
-       <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/projects/:slug" element={<ProjectDetail />} />
       </Routes>
       <Footer />
     </>
@@ -35,3 +36,4 @@ function App() {
 }
 
 export default App;
+

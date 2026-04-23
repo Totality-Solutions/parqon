@@ -7,8 +7,8 @@ import { AboutIntro } from './Sections/AboutIntro';
 import { AboutStory } from './Sections/AboutStory';
 import { AboutHero } from './Sections/AboutHero';
 import { AboutWhy } from './Sections/AboutWhy';
-import { AboutBase } from './Sections/Aboutbase';
-// import { HeroSection } from './Sections/AboutBase';
+import { AboutBase } from './Sections/AboutBase';
+
 
 
 const AboutPage: React.FC = () => {
@@ -22,7 +22,7 @@ const AboutPage: React.FC = () => {
             <AboutStory />
             {/* <AboutHistory /> */}
             <AboutWhy/>
-            <div className="pb-20">
+            <div className="">
                 <ProjectCallout />
             </div>
             

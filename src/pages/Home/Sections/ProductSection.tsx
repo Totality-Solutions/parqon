@@ -56,7 +56,7 @@ export const ProductSection: React.FC = () => {
   };
 
   return (
-    <Section id="products" className="py-0 2xl:py-0 transition-all">
+    <Section id="products" className="py-0 2xl:py-0 !py-0 transition-all">
       {/* Dynamic Header */}
       <div className="flex justify-between items-end  2xl:mb-24 border-b border-gray-100 pb-8">
         <div className="max-w-2xl">
@@ -84,7 +84,7 @@ export const ProductSection: React.FC = () => {
         <div className="lg:hidden relative z-20">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full flex justify-between items-center bg-gray-50 px-6 py-5 border border-gray-200"
+            className="w-full flex justify-between items-center  px-6 py-5 border border-gray-200"
           >
             <span className="text-dynamic-body font-bold  tracking-widest text-parqon-brown">
               {activeTab}

@@ -114,20 +114,20 @@ export const HeroSection: React.FC = () => {
         min-[425px]:w-[72%] 
 
         /* sm (Small Tablets >= 640px): Snap to left, minimum width */
-        sm:left-12 sm:translate-x-0 sm:w-auto sm:max-w-[580px]
+        sm:left-12 sm:translate-x-0 sm:w-auto sm:max-w-[400px]
         
         /* md (Tablets >= 768px): More bottom spacing, larger width */
-        md:bottom-12 md:p-3 md:max-w-[500px]
+        md:bottom-12 md:p-3 md:max-w-[400px]
         
         /* lg & xl logic */
-        lg:max-w-[500px]
-        xl:max-w-[500px] xl:p-4
+        lg:max-w-[400px]
+        xl:max-w-[400px] xl:p-4
         
         /* Utility & Design Styles */
         bg-white shadow-2xl z-40 flex items-stretch gap-3 md:gap-4 overflow-hidden
       ">
         {/* Left: Swatch Image */}
-        <div className="w-24 sm:w-32 md:w-36 lg:w-40 aspect-square overflow-hidden flex-shrink-0 bg-gray-100">
+        <div className="w-24 sm:w-32 md:w-30 lg:w-30 aspect-square overflow-hidden flex-shrink-0 bg-gray-100">
           <AnimatePresence mode="wait">
             <motion.img
               key={heroSlides[index].swatch}
@@ -164,7 +164,7 @@ export const HeroSection: React.FC = () => {
             <Button
               label="Explore This Finish"
               variant="primary"
-              className="w-fit origin-left transition-transform scale-[0.7] md:scale-[0.9] lg:scale-[0.9]`"
+              className="w-fit origin-left transition-transform scale-[0.7] md:scale-[0.9] lg:scale-[1] !p-[0px] "
               arrowDirection="ne"
             />
           </div>

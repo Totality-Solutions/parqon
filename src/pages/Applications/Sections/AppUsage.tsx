@@ -89,7 +89,7 @@ export const AppUsage: React.FC = () => {
         expandedHeight={220} 
       />
 
-      <section className="pt-24 pt-0">
+      <section className=" pt-0">
         <Container>
           {/* Passing the rectangular grid blocks here */}
           <BentoGrid blocks={usageBlocks} />

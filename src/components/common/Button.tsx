@@ -29,7 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   
   const bgStyles: Record<ButtonVariant, string> = {
-    primary: 'bg-parqon-light hover:bg-white text-gray-800',
+    primary: 'bg-parqon-light hover:bg-parqon-light/70 text-gray-800',
     secondary: 'bg-white hover:bg-gray-50 text-gray-900',
     light: 'bg-transparent border border-gray-200 hover:bg-gray-50 text-gray-700',
   };
@@ -61,7 +61,7 @@ export const Button: React.FC<ButtonProps> = ({
         }}
       >
         <span 
-          className="flex-1  font-medium tracking-[0.15em] whitespace-nowrap flex items-center justify-center text-dynamic-body"
+          className="flex-1  font-medium tracking-[0.05em] whitespace-nowrap flex items-center justify-center text-dynamic-body"
           style={{ padding: 'var(--btn-py) var(--btn-px)' }}
         >
           {label}

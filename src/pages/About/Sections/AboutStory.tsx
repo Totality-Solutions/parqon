@@ -9,7 +9,7 @@ export const AboutStory: React.FC = () => {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 md:mb-24">
           <div className="lg:col-span-4 flex flex-col justify-start">
-            <h2 className="text-dynamic-body  tracking-[0.04em] text-dark mb-4 ">
+            <h2 className="text-dynamic-body  tracking-[0.04em] text-dark mb-4 font-medium ">
               The Start of
             </h2>
             <div className="group overflow-hidden">
@@ -29,7 +29,7 @@ export const AboutStory: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-6">
           <div className="overflow-hidden">
             <img src="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=800" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Craft" />
           </div>

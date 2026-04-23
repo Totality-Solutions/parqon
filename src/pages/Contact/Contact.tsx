@@ -404,27 +404,44 @@ export const ContactPage: React.FC = () => {
                 className="w-full px-8 py-6 rounded-none border border-gray-100 bg-transparent focus:outline-none focus:border-[#837B55] transition-colors resize-none" 
               />
 
-              <div className="flex flex-col sm:flex-row justify-between items-center mt-10 gap-6">
-                <div className="flex items-stretch h-12 cursor-pointer group w-full sm:w-auto">
-                  <button type="reset" className="bg-[#EEEEEE] px-8 flex items-center justify-center text-sm font-bold text-black tracking-wider transition-colors group-hover:bg-gray-200 rounded-none w-full">
-                    Reset
-                  </button>
-                  <div className="bg-[#7D774F] w-12 flex items-center justify-center rounded-none">
-                    <img src={resetIconImg} alt="Reset" className="w-5 h-5 brightness-0 invert transition-transform group-hover:rotate-[-45deg]" />
-                  </div>
-                </div>
+             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+  
+  {/* Reset Button Container */}
+  <div className="group flex h-12 w-full cursor-pointer items-stretch sm:w-auto">
+    <button
+      type="reset"
+      className="flex flex-1 items-center justify-center bg-[#EEEEEE] px-8 text-dynamic-body font-semibold tracking-wider text-black transition-colors group-hover:bg-gray-200 sm:flex-none sm:min-w-[160px]"
+    >
+      Reset
+    </button>
+    <div className="flex w-14 items-center justify-center bg-[#7D774F] transition-colors group-hover:bg-[#8e875e]">
+      <img
+        src={resetIconImg}
+        alt="Reset"
+        className="h-5 w-5 brightness-0 invert transition-transform duration-300 group-hover:rotate-[-45deg]"
+      />
+    </div>
+  </div>
 
-                <button type="submit" disabled={loading} className={`flex items-stretch h-12 group w-full sm:w-auto ${loading ? 'opacity-50' : ''}`}>
-                  <div className="bg-[#EEEEEE] px-8 flex items-center justify-center text-sm font-bold text-black tracking-wider transition-colors group-hover:bg-white rounded-none border-y border-l border-transparent group-hover:border-gray-100">
-                    {loading ? 'Sending...' : 'Submit Inquiry'}
-                  </div>
-                  <div className="bg-[#7D774F] w-12 flex items-center justify-center group-hover:bg-[#8e875e] rounded-none">
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
-                      <path d="M21,2.5c-0.2-0.2-0.5-0.3-0.8-0.2l-17,6c-0.4,0.1-0.7,0.5-0.7,0.9c0,0.4,0.3,0.8,0.7,0.9l7.5,2.5l2.5,7.5 c0.1,0.4,0.5,0.7,0.9,0.7c0,0,0,0,0,0c0.4,0,0.8-0.3,0.9-0.7l6-17C21.3,3,21.2,2.7,21,2.5z" />
-                    </svg>
-                  </div>
-                </button>
-              </div>
+  {/* Submit Button Container */}
+  <button
+    type="submit"
+    disabled={loading}
+    className={`group flex h-12 w-full items-stretch transition-opacity sm:w-auto ${
+      loading ? "opacity-50" : "opacity-100"
+    }`}
+  >
+    <div className="flex flex-1 items-center justify-center bg-[#EEEEEE] px-8 text-dynamic-body font-semibold tracking-wider text-black transition-colors group-hover:bg-gray-200 sm:flex-none sm:min-w-[180px]">
+      {loading ? "Sending..." : "Submit Inquiry"}
+    </div>
+    <div className="flex w-14 items-center justify-center bg-[#7D774F] transition-colors group-hover:bg-[#8e875e]">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 fill-white transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
+        <path d="M21,2.5c-0.2-0.2-0.5-0.3-0.8-0.2l-17,6c-0.4,0.1-0.7,0.5-0.7,0.9c0,0.4,0.3,0.8,0.7,0.9l7.5,2.5l2.5,7.5 c0.1,0.4,0.5,0.7,0.9,0.7c0,0,0,0,0,0c0.4,0,0.8-0.3,0.9-0.7l6-17C21.3,3,21.2,2.7,21,2.5z" />
+      </svg>
+    </div>
+  </button>
+  
+</div>
             </form>
           </div>
         </div>

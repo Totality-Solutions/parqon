@@ -42,7 +42,7 @@
 //   {/* Paragraph: Centered on mobile, right-aligned on desktop with better width control */}
 //   <p className="text-dynamic-body md:max-w-xs lg:max-w-sm text-center md:text-right leading-relaxed md:leading-tight">
 //     Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-   
+
 //   </p>
 // </div>
 
@@ -57,7 +57,7 @@
 //                 <span className={`text-dynamic-body font-medium transition-colors duration-300 ${openIndex === index ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`}>
 //                   {faq.question}
 //                 </span>
-                
+
 //                 {/* Rotating Arrow Icon */}
 //                 <motion.div
 //                   animate={{ rotate: openIndex === index ? 90 : 0 }}
@@ -126,14 +126,14 @@ export const AppFAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="pt-24 pb-24 bg-white">
+    <section className="pt-24 bg-white">
       <Container>
         {/* Header Row */}
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 md:mb-16 gap-6">
-          <h2 className="text-dynamic-h2 font-bold tracking-tighter text-gray-900 text-center md:text-left">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
+          <h2 className="text-dynamic-h2 font-bold tracking-tighter text-gray-900 text-left md:text-left">
             Real FAQs
           </h2>
-          <p className="text-gray-500 text-dynamic-body md:max-w-xs lg:max-w-sm text-center md:text-right leading-relaxed md:leading-tight">
+          <p className="text-gray-500 text-dynamic-body md:max-w-xs lg:max-w-sm text-left md:text-right leading-relaxed md:leading-tight">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           </p>
         </div>
@@ -148,26 +148,26 @@ export const AppFAQ: React.FC = () => {
                 className="w-full py-8 flex justify-between items-center group text-left"
               >
                 <div className="flex items-center gap-4">
-                   {/* Optional: Animated line matching your other sections */}
-                   {/* <span className={`h-[1px] bg-gray-900 transition-all duration-500 ${openIndex === index ? 'w-8 opacity-100' : 'w-0 opacity-0'}`} /> */}
-                   
-                   <span className={`text-dynamic-body font-bold transition-colors duration-300 ${openIndex === index ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`}>
+                  {/* Optional: Animated line matching your other sections */}
+                  {/* <span className={`h-[1px] bg-gray-900 transition-all duration-500 ${openIndex === index ? 'w-8 opacity-100' : 'w-0 opacity-0'}`} /> */}
+
+                  <span className={`text-dynamic-body font-bold transition-colors duration-300 ${openIndex === index ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`}>
                     {faq.question}
                   </span>
                 </div>
-                
+
                 {/* Image Icon with Rotation Functionality */}
                 <motion.div
-                  animate={{ 
-                    rotate: openIndex === index ? 90 : 0,
-                    scale: openIndex === index ? 1.2 : 1 
+                  animate={{
+                    rotate: openIndex === index ? 0 : -45,
+                    scale: openIndex === index ? 1.2 : 1
                   }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="flex-shrink-0 ml-4"
                 >
-                  <img 
-                    src="/icons/arrow-right.png" 
-                    alt="arrow" 
+                  <img
+                    src="/icons/arrow-right.png"
+                    alt="arrow"
                     className={`w-5 h-5 object-contain transition-opacity duration-300 ${openIndex === index ? 'opacity-100' : 'opacity-40 group-hover:opacity-70'}`}
                   />
                 </motion.div>

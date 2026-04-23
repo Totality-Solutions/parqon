@@ -5,6 +5,8 @@ import { ProjectCallout } from '../Home/Sections/ProjectCallout';
 import { ProductSupport } from './Sections/ProductSupport';
 
 const ProductPage: React.FC = () => {
+    
+    
     return (
         <main className="min-h-screen">
             <ProductHero />
