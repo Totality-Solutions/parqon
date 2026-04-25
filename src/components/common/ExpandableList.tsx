@@ -229,7 +229,7 @@ export const ExpandableList: React.FC<ExpandableListProps> = ({
                       {item.previews.map((img, i) => (
                         <div
                           key={i}
-                          className="w-20 h-14 sm:w-28 sm:h-20 md:w-40 md:h-28 overflow-hidden shadow-lg border-2 border-white rounded-sm flex-shrink-0"
+                          className="w-20 h-14 sm:w-28 sm:h-20 md:w-40 md:h-28 overflow-hidden shadow-lg border-2 border-white flex-shrink-0"
                         >
                           <img 
                             src={img} 

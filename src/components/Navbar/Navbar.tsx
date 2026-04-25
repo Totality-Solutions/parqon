@@ -1,11 +1,11 @@
-
 // import React, { useState, useEffect } from 'react';
 // import { NavLink, Link, useLocation } from 'react-router-dom';
 // import { Container } from '../common/Container';
 // import PAROONLogo from '../../assets/logo.png';
-// import { Menu, X, ChevronRight } from 'lucide-react';
+// import { Menu, X, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react';
 // import { AnimatePresence, motion } from 'framer-motion';
 // import { ProductSubmenu } from './ProductSubmenu';
+// import { OAKEN_MATERIALS, NORDWOOD_DATA } from '../../data/products';
 
 // const navItems = [
 //   { name: 'Home', path: '/' },
@@ -16,10 +16,35 @@
 //   { name: 'Projects', path: '/projects' }
 // ];
 
+// // Unified Data Structure for Mobile Materials
+// const MOBILE_STYLE_DATA = [
+//   {
+//     id: 'Oaken',
+//     title: "Oaken Wood",
+//     description: "Premium architectural flooring",
+//     image: "/images/oken/oken-1.png",
+//     sections: [
+//       { title: "Available Materials", materials: OAKEN_MATERIALS, env: null }
+//     ]
+//   },
+//   {
+//     id: 'NordWood',
+//     title: "Nordwood",
+//     description: "Environment-driven collections",
+//     image: "/images/nordwood/nordwood-2.png",
+//     sections: [
+//       { title: "Indoor", materials: NORDWOOD_DATA.Indoor.materials, env: "Indoor" },
+//       { title: "Outdoor", materials: NORDWOOD_DATA.Outdoor.materials, env: "Outdoor" }
+//     ]
+//   }
+// ];
+
 // export const Navbar: React.FC = () => {
 //   const [isOpen, setIsOpen] = useState(false);
 //   const [showSubmenu, setShowSubmenu] = useState(false);
 //   const [isScrolled, setIsScrolled] = useState(false);
+//   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(false);
+//   const [expandedMobileStyle, setExpandedMobileStyle] = useState<string | null>(null);
 //   const location = useLocation();
 
 //   useEffect(() => {
@@ -33,6 +58,12 @@
 //   useEffect(() => {
 //     document.body.style.overflow = isOpen ? 'hidden' : 'unset';
 //   }, [isOpen]);
+
+//   useEffect(() => {
+//     setIsOpen(false);
+//     setMobileSubmenuOpen(false);
+//     setExpandedMobileStyle(null);
+//   }, [location.pathname]);
 
 //   return (
 //     <>
@@ -51,7 +82,7 @@
 //           <div
 //             className={`transition-all duration-500 ease-in-out flex items-center ${
 //               isScrolled
-//                 ? '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-4 lg:left-8 [@media(min-width:781px)]:translate-x-0'
+//                 ? '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-7 lg:left-8 [@media(min-width:781px)]:translate-x-0'
 //                 : '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-1/2 [@media(min-width:781px)]:-translate-x-1/2 [@media(min-width:781px)]:top-8'
 //             }`}
 //           >
@@ -68,8 +99,10 @@
 
 //           {/* Desktop Navigation */}
 //           <div
-//             className={`flex items-center transition-all duration-500 flex-1 justify-end [@media(min-width:781px)]:justify-center ${
-//               isScrolled ? '[@media(min-width:781px)]:translate-y-0' : '[@media(min-width:781px)]:translate-y-10'
+//             className={`flex items-center transition-all duration-500 flex-1 ${
+//               isScrolled
+//                 ? 'justify-end [@media(min-width:781px)]:translate-y-0'
+//                 : 'justify-end [@media(min-width:781px)]:justify-center [@media(min-width:781px)]:translate-y-10'
 //             }`}
 //           >
 //             <div className="hidden [@media(min-width:781px)]:flex items-center gap-4 lg:gap-5 xl:gap-8 h-full">
@@ -89,22 +122,20 @@
 //                         ${isActive ? 'text-[#924321]' : 'text-[#000000] hover:text-[#924321]'}
 //                       `}
 //                     >
-//                       {({ isActive }) => (
-//                         <span className="relative">
-//                           {item.name}
-//                           <span className={`
-//                             absolute -bottom-1 left-0 w-full h-[1.5px] bg-[#924321] transition-transform duration-300 origin-left
-//                             ${isActive || (isProducts && showSubmenu) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
-//                           `} />
-//                         </span>
-//                       )}
+//                       <span className="relative">
+//                         {item.name}
+//                         <span className={`
+//                           absolute -bottom-1 left-0 w-full h-[1.5px] bg-[#924321] transition-transform duration-300 origin-left
+//                           ${location.pathname === item.path || (isProducts && showSubmenu) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
+//                         `} />
+//                       </span>
 //                     </NavLink>
 //                   </div>
 //                 );
 //               })}
 //             </div>
 
-//             {/* Mobile Hamburger */}
+//             {/* Mobile Hamburger Toggle */}
 //             <div className="[@media(min-width:781px)]:hidden flex items-center">
 //               <button
 //                 onClick={() => setIsOpen(true)}
@@ -117,7 +148,7 @@
 //           </div>
 //         </Container>
 
-//         {/* EDGE-TO-EDGE SUBMENU */}
+//         {/* Desktop Submenu */}
 //         <AnimatePresence>
 //           {showSubmenu && (
 //             <motion.div
@@ -126,7 +157,7 @@
 //               exit={{ opacity: 0 }}
 //               onMouseEnter={() => setShowSubmenu(true)}
 //               onMouseLeave={() => setShowSubmenu(false)}
-//               className={`fixed left-0 w-full z-[1000] bg-white shadow-[0_30px_60px_rgba(0,0,0,0.08)] border-t border-gray-100 transition-all duration-500 ${
+//               className={`fixed left-0 w-full z-[1000] bg-white shadow-[0_30px_60px_rgba(0,0,0,0.08)] border-t border-gray-100 transition-all duration-500 hidden [@media(min-width:781px)]:block ${
 //                 isScrolled ? 'top-16 [@media(min-width:781px)]:top-20' : 'top-20 [@media(min-width:781px)]:top-40'
 //               }`}
 //             >
@@ -144,7 +175,7 @@
 //             animate={{ x: 0 }}
 //             exit={{ x: '100%' }}
 //             transition={{ type: 'tween', duration: 0.3 }}
-//             className="fixed inset-0 bg-white z-[1200] p-6 sm:p-8"
+//             className="fixed inset-0 bg-white z-[1200] p-6 sm:p-8 overflow-y-auto"
 //           >
 //             <div className="flex items-center justify-between w-full mb-8">
 //               <Link to="/" onClick={() => setIsOpen(false)}>
@@ -154,21 +185,109 @@
 //                 <X size={32} />
 //               </button>
 //             </div>
-//             <div className="flex flex-col gap-4">
-//               {navItems.map((item) => (
-//                 <NavLink
-//                   key={item.name}
-//                   to={item.path}
-//                   onClick={() => setIsOpen(false)}
-//                   className={({ isActive }) => `
-//                     text-xl font-bold border-b border-gray-50 pb-4 flex justify-between items-center transition-colors
-//                     ${isActive ? 'text-[#924321]' : 'text-gray-800'}
-//                   `}
-//                 >
-//                   {item.name}
-//                   <ChevronRight size={22} className={location.pathname === item.path ? "text-[#924321]" : "text-[#837B55]"} />
-//                 </NavLink>
-//               ))}
+
+//             <div className="flex flex-col gap-2">
+//               {navItems.map((item) => {
+//                 const isProducts = item.name === 'Products';
+
+//                 return (
+//                   <div key={item.name} className="flex flex-col">
+//                     {isProducts ? (
+//                       <>
+//                         <button
+//                           onClick={() => setMobileSubmenuOpen(!mobileSubmenuOpen)}
+//                           className={`text-xl font-medium border-b border-gray-50 pb-4 flex justify-between items-center transition-colors ${
+//                             mobileSubmenuOpen ? 'text-[#924321]' : 'text-gray-800'
+//                           }`}
+//                         >
+//                           {item.name}
+//                           {mobileSubmenuOpen ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
+//                         </button>
+
+//                         <AnimatePresence>
+//                           {mobileSubmenuOpen && (
+//                             <motion.div
+//                               initial={{ height: 0, opacity: 0 }}
+//                               animate={{ height: 'auto', opacity: 1 }}
+//                               exit={{ height: 0, opacity: 0 }}
+//                               className="overflow-hidden"
+//                             >
+//                               <div className="flex flex-col py-4 gap-4 px-2">
+//                                 {MOBILE_STYLE_DATA.map((style) => (
+//                                   <div key={style.id} className="flex flex-col">
+//                                     <button
+//                                       onClick={() => setExpandedMobileStyle(expandedMobileStyle === style.id ? null : style.id)}
+//                                       className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors"
+//                                     >
+//                                       <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
+//                                         <img src={style.image} alt={style.title} className="w-full h-full object-cover" />
+//                                       </div>
+//                                       <div className="flex flex-col text-left flex-grow">
+//                                         <span className="font-medium text-gray-900">{style.title}</span>
+//                                         <span className="text-xs text-gray-500">View Collection</span>
+//                                       </div>
+//                                       {expandedMobileStyle === style.id ? <ChevronUp size={18} /> : <ChevronRight size={18} />}
+//                                     </button>
+
+//                                     {/* Material Grid inside Mobile Style */}
+//                                     <AnimatePresence>
+//                                       {expandedMobileStyle === style.id && (
+//                                         <motion.div
+//                                           initial={{ height: 0, opacity: 0 }}
+//                                           animate={{ height: 'auto', opacity: 1 }}
+//                                           exit={{ height: 0, opacity: 0 }}
+//                                           className="overflow-hidden border-l-2 border-gray-100 ml-6"
+//                                         >
+//                                           <div className="py-4 pl-4 space-y-6">
+//                                             {style.sections.map((section) => (
+//                                               <div key={section.title}>
+//                                                 <h5 className="text-[10px] uppercase tracking-widest text-gray-400 mb-3 font-bold">
+//                                                   {section.title}
+//                                                 </h5>
+//                                                 <div className="grid grid-cols-1 gap-4">
+//                                                   {section.materials.map((mat) => (
+//                                                     <Link
+//                                                       key={mat}
+//                                                       to={section.env 
+//                                                         ? `/products?environment=${section.env}&category=${encodeURIComponent(mat)}`
+//                                                         : `/products?category=${encodeURIComponent(mat)}`
+//                                                       }
+//                                                       onClick={() => setIsOpen(false)}
+//                                                       className="text-gray-600 hover:text-[#924321] transition-colors flex items-center gap-3"
+//                                                     >
+//                                                       <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+//                                                       {mat}
+//                                                     </Link>
+//                                                   ))}
+//                                                 </div>
+//                                               </div>
+//                                             ))}
+//                                           </div>
+//                                         </motion.div>
+//                                       )}
+//                                     </AnimatePresence>
+//                                   </div>
+//                                 ))}
+//                               </div>
+//                             </motion.div>
+//                           )}
+//                         </AnimatePresence>
+//                       </>
+//                     ) : (
+//                       <NavLink
+//                         to={item.path}
+//                         onClick={() => setIsOpen(false)}
+//                         className={({ isActive }) => `
+//                           text-xl font-medium border-b border-gray-50 pb-4 flex justify-between items-center transition-colors
+//                           ${isActive ? 'text-[#924321]' : 'text-gray-800'}
+//                         `}
+//                       >
+//                         {item.name}
+//                       </NavLink>
+//                     )}
+//                   </div>
+//                 );
+//               })}
 //             </div>
 //           </motion.div>
 //         )}
@@ -178,6 +297,8 @@
 // };
 
 
+
+// these is the second update
 
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
@@ -196,19 +317,19 @@ const navItems = [
   { name: 'Projects', path: '/projects' }
 ];
 
-// Reusing the same data structure for mobile consistency
+// Simplified for direct brand access
 const MOBILE_STYLE_DATA = [
   {
+    id: 'Oaken',
     title: "Oaken Wood",
-    path: "/products",
     description: "Premium architectural flooring",
-    image: "/images/oken/oken-1.png"
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400",
   },
   {
+    id: 'Nordwood',
     title: "Nordwood",
-    path: "/products?environment=Indoor",
     description: "Environment-driven collections",
-    image: "/images/nordwood/nordwood-2.png"
+    image: "https://images.unsplash.com/photo-1542621334-a254cf47733d?w=400",
   }
 ];
 
@@ -231,15 +352,15 @@ export const Navbar: React.FC = () => {
     document.body.style.overflow = isOpen ? 'hidden' : 'unset';
   }, [isOpen]);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsOpen(false);
     setMobileSubmenuOpen(false);
+    setShowSubmenu(false);
   }, [location.pathname]);
 
   return (
     <>
-      {/* Spacer to prevent content jump */}
+      {/* Original Spacer */}
       <div className="h-24 sm:h-32 [@media(min-width:781px)]:h-40 w-full bg-white border-b border-gray-50" />
 
       <nav
@@ -250,11 +371,11 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <Container className="h-full relative flex items-center justify-between px-4 sm:px-6">
-          {/* Logo Section */}
+          {/* Original Logo Section Logic */}
           <div
             className={`transition-all duration-500 ease-in-out flex items-center ${
               isScrolled
-                ? '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-4 lg:left-8 [@media(min-width:781px)]:translate-x-0'
+                ? '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-7 lg:left-8 [@media(min-width:781px)]:translate-x-0'
                 : '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-1/2 [@media(min-width:781px)]:-translate-x-1/2 [@media(min-width:781px)]:top-8'
             }`}
           >
@@ -269,10 +390,12 @@ export const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Original Desktop Navigation Layout */}
           <div
-            className={`flex items-center transition-all duration-500 flex-1 justify-end [@media(min-width:781px)]:justify-center ${
-              isScrolled ? '[@media(min-width:781px)]:translate-y-0' : '[@media(min-width:781px)]:translate-y-10'
+            className={`flex items-center transition-all duration-500 flex-1 ${
+              isScrolled
+                ? 'justify-end [@media(min-width:781px)]:translate-y-0'
+                : 'justify-end [@media(min-width:781px)]:justify-center [@media(min-width:781px)]:translate-y-10'
             }`}
           >
             <div className="hidden [@media(min-width:781px)]:flex items-center gap-4 lg:gap-5 xl:gap-8 h-full">
@@ -292,22 +415,20 @@ export const Navbar: React.FC = () => {
                         ${isActive ? 'text-[#924321]' : 'text-[#000000] hover:text-[#924321]'}
                       `}
                     >
-                      {({ isActive }) => (
-                        <span className="relative">
-                          {item.name}
-                          <span className={`
-                            absolute -bottom-1 left-0 w-full h-[1.5px] bg-[#924321] transition-transform duration-300 origin-left
-                            ${isActive || (isProducts && showSubmenu) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
-                          `} />
-                        </span>
-                      )}
+                      <span className="relative">
+                        {item.name}
+                        <span className={`
+                          absolute -bottom-1 left-0 w-full h-[1.5px] bg-[#924321] transition-transform duration-300 origin-left
+                          ${location.pathname === item.path || (isProducts && showSubmenu) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
+                        `} />
+                      </span>
                     </NavLink>
                   </div>
                 );
               })}
             </div>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Original Mobile Hamburger Toggle */}
             <div className="[@media(min-width:781px)]:hidden flex items-center">
               <button
                 onClick={() => setIsOpen(true)}
@@ -320,7 +441,7 @@ export const Navbar: React.FC = () => {
           </div>
         </Container>
 
-        {/* EDGE-TO-EDGE DESKTOP SUBMENU */}
+        {/* Desktop Submenu */}
         <AnimatePresence>
           {showSubmenu && (
             <motion.div
@@ -365,7 +486,6 @@ export const Navbar: React.FC = () => {
                 return (
                   <div key={item.name} className="flex flex-col">
                     {isProducts ? (
-                      /* Mobile Products Toggle */
                       <>
                         <button
                           onClick={() => setMobileSubmenuOpen(!mobileSubmenuOpen)}
@@ -374,14 +494,9 @@ export const Navbar: React.FC = () => {
                           }`}
                         >
                           {item.name}
-                          {mobileSubmenuOpen ? (
-                            <ChevronUp size={22} className="text-[#924321]" />
-                          ) : (
-                            <ChevronDown size={22} className="text-[#837B55]" />
-                          )}
+                          {mobileSubmenuOpen ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
                         </button>
-                        
-                        {/* Expandable Style Section */}
+
                         <AnimatePresence>
                           {mobileSubmenuOpen && (
                             <motion.div
@@ -393,23 +508,19 @@ export const Navbar: React.FC = () => {
                               <div className="flex flex-col py-4 gap-4 px-2">
                                 {MOBILE_STYLE_DATA.map((style) => (
                                   <Link
-                                    key={style.title}
-                                    to={style.path}
+                                    key={style.id}
+                                    to={`/products?brand=${style.id}`}
                                     onClick={() => setIsOpen(false)}
-                                    className="flex items-center gap-4 p-3 bg-white rounded-xl active:bg-gray-100 transition-colors"
+                                    className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors"
                                   >
                                     <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
-                                      <img 
-                                        src={style.image} 
-                                        alt={style.title} 
-                                        className="w-full h-full object-cover" 
-                                      />
+                                      <img src={style.image} alt={style.title} className="w-full h-full object-cover" />
                                     </div>
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col text-left flex-grow">
                                       <span className="font-medium text-gray-900">{style.title}</span>
-                                      <span className="text-xs text-gray-500">{style.description}</span>
+                                      <span className="text-xs text-gray-500">View Collection</span>
                                     </div>
-                                    <ChevronRight size={16} className="ml-auto text-gray-400" />
+                                    <ChevronRight size={18} />
                                   </Link>
                                 ))}
                               </div>
@@ -418,7 +529,6 @@ export const Navbar: React.FC = () => {
                         </AnimatePresence>
                       </>
                     ) : (
-                      /* Standard Mobile Link */
                       <NavLink
                         to={item.path}
                         onClick={() => setIsOpen(false)}
@@ -428,10 +538,6 @@ export const Navbar: React.FC = () => {
                         `}
                       >
                         {item.name}
-                        <ChevronRight 
-                          size={22} 
-                          className={location.pathname === item.path ? "text-[#924321]" : "text-[#837B55]"} 
-                        />
                       </NavLink>
                     )}
                   </div>

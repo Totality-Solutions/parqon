@@ -220,3 +220,4 @@ export const ProductDetail: React.FC = () => {
     </section>
   );
 };
+
