@@ -377,11 +377,14 @@
 // [these i the second redesign of the code ]
 
 
+"use client";
+
 import React, { useMemo, useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Container } from '../../../components/common/Container';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ALL_PRODUCTS, BRAND_CATEGORIES, BRANDS } from '../../../data/products';
+import { X, ChevronLeft, ChevronRight, Plus, Minus, Search, Filter } from 'lucide-react';
 
 export const ProductListing: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -389,14 +392,20 @@ export const ProductListing: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSectionVisible, setIsSectionVisible] = useState(false);
+  
+  // New state for sticky header styling
+  const [isTopFilterStuck, setIsTopFilterStuck] = useState(false);
+  
   const sectionRef = useRef<HTMLElement>(null);
+  const stickySentinelRef = useRef<HTMLDivElement>(null);
 
   const productsPerPage = 9;
 
-  const activeBrand = searchParams.get('brand') as 'Oaken' | 'Nordwood' | null;
+  const activeBrand = searchParams.get('brand');
   const activeCategory = searchParams.get('category');
   const activeSub = searchParams.get('sub');
 
+  // --- FILTER LOGIC ---
   const filteredProducts = useMemo(() => {
     return ALL_PRODUCTS.filter(p => {
       const mSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -419,27 +428,48 @@ export const ProductListing: React.FC = () => {
     return [currentPage, currentPage + 1];
   };
 
+  // --- EFFECTS ---
+  
+  // 1. Observer for the whole section (Bottom Filter visibility)
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => setIsSectionVisible(entry.isIntersecting), { threshold: 0.05 });
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
+  // 2. Observer for Sticky Header (detects when top filter "sticks")
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // If the sentinel is NOT intersecting, it means it has scrolled past the top
+        setIsTopFilterStuck(!entry.isIntersecting);
+      },
+      { threshold: [1] }
+    );
+
+    if (stickySentinelRef.current) observer.observe(stickySentinelRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => { setCurrentPage(1); }, [searchParams, searchQuery]);
 
-  // Lock scroll when mobile sidebar is open
   useEffect(() => {
     if (isSidebarOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
   }, [isSidebarOpen]);
 
+  // --- HANDLERS ---
   const updateFilter = (key: 'brand' | 'category' | 'sub', value: string | null) => {
     const next = new URLSearchParams(searchParams);
+    
     if (key === 'brand') {
       next.delete('category');
       next.delete('sub');
-      if (activeBrand === value) next.delete('brand');
-      else next.set('brand', value!);
+      if (!value || value === 'All' || activeBrand === value) {
+        next.delete('brand');
+      } else {
+        next.set('brand', value);
+      }
     } else if (key === 'sub') {
       next.delete('category');
       if (activeSub === value) next.delete('sub');
@@ -448,9 +478,9 @@ export const ProductListing: React.FC = () => {
       if (activeCategory === value) next.delete('category');
       else next.set('category', value!);
     }
+
     setSearchParams(next, { preventScrollReset: true });
-    // Close sidebar on mobile after selecting a filter
-    if (window.innerWidth < 1024) setIsSidebarOpen(false);
+    if (window.innerWidth < 1024 && key !== 'brand') setIsSidebarOpen(false);
   };
 
   const clearAllFilters = () => {
@@ -461,6 +491,8 @@ export const ProductListing: React.FC = () => {
 
   const renderCategories = (brand: string) => {
     const data = BRAND_CATEGORIES[brand as keyof typeof BRAND_CATEGORIES];
+    if (!data) return null;
+    
     if (Array.isArray(data)) {
       return (
         <div className="flex flex-col gap-3">
@@ -468,8 +500,9 @@ export const ProductListing: React.FC = () => {
             <button
               key={cat}
               onClick={() => updateFilter('category', cat)}
-              className={`text-sm text-left transition-colors font-medium capitalize ${activeCategory === cat ? 'text-[#924321]' : 'text-slate-400 hover:text-slate-600'
-                }`}
+              className={`text-sm text-left transition-colors font-medium capitalize ${
+                activeCategory === cat ? 'text-[#924321]' : 'text-slate-400 hover:text-slate-600'
+              }`}
             >
               {cat}
             </button>
@@ -481,8 +514,9 @@ export const ProductListing: React.FC = () => {
       <div key={subTitle} className="mb-6 last:mb-0">
         <button
           onClick={() => updateFilter('sub', subTitle)}
-          className={`text-[11px] font-bold mb-3 capitalize transition-colors block ${activeSub === subTitle ? 'text-[#924321]' : 'text-[#6D6546] hover:text-slate-500'
-            }`}
+          className={`text-[11px] font-bold mb-3 capitalize transition-colors block ${
+            activeSub === subTitle ? 'text-[#924321]' : 'text-[#6D6546] hover:text-slate-500'
+          }`}
         >
           {subTitle} series {activeSub === subTitle && "•"}
         </button>
@@ -491,8 +525,9 @@ export const ProductListing: React.FC = () => {
             <button
               key={cat}
               onClick={() => updateFilter('category', cat)}
-              className={`text-sm text-left transition-colors font-medium capitalize ${activeCategory === cat ? 'text-[#924321]' : 'text-slate-400 hover:text-slate-600'
-                }`}
+              className={`text-sm text-left transition-colors font-medium capitalize ${
+                activeCategory === cat ? 'text-[#924321]' : 'text-slate-400 hover:text-slate-600'
+              }`}
             >
               {cat}
             </button>
@@ -505,33 +540,47 @@ export const ProductListing: React.FC = () => {
   return (
     <section ref={sectionRef} className="py-12 md:py-24 bg-white min-h-screen relative text-slate-900">
       <Container>
-        <div className="flex flex-col lg:flex-row gap-12 xl:gap-24 items-start w-full">
+        
+        {/* 1. TOP MOBILE BRAND FILTER SENTINEL */}
+        <div ref={stickySentinelRef} className="h-px w-full lg:hidden" />
 
-          {/* MOBILE OVERLAY */}
+        {/* 1. TOP MOBILE BRAND FILTER */}
+        <div className={`
+          lg:hidden flex border-b border-gray-100 mb-8 sticky top-0 bg-white z-[50] transition-shadow duration-300
+          ${isTopFilterStuck ? 'shadow-md px-2' : ''}
+        `}>
+          {['All', ...BRANDS].map((brand) => {
+            const isActive = (brand === 'All' && !activeBrand) || activeBrand === brand;
+            return (
+              <button
+                key={brand}
+                onClick={() => updateFilter('brand', brand === 'All' ? null : brand)}
+                className={`flex-1 py-4 text-[10px] font-bold tracking-widest uppercase transition-all border-b-2 ${
+                  isActive ? 'border-[#924321] text-[#924321]' : 'border-transparent text-slate-400'
+                }`}
+              >
+                {brand}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-12 xl:gap-24 items-start w-full">
           <AnimatePresence>
             {isSidebarOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsSidebarOpen(false)}
-                className="fixed inset-0 bg-black/40 z-[110] lg:hidden backdrop-blur-sm"
-              />
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-black/40 z-[110] lg:hidden backdrop-blur-sm" />
             )}
           </AnimatePresence>
 
-          {/* Sidebar Drawer */}
+          {/* 2. SIDEBAR DRAWER */}
           <aside className={`
             fixed inset-x-0 bottom-0 w-full bg-white z-[120] p-8 pb-12 transition-transform duration-500 ease-in-out max-h-[90vh] overflow-y-auto
             lg:relative lg:inset-auto lg:translate-y-0 lg:w-64 lg:block lg:sticky lg:top-40 lg:z-10 lg:p-0
             ${isSidebarOpen ? 'translate-y-0' : 'translate-y-full lg:translate-y-0'}
           `}>
-            {/* Mobile Sidebar Header */}
             <div className="flex justify-between items-center mb-8 lg:hidden">
               <h2 className="text-xl font-bold capitalize">Filters</h2>
-              <button onClick={() => setIsSidebarOpen(false)} className="p-2 border border-gray-100">
-                <X size={20} />
-              </button>
+              <button onClick={() => setIsSidebarOpen(false)} className="p-2 border border-gray-100"><X size={20} /></button>
             </div>
 
             <div className="mb-12">
@@ -549,13 +598,26 @@ export const ProductListing: React.FC = () => {
               <div className="flex flex-col gap-8">
                 {BRANDS.map((brand) => (
                   <div key={brand} className="flex flex-col">
-                    <button onClick={() => updateFilter('brand', brand)} className={`flex justify-between items-center text-left ${activeBrand === brand ? 'text-slate-900 font-bold' : 'text-slate-400'}`}>
+                    <button 
+                      type="button"
+                      onClick={() => updateFilter('brand', brand)} 
+                      className={`flex justify-between items-center text-left w-full transition-colors group ${activeBrand === brand ? 'text-slate-900 font-bold' : 'text-slate-400'}`}
+                    >
                       <span className="text-lg font-medium tracking-tight capitalize">{brand} wood</span>
-                      <span className="text-lg font-light">{activeBrand === brand ? '−' : '+'}</span>
+                      <span className="flex items-center pointer-events-none">
+                        {activeBrand === brand ? <Minus size={18} strokeWidth={1.5} /> : <Plus size={18} strokeWidth={1.5} />}
+                      </span>
                     </button>
+                    
                     <AnimatePresence>
                       {activeBrand === brand && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden mt-5 pl-4 border-l border-gray-100">
+                        <motion.div 
+                          initial={{ height: 0, opacity: 0 }} 
+                          animate={{ height: 'auto', opacity: 1 }} 
+                          exit={{ height: 0, opacity: 0 }} 
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden mt-5 pl-4 border-l border-gray-100"
+                        >
                           {renderCategories(brand)}
                         </motion.div>
                       )}
@@ -566,25 +628,25 @@ export const ProductListing: React.FC = () => {
             </div>
           </aside>
 
-          {/* Main Content Area */}
+          {/* 3. MAIN CONTENT */}
           <div className="flex-1 w-full pb-32 lg:pb-0">
             {currentProducts.length > 0 ? (
               <>
                 <main className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
                   {currentProducts.map(p => (
-                    <div key={p.id} className="group block w-full">
+                    <motion.div layout key={p.id} className="group block w-full">
                       <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
                         <img src={p.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={p.title} />
                       </div>
                       <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4>
-                      <p className="text-[11px] text-slate-400 font-bold font-medium capitalize">
+                      <p className="text-[11px] text-slate-400 font-bold capitalize">
                         {p.brand} series • {p.subCategory ? `${p.subCategory} • ` : ""}{p.category}
                       </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </main>
 
-                {/* Pagination */}
+                {/* PAGINATION */}
                 {totalPages > 1 && (
                   <div className="mt-24 pt-10 border-t border-gray-100 flex justify-end items-center gap-10">
                     <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="text-slate-300 hover:text-slate-900 disabled:opacity-20 transition-colors">
@@ -605,61 +667,40 @@ export const ProductListing: React.FC = () => {
               </>
             ) : (
               <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
-                <div className="w-16 h-16 mb-8 border border-gray-100 flex items-center justify-center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" strokeWidth="1.5">
-                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-light tracking-tight text-slate-900 mb-3 capitalize">Material not found</h3>
-                <p className="text-slate-400 mb-10 max-w-xs text-sm leading-relaxed">Adjust your filters to find what you are looking for.</p>
-                <button onClick={clearAllFilters} className="px-8 py-4 border border-slate-900 text-slate-900 text-[10px] font-bold tracking-[0.2em] capitalize hover:bg-slate-900 hover:text-white transition-all">
-                  Reset all filters
-                </button>
+                  <h3 className="text-2xl font-light text-slate-900 mb-3 capitalize">Material not found</h3>
+                  <button onClick={clearAllFilters} className="mt-6 px-8 py-3 border border-slate-900 text-[10px] font-bold tracking-widest uppercase hover:bg-slate-900 hover:text-white transition-all">Reset filters</button>
               </div>
             )}
           </div>
         </div>
 
-        {/* Floating Mobile Filter Button */}
-        {/* <div className={`fixed bottom-0 left-0 right-0 z-[100] lg:hidden transition-all duration-500 ${isSectionVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
-          <button 
-            onClick={() => setIsSidebarOpen(true)} 
-            className="w-full bg-slate-900 text-white h-16 flex items-center justify-center font-bold tracking-widest text-xs capitalize shadow-[0_-10px_30px_rgba(0,0,0,0.1)]"
-          >
-            Refine selection
-          </button>
-        </div> */}
-
-        <div className={`fixed bottom-0 left-0 right-0 z-[100] lg:hidden transition-all duration-500 ${isSectionVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="w-full bg-[#6D6546] text-white h-16 px-6 flex items-center justify-between font-medium tracking-wide text-sm shadow-[0_-10px_30px_rgba(0,0,0,0.3)] "
-          >
-            {/* Left Side: Search Section */}
-            <div className="flex items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <span className="capitalize">Search</span>
-            </div>
-
-            {/* Vertical Divider (Optional) */}
-            <div className="h-6 w-[1px] bg-white"></div>
-
-            {/* Right Side: Filters Section */}
-            <div className="flex items-center gap-3">
-              <span className="capitalize">Filters</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-              </svg>
-            </div>
-          </button>
-        </div>
+        {/* 4. BOTTOM MOBILE FILTER */}
+        <AnimatePresence>
+          {isSectionVisible && activeBrand && (
+            <motion.div 
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 100, opacity: 0 }}
+              className="fixed bottom-0 left-0 right-0 z-[100] lg:hidden transition-all duration-500"
+            >
+              <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="w-full bg-[#6D6546] text-white h-16 px-6 flex items-center justify-between font-medium tracking-wide text-sm shadow-[0_-10px_30px_rgba(0,0,0,0.3)]"
+              >
+                <div className="flex items-center gap-3">
+                  <Search size={20} className="text-white" />
+                  <span className="capitalize">Search</span>
+                </div>
+                <div className="h-6 w-[1px] bg-white/40"></div>
+                <div className="flex items-center gap-3">
+                  <span className="capitalize">{activeBrand} Filters</span>
+                  <Filter size={20} className="text-white" />
+                </div>
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Container>
     </section>
   );
 };
-
-const X = ({ size }: { size: number }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
-const ChevronLeft = ({ size, strokeWidth = 2 }: { size: number, strokeWidth?: number }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>;
-const ChevronRight = ({ size, strokeWidth = 2 }: { size: number, strokeWidth?: number }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>;
