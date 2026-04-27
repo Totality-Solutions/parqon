@@ -208,20 +208,20 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
-    question: "How durable is Parqon surfacing for outdoor use?",
-    answer: "Parqon surfaces are engineered with advanced moisture-resistance technology and UV protection, making them ideal for high-exposure outdoor environments."
+    question: "What makes Parqon flooring stable in different climates?",
+    answer: "Our products, especially the Nordwood range, utilize Thermowood technology which removes resin and reduces moisture reactions, ensuring the wood retains its shape better than untreated timber."
   },
   {
-    question: "Is the installation process complex?",
-    answer: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+    question: "Is Parqon flooring safe for indoor air quality?",
+    answer: "Yes, our Oaken indoor collection adheres to best-in-class formaldehyde emission standards to protect your health and maintain indoor air quality."
   },
   {
-    question: "What maintenance is required for retail spaces?",
-    answer: "For high-traffic retail environments, we recommend a simple pH-neutral cleaning solution. Our surfaces are naturally resistant to stains and scratches."
+    question: "Can the flooring be used with underfloor heating?",
+    answer: "Many of our indoor collections, including our solid wood and laminated options, are anti-static and specifically designed to be suitable for underfloor heating."
   },
   {
-    question: "Does Parqon offer custom grain or color matching?",
-    answer: "Yes, we work closely with architects and designers to provide custom solutions. Contact our technical team for specific project requirements."
+    question: "How durable are the outdoor products against weather?",
+    answer: "Nordwood products are transformed into weather-enduring materials that offer improved resistance to moisture, decay, and temperature variations."
   }
 ];
 

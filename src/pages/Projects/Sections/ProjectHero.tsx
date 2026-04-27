@@ -110,10 +110,10 @@ export const ProjectHero: React.FC<ProjectHeroProps> = ({ onSearch }) => {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <h1 className="text-dynamic-h2 font-bold tracking-tight text-gray-900 leading-[1.1] mb-8">
-                A curated space <br /> for design that speaks
+                The Essence of Parqon
               </h1>
               <p className="text-gray-500 text-dynamic-body leading-relaxed max-w-lg">
-                Explore a collection of thoughtful projects - where material, form, and function come together with clarity and intent.
+                Parqon brings the soul of wood to life, from refined interiors to expansive landscapes. We combine traditional craftsmanship with Thermowood technology to create surfaces that are as stable as they are beautiful. Whether indoors or out, our curated collections offer enduring elegance and a timeless connection to nature.
               </p>
             </motion.div>
 

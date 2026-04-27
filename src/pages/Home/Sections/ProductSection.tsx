@@ -192,31 +192,40 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../../../components/common/Button';
 
 const productData = {
-  'Indoor': {
-    description: 'Seamless transitions between classic and contemporary surfaces.',
+  'Living Rooms': {
+    description: 'Elegant and durable surfaces designed to be the centerpiece of your home, combining warmth with sophisticated architectural style.',
     images: [
       'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=600&q=60',
       'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=60',
-      'images/home/indoor-1.jpg',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=60'
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=60'
     ]
   },
-  'Outdoor': {
-    description: 'Quiet, serene environments with natural wood textures.',
+  'Bed Rooms': {
+    description: 'Create a sanctuary of comfort with premium flooring that offers quiet acoustics, natural insulation, and a soft, inviting aesthetic.',
     images: [
-      'images/home/outdoor-1.jpg',
-      'images/home/outdoor-2.jpg',
-      'images/home/outdoor-3.jpg',
-      'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=60'
+      'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1505693419148-de39739e4450?auto=format&fit=crop&w=600&q=60'
     ]
   },
-  'Oaken': {
-    description: 'Visualize how each surface transforms real environments.',
+  'Outdoor Decks': {
+    description: 'Weather-resistant surfaces engineered to withstand the elements while maintaining the natural beauty and structural integrity of high-end wood.',
     images: [
-      'images/home/Oaken-1.png',
-      'images/home/Oaken-2.png',
-      'images/home/Oaken-3.png',
-      'images/home/Oaken-4.png'
+      'https://images.unsplash.com/photo-1591825200244-4975217d26c0?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1562663474-6cbb3fee4c50?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1525906604151-69739bb01d58?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=600&q=60'
+    ]
+  },
+  'Patios': {
+    description: 'Transform your outdoor living spaces into luxury retreats with slip-resistant, moisture-stable surfaces built for modern versatility.',
+    images: [
+      'https://images.unsplash.com/photo-1534349762230-e0cadf78f5db?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1560662105-57f8ad6ec2d1?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=60',
+      'https://images.unsplash.com/photo-1558444479-c86e1055639d?auto=format&fit=crop&w=600&q=60'
     ]
   }
 };
@@ -224,7 +233,7 @@ const productData = {
 type Category = keyof typeof productData;
 
 export const ProductSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Category>('Outdoor');
+  const [activeTab, setActiveTab] = useState<Category>('Living Rooms');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const iconSrc = "/icons/arrow-right.png";
 
@@ -241,7 +250,7 @@ export const ProductSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="flex justify-between items-end 2xl:mb-24 border-b border-gray-100 pb-8"
+        className="flex justify-between items-end 2xl:mb-14 border-b border-gray-100 pb-8"
       >
         <div className="max-w-2xl">
           <h2 className="text-dynamic-h2 font-bold tracking-tighter">Products</h2>
@@ -312,10 +321,10 @@ export const ProductSection: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* PRODUCT GRID WITH STAGGERED REVEAL */}
+        {/* PRODUCT GRID */}
         <div className="w-full lg:w-3/4">
           <motion.div
-            key={activeTab} // Re-animates on tab change
+            key={activeTab}
             initial="hidden"
             animate="visible"
             variants={{
@@ -338,12 +347,10 @@ export const ProductSection: React.FC = () => {
                   src={img}
                   alt={`${activeTab} collection`}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  // PERFORMANCE FIXES:
                   loading="lazy" 
                   decoding="async"
                 />
 
-                {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center px-8 z-10">
                   <span className="text-dynamic-small text-gray-400 mb-3 tracking-[0.2em] font-bold">Collection</span>
                   <h3 className="text-dynamic-h3 text-gray-900 leading-tight mb-10 tracking-tight font-bold">
@@ -363,7 +370,6 @@ export const ProductSection: React.FC = () => {
         </div>
       </div>
 
-      {/* BACKGROUND PRELOADER (Fixes the delay when switching tabs) */}
       <div className="hidden" aria-hidden="true">
         {Object.values(productData).flatMap(cat => cat.images).map((src, i) => (
           <link key={i} rel="preload" as="image" href={src} />

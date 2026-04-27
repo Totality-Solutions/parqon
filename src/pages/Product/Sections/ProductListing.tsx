@@ -538,17 +538,24 @@ export const ProductListing: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-12 md:py-24 bg-white min-h-screen relative text-slate-900">
+    <section ref={sectionRef} className="pt-1 md:py-24 bg-white min-h-screen relative text-slate-900">
       <Container>
         
         {/* 1. TOP MOBILE BRAND FILTER SENTINEL */}
         <div ref={stickySentinelRef} className="h-px w-full lg:hidden" />
 
         {/* 1. TOP MOBILE BRAND FILTER */}
-        <div className={`
+        {/* <div className={`
           lg:hidden flex border-b border-gray-100 mb-8 sticky top-0 bg-white z-[50] transition-shadow duration-300
           ${isTopFilterStuck ? 'shadow-md px-2' : ''}
-        `}>
+        `}> */}
+
+        <div className={`
+  lg:hidden flex border-b border-gray-100 mb-8 sticky 
+  top-[64px] {/* Change this to your Navbar height */}
+  bg-white z-[50] transition-shadow duration-300
+  ${isTopFilterStuck ? '' : ''}
+`}>
           {['All', ...BRANDS].map((brand) => {
             const isActive = (brand === 'All' && !activeBrand) || activeBrand === brand;
             return (
@@ -629,7 +636,7 @@ export const ProductListing: React.FC = () => {
           </aside>
 
           {/* 3. MAIN CONTENT */}
-          <div className="flex-1 w-full pb-32 lg:pb-0">
+          <div className="flex-1 w-full pb-5 lg:pb-0">
             {currentProducts.length > 0 ? (
               <>
                 <main className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">

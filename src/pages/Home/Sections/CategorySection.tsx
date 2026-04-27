@@ -99,13 +99,13 @@ const categories = [
   { 
     id: 1, 
     subTitle: 'Oaken',
-    title: 'Extend the material beyond the floor.', 
+    title: 'Premium indoor flooring crafted to deliver the authentic beauty of real wood with enhanced strength and performance for modern interiors.', 
     img: livingRoomImg 
   },
   { 
     id: 2, 
     subTitle: 'NordWood',
-    title: 'Discover the natural grain of oak.', 
+    title: 'Sustainable outdoor surfaces that transform the timeless beauty of wood into durable, weather-enduring landscapes and architectural elements.', 
     img: kitchenImg 
   },
 ];
@@ -122,7 +122,8 @@ export const CategorySection: React.FC = () => {
       >
         <CategoryHeader 
           title="Our Collections"
-          description="Explore our curated sets."
+          description="A thoughtfully engineered selection of surfaces designed to enhance environments with character, depth, and enduring elegance.
+"
           iconSrc="/icons/arrow-right.png" 
           onClick={() => console.log("Navigating...")}
         />
@@ -167,7 +168,7 @@ export const CategorySection: React.FC = () => {
                 <span className="text-xl  text-gray-500 block mb-2 md:mb-4  font-semibold md:translate-y-8 md:group-hover:translate-y-0 md:transition-transform md:duration-500">
                   {cat.subTitle}
                 </span>
-                <h3 className="ext-dynamic-body l sm:text-dynamic-h3 text-gray-900 max-w-[90%] leading-tight md:translate-y-8 md:group-hover:translate-y-0 md:transition-transform md:duration-500 md:delay-75 font-bold md:font-normal">
+                <h3 className="text-dynamic-body l sm:text-dynamic-h3 text-gray-900 max-w-[100%] leading-tight md:translate-y-8 md:group-hover:translate-y-0 md:transition-transform md:duration-500 md:delay-75  md:font-normal">
                   {cat.title}
                 </h3>
               </div>

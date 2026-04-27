@@ -549,7 +549,7 @@ export const ContactPage: React.FC = () => {
             >
               <h1 className="text-dynamic-h1 font-bold text-gray-900 mb-6 tracking-tight capitalize">Get in touch</h1>
               <p className="text-gray-500 text-dynamic-body leading-relaxed max-w-md font-medium">
-                Our team is ready to provide expert guidance on your architectural flooring needs.
+                Connect with our specialists today to bring the warmth and character of natural wood to your next project.
               </p>
             </motion.div>
 

@@ -12,7 +12,7 @@ const ProductPage: React.FC = () => {
             <ProductHero />
             <ProductListing />
             {/* Additional sections will go here */}
-            <div className="pb-20">
+            <div className="">
                 <ProjectCallout />
             </div>
             <ProductSupport />

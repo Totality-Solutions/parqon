@@ -299,12 +299,11 @@
 
 
 // these is the second update
-
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Container } from '../common/Container';
 import PAROONLogo from '../../assets/logo.png';
-import { Menu, X, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProductSubmenu } from './ProductSubmenu';
 
@@ -317,7 +316,6 @@ const navItems = [
   { name: 'Projects', path: '/projects' }
 ];
 
-// Simplified for direct brand access
 const MOBILE_STYLE_DATA = [
   {
     id: 'Oaken',
@@ -360,7 +358,6 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Original Spacer */}
       <div className="h-24 sm:h-32 [@media(min-width:781px)]:h-40 w-full bg-white border-b border-gray-50" />
 
       <nav
@@ -371,7 +368,6 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <Container className="h-full relative flex items-center justify-between px-4 sm:px-6">
-          {/* Original Logo Section Logic */}
           <div
             className={`transition-all duration-500 ease-in-out flex items-center ${
               isScrolled
@@ -383,14 +379,11 @@ export const Navbar: React.FC = () => {
               <img
                 src={PAROONLogo}
                 alt="Logo"
-                className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-8 [@media(min-width:781px)]:h-10' : 'h-10 [@media(min-width:781px)]:h-12'
-                }`}
+                className={`w-auto object-contain transition-all duration-500 h-8 [@media(min-width:781px)]:${isScrolled ? 'h-10' : 'h-12'}`}
               />
             </Link>
           </div>
 
-          {/* Original Desktop Navigation Layout */}
           <div
             className={`flex items-center transition-all duration-500 flex-1 ${
               isScrolled
@@ -428,7 +421,6 @@ export const Navbar: React.FC = () => {
               })}
             </div>
 
-            {/* Original Mobile Hamburger Toggle */}
             <div className="[@media(min-width:781px)]:hidden flex items-center">
               <button
                 onClick={() => setIsOpen(true)}
@@ -441,7 +433,6 @@ export const Navbar: React.FC = () => {
           </div>
         </Container>
 
-        {/* Desktop Submenu */}
         <AnimatePresence>
           {showSubmenu && (
             <motion.div
@@ -460,7 +451,6 @@ export const Navbar: React.FC = () => {
         </AnimatePresence>
       </nav>
 
-      {/* MOBILE DRAWER */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -487,15 +477,43 @@ export const Navbar: React.FC = () => {
                   <div key={item.name} className="flex flex-col">
                     {isProducts ? (
                       <>
-                        <button
-                          onClick={() => setMobileSubmenuOpen(!mobileSubmenuOpen)}
+                        <div
                           className={`text-xl font-medium border-b border-gray-50 pb-4 flex justify-between items-center transition-colors ${
                             mobileSubmenuOpen ? 'text-[#924321]' : 'text-gray-800'
                           }`}
                         >
-                          {item.name}
-                          {mobileSubmenuOpen ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
-                        </button>
+                          <Link
+                            to="/products"
+                            className="flex-grow text-left"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+
+                          <div
+                            className="pl-4 cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setMobileSubmenuOpen(!mobileSubmenuOpen);
+                            }}
+                          >
+                            <motion.div
+                              animate={{
+                                rotate: mobileSubmenuOpen ? 90 : 0
+                              }}
+                              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                              className="flex-shrink-0"
+                            >
+                              <img
+                                src="/icons/arrow-right.png"
+                                alt="arrow"
+                                className={`w-6 h-6 object-contain transition-opacity duration-300 ${
+                                  mobileSubmenuOpen ? 'opacity-100' : 'opacity-40'
+                                }`}
+                              />
+                            </motion.div>
+                          </div>
+                        </div>
 
                         <AnimatePresence>
                           {mobileSubmenuOpen && (
@@ -511,16 +529,16 @@ export const Navbar: React.FC = () => {
                                     key={style.id}
                                     to={`/products?brand=${style.id}`}
                                     onClick={() => setIsOpen(false)}
-                                    className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors"
+                                    className="flex items-center gap-4 p-3 bg-gray-50 active:bg-gray-100 transition-colors"
                                   >
-                                    <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                                    <div className="w-14 h-14 overflow-hidden flex-shrink-0">
                                       <img src={style.image} alt={style.title} className="w-full h-full object-cover" />
                                     </div>
                                     <div className="flex flex-col text-left flex-grow">
                                       <span className="font-medium text-gray-900">{style.title}</span>
                                       <span className="text-xs text-gray-500">View Collection</span>
                                     </div>
-                                    <ChevronRight size={18} />
+                                    {/* <ChevronRight size={18} /> */}
                                   </Link>
                                 ))}
                               </div>

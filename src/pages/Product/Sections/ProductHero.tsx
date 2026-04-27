@@ -110,7 +110,7 @@ export const ProductHero: React.FC = () => {
                             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
                             className="text-dynamic-h2 font-normal tracking-tighter text-gray-900 leading-[1.1] capitalize"
                         >
-                            Styles that cater to <br className="hidden md:block" /> different spaces and budgets
+                            Elevating the Standards of Modern Living.
                         </motion.h1>
 
                         <motion.p
@@ -119,7 +119,7 @@ export const ProductHero: React.FC = () => {
                             transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
                             className="text-gray-500 text-dynamic-body mt-4 font-normal capitalize"
                         >
-                            Designs that impress the Earth as well
+                            Discover how our indoor and outdoor collections harmonize with world-class design to create enduring environments of luxury.
                         </motion.p>
                     </div>
 

@@ -200,7 +200,7 @@ export const AboutWhy: React.FC = () => {
               Why Choose <br /> Parqon?
             </h2>
             <p className="text-gray-500 text-lg leading-relaxed max-w-sm font-medium">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+             We blend 100% sustainably sourced timber with advanced engineering to provide high-performance flooring that protects your health and elevates your design with up to a 25-year warranty.
             </p>
           </div>
 
@@ -273,7 +273,7 @@ export const AboutWhy: React.FC = () => {
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="w-full md:w-56 h-36 overflow-hidden bg-gray-100 shrink-0 rounded-sm"
+                            className="w-full md:w-56 h-36 overflow-hidden bg-gray-100 shrink-0 "
                           >
                             <img 
                               src={item.image} 

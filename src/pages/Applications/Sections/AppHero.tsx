@@ -76,7 +76,7 @@ interface AppHeroProps {
 
 export const AppHero: React.FC<AppHeroProps> = ({
   title = "Designed for Every Environment",
-  description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy t..",
+  description = "A sophisticated fusion of hand-selected timber and precision engineering, designed to bring the organic warmth and intricate grain patterns of natural wood to high-end interior surfaces.",
   mediaUrl = "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600",
   mediaType = 'image'
 }) => {
