@@ -28,7 +28,7 @@
 //           arrowDirection="ne"
 //           arrowColor="fill-white"
 //         />
-        
+
 //       </Container>
 //     </section>
 //   );
@@ -46,7 +46,7 @@ export const HeroIntro: React.FC = () => {
       <Container className="flex flex-col items-center text-center">
 
         {/* Paragraph text utilizing dynamic typography variables */}
-        <motion.div 
+        <motion.div
           className="max-w-6xl mx-auto px-4 md:px-0"
           initial={{ opacity: 0, y: 40 }} // Starts 40px down and invisible
           whileInView={{ opacity: 1, y: 0 }} // Animates to position on scroll
@@ -54,9 +54,8 @@ export const HeroIntro: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p className="text-gray-900 text-dynamic-body tracking-normal font-normal">
-            We believe flooring is not a background element - it is the foundation of every space.
-            The texture, tone, and grain of wood shape how light moves, how spaces feel, and how people experience them.
-            At Parqon, every surface is designed to balance aesthetics, performance, and longevity - without compromise.
+            Parqon defines spaces with a premium range of surfaces, from the Oaken indoor collection’s refined engineered flooring to the Nordwood outdoor series’ durable decking and facades. By blending advanced Thermowood technology with the timeless soul of natural timber, we provide versatile design solutions for both sophisticated interiors and resilient landscapes.
+
           </p>
         </motion.div>
 
@@ -70,12 +69,12 @@ export const HeroIntro: React.FC = () => {
           <Button
             label="Start Exploring"
             variant="primary"
-            className="mt-3 w-fit p-0 scale-[1.1] md:scale-[1.2] lg:scale-[1.1]" 
+            className="mt-3 w-fit p-0 scale-[1.1] md:scale-[1.2] lg:scale-[1.1]"
             arrowDirection="ne"
             arrowColor="fill-white"
           />
         </motion.div>
-        
+
       </Container>
     </section>
   );

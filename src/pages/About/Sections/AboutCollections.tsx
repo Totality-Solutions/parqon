@@ -5,7 +5,7 @@ const usageData: ExpandableListItem[] = [
   {
     id: 'interior',
     title: 'Interior',
-    shortDesc: 'Refined finishes that enhance living and working environments with warmth and precision.',
+    shortDesc: 'Elevating indoor living with premium engineered surfaces that blend timeless wood aesthetics with modern warmth and comfort.',
     previews: [
       "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400",
       "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=400",
@@ -15,7 +15,7 @@ const usageData: ExpandableListItem[] = [
   {
     id: 'exterior',
     title: 'Exterior',
-    shortDesc: 'Durable surfaces built to withstand environmental conditions without compromising on design.',
+    shortDesc: 'Sustainable, high-performance decking and cladding engineered with advanced technology to master the elements and enhance architectural landscapes.',
     previews: [
       "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=400",
        "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400",
@@ -25,7 +25,7 @@ const usageData: ExpandableListItem[] = [
   {
     id: 'commercial',
     title: 'Commercial',
-    shortDesc: 'Engineered for high-traffic spaces where performance and visual consistency are critical.',
+    shortDesc: 'Highly durable and sophisticated surface solutions designed to meet the rigorous demands and aesthetic standards of professional, high-traffic environments.',
     previews: [
       "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=400",
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400",

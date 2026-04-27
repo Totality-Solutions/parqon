@@ -114,7 +114,7 @@ const usageListData: ExpandableListItem[] = [
   {
     id: 'interior',
     title: 'Interior',
-    shortDesc: 'Refined finishes that enhance living and working environments.',
+    shortDesc: 'Elevating indoor living with premium engineered surfaces that blend timeless wood aesthetics with modern warmth and comfort.',
     previews: [
       "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400",
       "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=400",
@@ -124,7 +124,7 @@ const usageListData: ExpandableListItem[] = [
   {
     id: 'exterior',
     title: 'Exterior',
-    shortDesc: 'Durable surfaces built to withstand environmental conditions.',
+    shortDesc: 'Sustainable, high-performance decking and cladding engineered with advanced technology to master the elements and enhance architectural landscapes.',
     previews: [
       "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=400",
       "https://images.unsplash.com/photo-1600585154340-be6191da95b8?q=80&w=400",
@@ -136,8 +136,8 @@ const usageListData: ExpandableListItem[] = [
 const usageBlocks: BentoBlock[] = [
   { 
     type: 'text', 
-    title: 'Residential interiors & high-end retail spaces', 
-    body: 'Precision-crafted surfaces built for long-term durability and seamless finish across demanding environments.' 
+    title: 'Hospitality', 
+    body: 'Create inviting, high-end guest experiences with elegant surfaces designed for the sophisticated aesthetics of luxury hotel lobbies and restaurant dining areas.' 
   },
   { 
     type: 'image', 
@@ -153,8 +153,8 @@ const usageBlocks: BentoBlock[] = [
   },
   { 
     type: 'text', 
-    title: 'Architectural precision & luxury aesthetics', 
-    body: 'Our materials are engineered to meet the highest standards of global wood technology.' 
+    title: 'Corporate', 
+    body: 'Enhance professional work environments with durable, high-performance flooring and wall solutions that stand up to the rigorous demands of high-traffic office spaces.' 
   },
   { 
     type: 'image', 
@@ -162,8 +162,8 @@ const usageBlocks: BentoBlock[] = [
   },
   { 
     type: 'text', 
-    title: 'Sustainable solutions for every environment', 
-    body: 'From certified European forests to your project, we ensure a zero-waste manufacturing process.' 
+    title: 'Healthcare', 
+    body: 'Support wellness with specialized, low-emission surfaces engineered for clinical safety, hygiene, and easy maintenance in hospital environments.' 
   },
   { 
     type: 'image', 
