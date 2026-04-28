@@ -156,32 +156,32 @@ import { motion, AnimatePresence } from 'framer-motion';
 const features = [
   {
     id: 'premium',
-    title: "Premium Brands",
-    description: "Exclusive access to global market leaders in wood technology.",
+    title: "Natural & Sustainable Sourcing",
+    description: "Materials are 100% sustainably sourced and free from chemical additives, using only natural methods like heat and steam in the modification process.",
     image: "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=800"
   },
   {
     id: 'durability',
-    title: "Durability",
-    description: "Engineered to withstand high-traffic environments while maintaining structural integrity.",
+    title: "High Performance & Durability",
+    description: "Across all lines, the products offer high resistance to scratches, stains, dents, and daily wear, making them suitable for high-usage residential and commercial environments.",
     image: "https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=800"
   },
   {
     id: 'weather',
-    title: "Weather Resistance",
-    description: "Advanced coating technologies that protect against UV rays and moisture fluctuations.",
+    title: "Advanced Installation Systems",
+    description: `Many collections utilize precision-fit systems such as the "Safe lock Pro" click mechanism, "Tongue & Groove" profiles, or the "Pi-Grad" invisible, screwless fastening system for easy and seamless execution.`,
     image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800"
   },
   {
     id: 'sustainability',
-    title: "Sustainability",
-    description: "Sourced from certified forests with zero-waste manufacturing processes.",
+    title: "Weather & Environmental Resilience",
+    description: "Outdoor-specific products feature superior resistance to moisture, insects, decay, and temperature variations, with some exceeding standards for slip resistance even in wet environments.",
     image: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=800"
   },
   {
     id: 'maintenance',
-    title: "Easy Maintenance",
-    description: "Simple care routines designed for long-lasting aesthetic perfection.",
+    title: "Health & Comfort",
+    description: "Indoor flooring products are designed with best-in-class formaldehyde emission standards to protect health, while providing a warm and anti-static underfoot feel.",
     image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800"
   }
 ];

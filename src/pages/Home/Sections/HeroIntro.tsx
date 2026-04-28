@@ -54,7 +54,7 @@ export const HeroIntro: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p className="text-gray-900 text-dynamic-body tracking-normal font-normal">
-            Parqon defines spaces with a premium range of surfaces, from the Oaken indoor collection’s refined engineered flooring to the Nordwood outdoor series’ durable decking and facades. By blending advanced Thermowood technology with the timeless soul of natural timber, we provide versatile design solutions for both sophisticated interiors and resilient landscapes.
+            Quality is measured in decades, not seasons. Every choice we make, from sustainable sourcing to precision engineering, is driven by a refusal to settle for the ephemeral. We provide the architectural ground on which lives are built, ensuring that the foundation of your space remains as enduring as it is beautiful.
 
           </p>
         </motion.div>

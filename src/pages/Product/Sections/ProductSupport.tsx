@@ -133,7 +133,7 @@ import { Button } from '../../../components/common/Button';
 const supportFeatures = [
   {
     title: 'Product Guidance',
-    description: 'Helping you choose the right flooring, finishes, and materials based on your needs.',
+    description: 'Helping you choose the right flooring, finishes, and materials based on your specific functional and aesthetic needs.',
     icon: (
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <circle cx="12" cy="12" r="10" />
@@ -142,8 +142,8 @@ const supportFeatures = [
     )
   },
   {
-    title: 'Expert Consultation',
-    description: 'Speak with specialists to refine your ideas and make confident decisions.',
+    title: 'Aesthetic Alignment',
+    description: 'Mapping wood textures, tones, and grain patterns to your design intent to ensure the floor complements your spatial vision.',
     icon: (
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8l-4 4v16a2 2 0 0 0 2 2Z" />
@@ -153,8 +153,8 @@ const supportFeatures = [
     )
   },
   {
-    title: 'Technical Support',
-    description: 'Detailed assistance on specifications, installation, and performance.',
+    title: 'Technical Performance',
+    description: 'Evaluating durability, acoustic properties, and moisture resistance to ensure the material thrives in its specific environment.',
     icon: (
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M14.5 2h-5L8 3.5V6h8V3.5L14.5 2Z" />
@@ -165,8 +165,8 @@ const supportFeatures = [
     )
   },
   {
-    title: 'Project Assistance',
-    description: 'End-to-end support from selection to execution for a seamless experience.',
+    title: 'Material Longevity',
+    description: 'Understanding maintenance cycles, repairability, and sustainable material lifecycles to ensure your foundation lasts for generations.',
     icon: (
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="m2 6 20 12" /><path d="m22 6-20 12" />

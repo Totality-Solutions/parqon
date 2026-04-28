@@ -193,7 +193,7 @@ import { Button } from '../../../components/common/Button';
 
 const productData = {
   'Living Rooms': {
-    description: 'Elegant and durable surfaces designed to be the centerpiece of your home, combining warmth with sophisticated architectural style.',
+    description: 'Where sophisticated design meets everyday living. Elevate your lounge with durable, high-end surfaces engineered to provide a seamless blend of natural grain textures and contemporary aesthetic appeal.',
     images: [
       'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=600&q=60',
       'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=60',
@@ -202,7 +202,7 @@ const productData = {
     ]
   },
   'Bed Rooms': {
-    description: 'Create a sanctuary of comfort with premium flooring that offers quiet acoustics, natural insulation, and a soft, inviting aesthetic.',
+    description: 'Elevate your rest with masterfully engineered finishes that speak to understated elegance. By combining a minimalist aesthetic with the rich grain of hand-selected timber, we bring a refined architectural touch to your most personal environment.',
     images: [
       'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=60',
       'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=600&q=60',
@@ -211,7 +211,7 @@ const productData = {
     ]
   },
   'Outdoor Decks': {
-    description: 'Weather-resistant surfaces engineered to withstand the elements while maintaining the natural beauty and structural integrity of high-end wood.',
+    description: 'Define your outdoor living with surfaces built for performance. Combining rugged durability with a refined timber aesthetic, our decking solutions provide a resilient, high-end foundation for your exterior entertaining spaces and private retreats.',
     images: [
       'https://images.unsplash.com/photo-1591825200244-4975217d26c0?auto=format&fit=crop&w=600&q=60',
       'https://images.unsplash.com/photo-1562663474-6cbb3fee4c50?auto=format&fit=crop&w=600&q=60',
@@ -220,7 +220,7 @@ const productData = {
     ]
   },
   'Patios': {
-    description: 'Transform your outdoor living spaces into luxury retreats with slip-resistant, moisture-stable surfaces built for modern versatility.',
+    description: 'Elevate your courtyard experience with high-end surfaces crafted for the modern patio. Combining a sleek architectural aesthetic with the inviting warmth of wood, these durable finishes transform any outdoor niche into a premium retreat.',
     images: [
       'https://images.unsplash.com/photo-1534349762230-e0cadf78f5db?auto=format&fit=crop&w=600&q=60',
       'https://images.unsplash.com/photo-1560662105-57f8ad6ec2d1?auto=format&fit=crop&w=600&q=60',
