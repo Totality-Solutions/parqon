@@ -44,7 +44,7 @@
 //       <Container>
 //         {/* CHANGED: added items-start to ensure the sticky child doesn't stretch to full height */}
 //         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-          
+
 //           {/* Left Column: Heading */}
 //           {/* CHANGED: added top-32 (offset) and self-start to make sticky work reliably */}
 //           <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
@@ -78,7 +78,7 @@
 //           }`}>
 //             {item.title}
 //           </span>
-          
+
 //           <span className={`transition-transform duration-700 ease-[0.22,1,0.36,1] ${
 //             openId === item.id ? 'rotate-[45deg]' : ''
 //           }`}>
@@ -125,7 +125,7 @@
 //                     className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" 
 //                   />
 //                 </motion.div>
-                
+
 //                 <motion.p 
 //                   initial={{ y: 10, opacity: 0 }}
 //                   animate={{ y: 0, opacity: 1 }}
@@ -142,7 +142,7 @@
 //     ))}
 //   </motion.div>
 // </div>
-          
+
 //         </div>
 //       </Container>
 //     </section>
@@ -193,27 +193,27 @@ export const AboutWhy: React.FC = () => {
     <section className="pb-24 md:pb-32 bg-white">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-          
+
           {/* Left Column: Heading */}
           <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
-            <h2 className="text-dynamic-h2 font-bold text-dark leading-[1.1] mb-8 tracking-tighter">
-              Why Choose <br /> Parqon?
+            <h2 className="text-dynamic-h2 font-bold text-dark leading-[1.1] mb-8 tracking-tighter whitespace-nowrap md:whitespace-normal">
+              Why Choose <br className="hidden md:block" /> Parqon?
             </h2>
             <p className="text-gray-500 text-lg leading-relaxed max-w-sm font-medium">
-             We blend 100% sustainably sourced timber with advanced engineering to provide high-performance flooring that protects your health and elevates your design with up to a 25-year warranty.
+              We blend 100% sustainably sourced timber with advanced engineering to provide high-performance flooring that protects your health and elevates your design with up to a 25-year warranty.
             </p>
           </div>
 
           {/* Right Column: Functional Accordion */}
           <div className="lg:col-span-7">
-            <motion.div 
-              layout 
+            <motion.div
+              layout
               className="border-t border-gray-100"
             >
               {features.map((item) => (
-                <motion.div 
+                <motion.div
                   layout
-                  key={item.id} 
+                  key={item.id}
                   className="border-b border-gray-100 overflow-hidden"
                   onMouseEnter={() => setOpenId(item.id)}
                 >
@@ -221,27 +221,25 @@ export const AboutWhy: React.FC = () => {
                     onClick={() => setOpenId(openId === item.id ? null : item.id)}
                     className="w-full py-8 flex justify-between items-center group transition-all"
                   >
-                    <span className={`text-xl md:text-2xl font-medium transition-colors duration-500 ease-out ${
-                      openId === item.id ? 'text-[#924321]' : 'text-gray-900'
-                    }`}>
+                    <span className={`text-xl md:text-2xl font-medium transition-colors duration-500 ease-out ${openId === item.id ? 'text-[#924321]' : 'text-gray-900'
+                      }`}>
                       {item.title}
                     </span>
-                    
+
                     {/* Animated Image Icon Replacement */}
                     <motion.div
-                      animate={{ 
+                      animate={{
                         rotate: openId === item.id ? 0 : -45,
-                        scale: openId === item.id ? 1.2 : 1 
+                        scale: openId === item.id ? 1.2 : 1
                       }}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="flex-shrink-0 ml-4"
                     >
-                      <img 
-                        src="/icons/arrow-right.png" 
-                        alt="arrow" 
-                        className={`w-6 h-6 object-contain transition-opacity duration-300 ${
-                          openId === item.id ? 'opacity-100' : 'opacity-40 group-hover:opacity-70'
-                        }`}
+                      <img
+                        src="/icons/arrow-right.png"
+                        alt="arrow"
+                        className={`w-6 h-6 object-contain transition-opacity duration-300 ${openId === item.id ? 'opacity-100' : 'opacity-40 group-hover:opacity-70'
+                          }`}
                       />
                     </motion.div>
                   </button>
@@ -251,16 +249,16 @@ export const AboutWhy: React.FC = () => {
                       <motion.div
                         key="content"
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ 
-                          height: 'auto', 
+                        animate={{
+                          height: 'auto',
                           opacity: 1,
                           transition: {
                             height: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
                             opacity: { duration: 0.4, delay: 0.1 }
                           }
                         }}
-                        exit={{ 
-                          height: 0, 
+                        exit={{
+                          height: 0,
                           opacity: 0,
                           transition: {
                             height: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
@@ -269,20 +267,20 @@ export const AboutWhy: React.FC = () => {
                         }}
                       >
                         <div className="pb-10 flex flex-col md:flex-row gap-8 items-center">
-                          <motion.div 
+                          <motion.div
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
                             className="w-full md:w-56 h-36 overflow-hidden bg-gray-100 shrink-0 "
                           >
-                            <img 
-                              src={item.image} 
-                              alt={item.title} 
-                              className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" 
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110"
                             />
                           </motion.div>
-                          
-                          <motion.p 
+
+                          <motion.p
                             initial={{ y: 10, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
