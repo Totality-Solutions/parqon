@@ -303,7 +303,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Container } from '../common/Container';
 import PAROONLogo from '../../assets/logo.png';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProductSubmenu } from './ProductSubmenu';
 

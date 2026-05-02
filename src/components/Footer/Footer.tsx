@@ -2,7 +2,7 @@
 
 // src/components/Footer/Footer.tsx
 import React from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Container } from '../common/Container';
 import PAROONLogo from '../../assets/logo.png';
 import { 

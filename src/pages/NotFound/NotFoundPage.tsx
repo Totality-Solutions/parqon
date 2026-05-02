@@ -2,7 +2,6 @@ import React from 'react';
 // import { Container } from './components/common/Container';
 import { motion } from 'framer-motion';
 import { Container } from '../../components/common/Container';
-import { Button } from '../../components/common/Button';
 // import { Button } from './components/common/Button';
 
 export const NotFoundPage: React.FC = () => {

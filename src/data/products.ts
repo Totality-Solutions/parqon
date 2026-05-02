@@ -1,16 +1,24 @@
+export interface Finish { 
+  id: string; 
+  name: string; 
+  color: string; 
+  img: string; 
+  finishGallery?: string[]; 
+}
 
-// export interface Finish { 
-//   id: string; 
-//   name: string; 
-//   color: string; 
-//   img: string; 
-//   finishGallery?: string[]; 
-// }
-
-// export interface Product {
-//   id: number;
-//   title: string;
-//   category: string;
+export interface Product {
+  id: string;
+  title: string;
+  brand: 'Oaken' | 'Nordwood';
+  category: string;
+  subCategory?: 'Indoor' | 'Outdoor';
+  image: string;
+  collection?: string;
+  environment?: 'Indoor' | 'Outdoor';
+  description?: string;
+  gallery?: string[];
+  finishes?: Finish[];
+}
 //   collection: string;
 //   environment?: 'Indoor' | 'Outdoor';
 //   image: string;

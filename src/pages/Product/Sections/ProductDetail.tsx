@@ -46,7 +46,7 @@ export const ProductDetail: React.FC = () => {
     }
     
     // Fallback to product gallery. If empty, at least show the main image.
-    return product.gallery.length > 0 ? product.gallery : [product.image];
+    return (product.gallery?.length ?? 0) > 0 ? product.gallery! : [product.image];
   }, [product, selectedFinish]);
 
   // 5. Action Handlers
@@ -112,7 +112,7 @@ export const ProductDetail: React.FC = () => {
             
             {/* THUMBNAILS (NOW DYNAMIC) */}
             <div className="grid grid-cols-4 gap-4">
-              {currentGallery.map((img, i) => (
+              {(currentGallery ?? []).map((img, i) => (
                 <button 
                   key={i} 
                   onClick={() => setActiveImage(img)}
