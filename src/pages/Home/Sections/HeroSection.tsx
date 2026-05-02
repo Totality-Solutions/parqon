@@ -12,6 +12,7 @@ const heroSlides = [
     title: 'Oaken Wood',
     subtitle: 'European Oak Collection'
   },
+  
   {
     id: 2,
     image: '/images/home/hero5.png',
