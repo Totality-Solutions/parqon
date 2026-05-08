@@ -105,10 +105,6 @@ import { ExpandableList, type ExpandableListItem } from '../../../components/com
 import { BentoGrid, type BentoBlock } from '../../../components/common/BentoGrid';
 import { Container } from '../../../components/common/Container';
 
-// --- VIDEO IMPORTS ---
-import interiorVid from '../../../assets/videos/interior-bg.mp4';
-import exteriorVid from '../../../assets/videos/exterior-bg.mp4';
-import retailVid from '../../../assets/videos/retail-bg.mp4';
 
 
 
