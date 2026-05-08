@@ -31,13 +31,13 @@ export const AboutStory: React.FC = () => {
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-6">
           <div className="overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=800" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Craft" />
+            <img src="/images/about/interior/4.jpeg" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Craft" />
           </div>
           <div className="overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=800" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Material" />
+            <img src="/images/about/exterior/4.jpg" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Material" />
           </div>
           <div className="overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=800" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Detail" />
+            <img src="/images/about/commercial/4.jpg" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Detail" />
           </div>
         </div>
       </Container>

@@ -195,37 +195,37 @@ const productData = {
   'Living Rooms': {
     description: 'Where sophisticated design meets everyday living. Elevate your lounge with durable, high-end surfaces engineered to provide a seamless blend of natural grain textures and contemporary aesthetic appeal.',
     images: [
-      'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=60'
+      '/images/home/products/living-room/1.png',
+      '/images/home/products/living-room/2.jpg',
+      '/images/home/products/living-room/3.jpg',
+      '/images/home/products/living-room/4.jpg',
     ]
   },
   'Bed Rooms': {
     description: 'Elevate your rest with masterfully engineered finishes that speak to understated elegance. By combining a minimalist aesthetic with the rich grain of hand-selected timber, we bring a refined architectural touch to your most personal environment.',
     images: [
-      'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1505693419148-de39739e4450?auto=format&fit=crop&w=600&q=60'
+      '/images/home/products/bedroom/1.jpg',
+      '/images/home/products/bedroom/2.jpg',
+      '/images/home/products/bedroom/3.jpg',
+      '/images/home/products/bedroom/4.jpg',
     ]
   },
   'Outdoor Decks': {
     description: 'Define your outdoor living with surfaces built for performance. Combining rugged durability with a refined timber aesthetic, our decking solutions provide a resilient, high-end foundation for your exterior entertaining spaces and private retreats.',
     images: [
-      'https://images.unsplash.com/photo-1591825200244-4975217d26c0?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1562663474-6cbb3fee4c50?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1525906604151-69739bb01d58?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=600&q=60'
+      '/images/home/products/outdoor/1.jpeg',
+      '/images/home/products/outdoor/2.jpeg',
+      '/images/home/products/outdoor/3.jpeg',
+      '/images/home/products/outdoor/4.jpeg',
     ]
   },
-  'Patios': {
+  'Indoor': {
     description: 'Elevate your courtyard experience with high-end surfaces crafted for the modern patio. Combining a sleek architectural aesthetic with the inviting warmth of wood, these durable finishes transform any outdoor niche into a premium retreat.',
     images: [
-      'https://images.unsplash.com/photo-1534349762230-e0cadf78f5db?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1560662105-57f8ad6ec2d1?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1558444479-c86e1055639d?auto=format&fit=crop&w=600&q=60'
+      '/images/home/products/indoor/1.jpg',
+      '/images/home/products/indoor/2.jpg',
+      '/images/home/products/indoor/3.jpg',
+      '/images/home/products/indoor/4.jpg',
     ]
   }
 };

@@ -5,15 +5,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 const slides = [
   {
     id: 1,
-    url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80',
+    url: '/images/home/carousel/1.jpeg',
   },
   {
     id: 2,
-    url: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=1920&auto=format&fit=crop',
+    url: '/images/home/carousel/2.jpeg',
   },
   {
     id: 3,
-    url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=80',
+    url: '/images/home/carousel/3.jpeg',
   }
 ];
 
@@ -29,7 +29,7 @@ export const BannerCarousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[50vh] md:h-[70vh] 2xl:h-[80vh] overflow-hidden bg-parqon-beige">
+    <div className="relative w-full h-[50vh] md:h-[70vh] 2xl:h-[80vh] overflow-hidden bg-parqon-beige mt-6">
       <AnimatePresence initial={false} mode="popLayout">
         <motion.div
           key={slides[index].id}
@@ -38,7 +38,7 @@ export const BannerCarousel: React.FC = () => {
           exit={{ x: '-100%' }}
           transition={{ 
             duration: 1.2, 
-            ease: [0.645, 0.045, 0.355, 1.0] // Quartic ease for smoother motion
+            ease: [0.645, 0.045, 0.355, 1.0] 
           }}
           className="absolute inset-0 w-full h-full"
         >

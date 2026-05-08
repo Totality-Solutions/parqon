@@ -146,9 +146,9 @@ const usageListData: ExpandableListItem[] = [
     title: 'Interior',
     shortDesc: 'Elevating indoor living with premium engineered surfaces that blend timeless wood aesthetics with modern warmth and comfort.',
     previews: [
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400",
-      "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=400",
-      "https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=400"
+      "/images/about/interior/1.jpeg",
+      "/images/about/interior/3.jpeg",
+      "/images/about/interior/2.jpeg"
     ]
   },
   {
@@ -156,9 +156,9 @@ const usageListData: ExpandableListItem[] = [
     title: 'Exterior',
     shortDesc: 'Sustainable, high-performance decking and cladding engineered with advanced technology to master the elements and enhance architectural landscapes.',
     previews: [
-      "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=400",
-       "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=400"
+      "/images/about/exterior/1.jpg",
+      "/images/about/exterior/3.jpg",
+      "/images/about/exterior/2.jpg"
     ]
   },
   {
@@ -166,9 +166,9 @@ const usageListData: ExpandableListItem[] = [
     title: 'Commercial',
     shortDesc: 'Highly durable and sophisticated surface solutions designed to meet the rigorous demands and aesthetic standards of professional, high-traffic environments.',
     previews: [
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=400",
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400",
-      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=400"
+      "/images/about/commercial/1.jpg",
+      "/images/about/commercial/3.jpg",
+      "/images/about/commercial/2.jpg"
     ]
   },
 
@@ -186,15 +186,15 @@ const usageBlocks: BentoBlock[] = [
   },
   { 
     type: 'image', 
-    url: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800' 
+    url: '/images/application/app - hospi1.jpeg' 
   },
   { 
-    type: 'video', 
-    url: interiorVid 
+    type: 'image', 
+    url: '/images/application/app - hospi2.jpeg'  
   },
   { 
-    type: 'video', 
-    url: retailVid 
+    type: 'image', 
+    url: '/images/application/app - corp1.jpeg'  
   },
   { 
     type: 'text', 
@@ -203,7 +203,7 @@ const usageBlocks: BentoBlock[] = [
   },
   { 
     type: 'image', 
-    url: 'https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=800' 
+    url: '/images/application/app - corp2.jpg'  
   },
   { 
     type: 'text', 
@@ -212,11 +212,11 @@ const usageBlocks: BentoBlock[] = [
   },
   { 
     type: 'image', 
-    url: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=800' 
+    url: '/images/application/app - health1.jpeg' 
   },
   { 
-    type: 'video', 
-    url: exteriorVid 
+    type: 'image', 
+    url: '/images/application/app - health2.jpeg' 
   },
 ];
 

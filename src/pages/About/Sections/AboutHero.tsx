@@ -7,7 +7,7 @@ export const AboutHero: React.FC = () => {
       <Container>
         <div className="w-full h-[50vh] md:h-[70vh] overflow-hidden bg-gray-100">
           <img 
-            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2560" 
+            src="/images/about/1.jpeg" 
             className="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-1000" 
             alt="Parqon Architectural Space"
           />

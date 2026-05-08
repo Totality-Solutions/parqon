@@ -44,7 +44,7 @@ export const AboutBase: React.FC = () => {
             className="relative h-[400px] lg:h-[600px] w-full"
           >
             <img
-              src="/images/home/outdoor-3.jpg" // Replace with your image path
+              src="/images/about/2.jpeg" // Replace with your image path
               alt="Minimal Interior Design"
               className="w-full h-full object-cover "
             />

@@ -645,10 +645,11 @@ export const ProductListing: React.FC = () => {
                       <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
                         <img src={p.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={p.title} />
                       </div>
-                      <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4>
-                      <p className="text-[11px] text-slate-400 font-bold capitalize">
+                      <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.category}</h4>
+                      {/* <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4> */}
+                      {/* <p className="text-[11px] text-slate-400 font-bold capitalize">
                         {p.brand} series • {p.subCategory ? `${p.subCategory} • ` : ""}{p.category}
-                      </p>
+                      </p> */}
                     </motion.div>
                   ))}
                 </main>

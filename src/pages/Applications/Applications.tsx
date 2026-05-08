@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppHero } from './Sections/AppHero';
 
-import heroImage from '../../assets/images/application-hero.jpg';
 import { AppUsage } from './Sections/AppUsage';
 import { AppFAQ } from './Sections/AppFAQ';
 
@@ -11,7 +10,7 @@ export const ApplicationsPage: React.FC = () => {
         <main className="bg-white ">
             <AppHero
                 mediaType="image"
-                mediaUrl={heroImage}
+                mediaUrl="/images/application/app main.jpeg"
             />
             <AppUsage />
             <AppFAQ />

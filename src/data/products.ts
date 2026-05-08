@@ -325,28 +325,28 @@ export const ALL_PRODUCTS: Product[] = [
     title: 'European Oak Plank', 
     brand: 'Oaken', 
     category: 'Engineered Flooring', 
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800' 
+    image: '/images/product/OAKEN/ENGINEERED FLOORING.png' 
   },
   { 
     id: 'o-2', 
     title: 'Heritage Walnut', 
     brand: 'Oaken', 
     category: 'Solid Wood', 
-    image: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=800' 
+    image: '/images/product/OAKEN/SOLID WOOD.png' 
   },
   { 
     id: 'o-3', 
     title: 'Classic Oak Laminate', 
     brand: 'Oaken', 
     category: 'Laminated Flooring', 
-    image: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=800' 
+    image: '/images/product/OAKEN/LAMINATED FLOORING.png' 
   },
   { 
     id: 'o-4', 
     title: 'Modern Stone SPC', 
     brand: 'Oaken', 
     category: 'SPC Flooring', 
-    image: 'https://images.unsplash.com/photo-1505798577917-a65157d3320a?auto=format&fit=crop&w=800' 
+    image: '/images/product/OAKEN/SPC FLOORING.png' 
   },
 
   // --- Nordwood Indoor ---
@@ -356,7 +356,7 @@ export const ALL_PRODUCTS: Product[] = [
     brand: 'Nordwood', 
     category: 'Wall Panel', 
     subCategory: 'Indoor', 
-    image: 'https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?auto=format&fit=crop&w=800' 
+    image: '/images/product/NORDWOOD/Wall Panel.png' 
   },
   { 
     id: 'n-i2', 
@@ -364,7 +364,7 @@ export const ALL_PRODUCTS: Product[] = [
     brand: 'Nordwood', 
     category: 'Ceiling Panel', 
     subCategory: 'Indoor', 
-    image: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800' 
+    image: '/images/product/NORDWOOD/Ceiling Panel.png' 
   },
 
   // --- Nordwood Outdoor ---
@@ -374,7 +374,7 @@ export const ALL_PRODUCTS: Product[] = [
     brand: 'Nordwood', 
     category: 'Deckwood', 
     subCategory: 'Outdoor', 
-    image: 'https://images.unsplash.com/photo-1503418895522-46f9804cda40?auto=format&fit=crop&w=800' 
+    image: '/images/product/NORDWOOD/Deckwood.png' 
   },
   { 
     id: 'n-o2', 
@@ -382,7 +382,7 @@ export const ALL_PRODUCTS: Product[] = [
     brand: 'Nordwood', 
     category: 'Wall Cladding', 
     subCategory: 'Outdoor', 
-    image: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=800' 
+    image: '/images/product/NORDWOOD/Wall Cladding.png' 
   },
   { 
     id: 'n-o3', 
@@ -390,7 +390,7 @@ export const ALL_PRODUCTS: Product[] = [
     brand: 'Nordwood', 
     category: 'Ceiling | Sofit', 
     subCategory: 'Outdoor', 
-    image: 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&w=800' 
+    image: '/images/product/NORDWOOD/Ceiling  Sofit.png' 
   },
   { 
     id: 'n-o4', 
@@ -398,6 +398,6 @@ export const ALL_PRODUCTS: Product[] = [
     brand: 'Nordwood', 
     category: 'Facade', 
     subCategory: 'Outdoor', 
-    image: 'https://images.unsplash.com/photo-1496307653780-42ee777d4833?auto=format&fit=crop&w=800' 
+    image: '/images/product/NORDWOOD/Facade.png' 
   }
 ]; 

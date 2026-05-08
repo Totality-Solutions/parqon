@@ -22,9 +22,6 @@ const HomePage: React.FC = () => {
       {/* 4. Tabbed Product Showcase */}
       <ProductSection />
 
-      {/* 5. First Call to Action */}
-      <ProjectCallout /> 
-
       {/* 6. Full Width Brand Image (Optional: suggested for design flow) */}
       <BannerCarousel />
 

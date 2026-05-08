@@ -158,31 +158,31 @@ const features = [
     id: 'premium',
     title: "Natural & Sustainable Sourcing",
     description: "Materials are 100% sustainably sourced and free from chemical additives, using only natural methods like heat and steam in the modification process.",
-    image: "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=800"
+    image: "/images/about/nature.jpeg"
   },
   {
     id: 'durability',
     title: "High Performance & Durability",
     description: "Across all lines, the products offer high resistance to scratches, stains, dents, and daily wear, making them suitable for high-usage residential and commercial environments.",
-    image: "https://images.unsplash.com/photo-1581141849291-1125c7b692b5?q=80&w=800"
+    image: "/images/about/high per.jpeg"
   },
   {
     id: 'weather',
     title: "Advanced Installation Systems",
     description: `Many collections utilize precision-fit systems such as the "Safe lock Pro" click mechanism, "Tongue & Groove" profiles, or the "Pi-Grad" invisible, screwless fastening system for easy and seamless execution.`,
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800"
+    image: "/images/about/install.jpeg"
   },
   {
     id: 'sustainability',
     title: "Weather & Environmental Resilience",
     description: "Outdoor-specific products feature superior resistance to moisture, insects, decay, and temperature variations, with some exceeding standards for slip resistance even in wet environments.",
-    image: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=800"
+    image: "/images/about/weather.PNG"
   },
   {
     id: 'maintenance',
     title: "Health & Comfort",
     description: "Indoor flooring products are designed with best-in-class formaldehyde emission standards to protect health, while providing a warm and anti-static underfoot feel.",
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800"
+    image: "/images/about/health.jpeg"
   }
 ];
 
