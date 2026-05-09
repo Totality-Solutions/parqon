@@ -124,10 +124,12 @@ export const Footer: React.FC = () => {
                    simultaneously when you are on that page. To highlight individually, 
                    use unique paths like "/products/laminate".
                 */}
-                <FooterNavLink to="/products/engineered-wood" label="Engineered Wood" />
+                {/* <FooterNavLink to="/products/engineered-wood" label="Engineered Wood" />
                 <FooterNavLink to="/products/laminate" label="Laminate" />
                 <FooterNavLink to="/products/vinyl" label="Vinyl" />
-                <FooterNavLink to="/products/quartz" label="Quartz" />
+                <FooterNavLink to="/products/quartz" label="Quartz" /> */}
+                <FooterNavLink to="/products?brand=Nordwood" label="Norwood" />
+                <FooterNavLink to="/products?brand=Oaken" label="Oaken" />
               </ul>
             </div>
           </div>
@@ -145,7 +147,7 @@ export const Footer: React.FC = () => {
             privacy policy.
           </NavLink>
           <div className="text-[#924321] text-dynamic-small font-semibold tracking-widest uppercase opacity-80">
-            © {currentYear} TOTALITY. All rights reserved.
+            © {currentYear} Parqon. All rights reserved.
           </div>
         </div>
       </Container>

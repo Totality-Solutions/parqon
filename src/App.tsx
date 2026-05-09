@@ -12,6 +12,7 @@ import Projects from './pages/Projects/Projects';
 import { ProjectDetail } from './pages/Projects/Sections/ProjectDetail';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { NotFoundPage } from './pages/NotFound/NotFoundPage';
+import { PrivacyPolicy } from './components/common/PrivacyPolicy';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/applications" element={<ApplicationsPage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
