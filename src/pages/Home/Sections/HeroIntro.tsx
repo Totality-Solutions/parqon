@@ -38,7 +38,6 @@
 import React from 'react';
 import { motion } from 'framer-motion'; // Added Framer Motion
 import { Container } from '../../../components/common/Container';
-import { CTABtn } from '../../../components/common/CTABtn';
 import { Button } from '../../../components/common/Button';
 
 export const HeroIntro: React.FC = () => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion'; 
-import { CTABtn } from '../../../components/common/CTABtn';
 
 // ============================================
 // CHOOSE YOUR ROUTING APPROACH BELOW

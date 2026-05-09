@@ -189,7 +189,6 @@
 import React, { useState } from 'react';
 import { Section } from '../../../components/common/Section';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CTABtn } from '../../../components/common/CTABtn';
 import { Button } from '../../../components/common/Button';
 
 const productData = {

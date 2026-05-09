@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CTABtn } from '../../../components/common/CTABtn';
 
 export const AboutBase: React.FC = () => {
   return (

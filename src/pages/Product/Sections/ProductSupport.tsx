@@ -128,7 +128,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Container } from '../../../components/common/Container';
-import { CTABtn } from '../../../components/common/CTABtn';
 import { Button } from '../../../components/common/Button';
 
 const supportFeatures = [

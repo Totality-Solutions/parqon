@@ -65,7 +65,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion'; // Added motion
-import { CTABtn } from '../../../components/common/CTABtn';
 
 interface AppHeroProps {
   title?: string;

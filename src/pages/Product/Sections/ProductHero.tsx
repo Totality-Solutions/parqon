@@ -81,7 +81,6 @@
 import React from 'react';
 import { Container } from '../../../components/common/Container';
 import { motion } from 'framer-motion';
-import { CTABtn } from '../../../components/common/CTABtn';
 import { Button } from '../../../components/common/Button';
 
 export const ProductHero: React.FC = () => {
