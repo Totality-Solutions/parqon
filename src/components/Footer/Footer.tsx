@@ -82,10 +82,10 @@ export const Footer: React.FC = () => {
             {/* Social Icons */}
             <div className="flex items-center gap-6">
               {[
-                { Icon: AiOutlineInstagram, href: "#" },
-                { Icon: AiOutlineWhatsApp, href: "#" },
-                { Icon: AiOutlineLinkedin, href: "#" },
-                { Icon: RiFacebookLine, href: "#" }
+                { Icon: AiOutlineInstagram, href: "https://www.instagram.com/parqonofficial/" },
+                // { Icon: AiOutlineWhatsApp, href: "#" },
+                { Icon: AiOutlineLinkedin, href: "https://www.linkedin.com/company/parqonofficial/?viewAsMember=true" },
+                { Icon: RiFacebookLine, href: "https://www.facebook.com/profile.php?id=61572129587882" }
               ].map((social, i) => (
                 <a 
                   key={i} 
