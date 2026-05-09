@@ -1,5 +1,5 @@
 // import React from 'react';
-// import { Button } from '../../../components/common/Button';
+// import { CTABtn } from '../../../components/common/CTABtn';
 
 // interface AppHeroProps {
 //   title?: string;
@@ -49,7 +49,7 @@
 //             {description}
 //           </p>
           
-//           <Button 
+//           <CTABtn 
 //             label="Explore" 
 //             variant="primary" 
 //             scale={0.9} 
@@ -65,7 +65,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion'; // Added motion
-import { Button } from '../../../components/common/Button';
+import { CTABtn } from '../../../components/common/CTABtn';
 
 interface AppHeroProps {
   title?: string;
@@ -135,12 +135,12 @@ export const AppHero: React.FC<AppHeroProps> = ({
             {description}
           </motion.p>
           
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
           >
-            <Button 
+            <CTABtn 
               label="Explore" 
               variant="primary" 
               scale={0.9} 
@@ -148,7 +148,7 @@ export const AppHero: React.FC<AppHeroProps> = ({
               arrowDirection="ne"
               arrowColor="fill-white"
             />
-          </motion.div>
+          </motion.div> */}
         </div>
       </motion.div>
     </section>

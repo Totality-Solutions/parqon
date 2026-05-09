@@ -1,6 +1,7 @@
 // src/pages/Home/Sections/BlogSection.tsx
 import React from 'react';
 import { Section } from '../../../components/common/Section';
+import { CTABtn } from '../../../components/common/CTABtn';
 
 const mainBlog = {
   category: 'showroom',
@@ -65,11 +66,7 @@ export const BlogSection: React.FC = () => {
               </h3>
             </div>
             {/* Signature Parqon Button with NE Arrow */}
-            <button className="bg-parqon-brown text-white p-3 md:p-4 flex items-center justify-center hover:bg-[#6D6546] transition-colors">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 2xl:w-8 2xl:h-8 fill-none stroke-current">
-                <path d="M7 17L17 7M17 7H7M17 7V17" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
+            <CTABtn noScale />
           </div>
         </div>
 

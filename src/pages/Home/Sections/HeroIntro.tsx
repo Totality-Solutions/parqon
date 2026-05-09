@@ -1,7 +1,7 @@
 // // src/pages/Home/Sections/HeroIntro.tsx
 // import React from 'react';
 // import { Container } from '../../../components/common/Container';
-// import { Button } from '../../../components/common/Button';
+// import { CTABtn } from '../../../components/common/CTABtn';
 
 // export const HeroIntro: React.FC = () => {
 //   return (
@@ -38,6 +38,7 @@
 import React from 'react';
 import { motion } from 'framer-motion'; // Added Framer Motion
 import { Container } from '../../../components/common/Container';
+import { CTABtn } from '../../../components/common/CTABtn';
 import { Button } from '../../../components/common/Button';
 
 export const HeroIntro: React.FC = () => {
@@ -54,7 +55,9 @@ export const HeroIntro: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p className="text-gray-900 text-dynamic-body tracking-normal font-normal">
-            Quality is measured in decades, not seasons. Every choice we make, from sustainable sourcing to precision engineering, is driven by a refusal to settle for the ephemeral. We provide the architectural ground on which lives are built, ensuring that the foundation of your space remains as enduring as it is beautiful.
+At Parqon, we believe true quality is not measured in seasons, but in decades. Every plank we craft is rooted in timeless design, precision engineering, and responsibly sourced materials — created for spaces that are meant to endure.
+
+From the warmth beneath your feet to the character it adds to every corner, Parqon wooden flooring is designed to become a lasting part of the lives built around it. Because great spaces deserve foundations that remain as beautiful, strong, and relevant for years to come.
 
           </p>
         </motion.div>
@@ -67,11 +70,13 @@ export const HeroIntro: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }} // Slight delay after text
         >
           <Button
-            label="Start Exploring"
+            label="Know More"
             variant="primary"
             className="mt-3 w-fit p-0 scale-[1.1] md:scale-[1.2] lg:scale-[1.1]"
             arrowDirection="ne"
             arrowColor="fill-white"
+            to="/about" 
+
           />
         </motion.div>
 

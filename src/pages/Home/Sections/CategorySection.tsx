@@ -92,21 +92,23 @@ import { motion } from 'framer-motion'; // Added Framer Motion
 import { Section } from '../../../components/common/Section';
 import livingRoomImg from '/images/home/collection-1.png';
 import kitchenImg from '/images/home/collection-2.png';
-import { Button } from '../../../components/common/Button';
 import CategoryHeader from '../../../components/common/CategoryHeader';
+import { CTABtn } from '../../../components/common/CTABtn';
 
 const categories = [
   { 
     id: 1, 
     subTitle: 'Oaken',
     title: 'Premium indoor flooring crafted to deliver the authentic beauty of real wood with enhanced strength and performance for modern interiors.', 
-    img: livingRoomImg 
+    img: livingRoomImg,
+    path: '/products?brand=Oaken'
   },
   { 
     id: 2, 
     subTitle: 'NordWood',
     title: 'Sustainable outdoor surfaces that transform the timeless beauty of wood into durable, weather-enduring landscapes and architectural elements.', 
-    img: kitchenImg 
+    img: kitchenImg,
+    path: '/products?brand=Nordwood'
   },
 ];
 
@@ -122,7 +124,7 @@ export const CategorySection: React.FC = () => {
       >
         <CategoryHeader 
           title="Our Collections"
-          description="A thoughtfully engineered selection of surfaces designed to enhance environments with character, depth, and enduring elegance.
+          description="A thoughtfully engineered selection of surfaces designed to enhance Spaces ̰ with character, depth, and enduring elegance.
 "
           iconSrc="/icons/arrow-right.png" 
           onClick={() => console.log("Navigating...")}
@@ -142,7 +144,7 @@ export const CategorySection: React.FC = () => {
               delay: index * 0.2, // First card starts at 0s, second at 0.2s
               ease: [0.21, 0.47, 0.32, 0.98] 
             }}
-            className="flex flex-col md:relative group overflow-hidden cursor-pointer h-auto md:h-[500px] 2xl:h-[700px] transition-all duration-500"
+            className="flex flex-col md:relative group overflow-hidden h-auto md:h-[500px] 2xl:h-[700px] transition-all duration-500"
           >
             {/* Image Container with fixed aspect ratio on mobile */}
             <div className="h-[300px] sm:h-[400px] md:h-full w-full overflow-hidden">
@@ -163,9 +165,10 @@ export const CategorySection: React.FC = () => {
               md:opacity-0 md:group-hover:opacity-100 md:transition-all md:duration-700 md:ease-in-out
             `}>
               
+              <div className="flex flex-col justify-center items-center w-full h-full gap-10">
               {/* Text Content */}
-              <div>
-                <span className="text-xl  text-gray-500 block mb-2 md:mb-4  font-semibold md:translate-y-8 md:group-hover:translate-y-0 md:transition-transform md:duration-500">
+              <div className="w-full text-center space-y-2">
+                <span className="text-xl  text-gray-500 block font-semibold md:translate-y-8 md:group-hover:translate-y-0 md:transition-transform md:duration-500">
                   {cat.subTitle}
                 </span>
                 <h3 className="text-dynamic-body l sm:text-dynamic-h3 text-gray-900 max-w-[100%] leading-tight md:translate-y-8 md:group-hover:translate-y-0 md:transition-transform md:duration-500 md:delay-75  md:font-normal">
@@ -175,13 +178,13 @@ export const CategorySection: React.FC = () => {
 
               {/* Button */}
               <div className="md:translate-y-4 md:group-hover:translate-y-0 md:transition-transform md:duration-700 md:delay-150 mt-4 md:mt-0">
-                <Button 
-                  label="Explore" 
+                <CTABtn
+                  label="Explore"
                   variant="primary"
-                  className="w-fit" 
-                  arrowDirection="ne"
-                  arrowColor="fill-white"
+                  to={cat.path}
+                  className='cursor-pointer'
                 />
+              </div>
               </div>
             </div>
           </motion.div>

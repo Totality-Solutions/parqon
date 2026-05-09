@@ -108,9 +108,10 @@ export const Footer: React.FC = () => {
               </h4>
               <ul className="space-y-4 text-dynamic-body font-semibold">
                 <FooterNavLink to="/" label="Home" />
-                <FooterNavLink to="/about" label="About us" />
-                <FooterNavLink to="/visualizer" label="Visualizer" />
-                <FooterNavLink to="/contact" label="Contact us" />
+                <FooterNavLink to="/about" label="About Us" />
+                <FooterNavLink to="/projects" label="Projects" />
+                {/* <FooterNavLink to="/visualizer" label="Visualizer" /> */}
+                <FooterNavLink to="/contact" label="Contact Us" />
               </ul>
             </div>
 

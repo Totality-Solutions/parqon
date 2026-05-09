@@ -456,6 +456,7 @@ import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence } from 'framer-motion'; // Added motion
 import { Container } from '../../components/common/Container';
+import { CTABtn } from '../../components/common/CTABtn';
 
 // Import Icons
 import emailIconImg from '../../assets/icons/email.png';
@@ -598,37 +599,24 @@ export const ContactPage: React.FC = () => {
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
                 {/* Reset Button */}
-                <div className="group flex h-12 w-full cursor-pointer items-stretch sm:w-auto">
-                  <button
-                    type="reset"
-                    className="flex flex-1 items-center justify-center bg-[#EEEEEE] px-8 text-dynamic-body font-semibold tracking-wider text-black transition-colors group-hover:bg-gray-200 sm:flex-none sm:min-w-[160px]"
-                  >
-                    Reset
-                  </button>
-                  <div className="flex w-14 items-center justify-center bg-[#7D774F] transition-colors group-hover:bg-[#8e875e]">
-                    <img
-                      src={resetIconImg}
-                      alt="Reset"
-                      className="h-5 w-5 brightness-0 invert transition-transform duration-300 group-hover:rotate-[-45deg]"
-                    />
-                  </div>
-                </div>
+                <CTABtn
+                  type="reset"
+                  label="Reset"
+                  iconSrc={resetIconImg}
+                  noScale
+                  block
+                  className="sm:!w-auto sm:min-w-[160px]"
+                />
 
-                {/* Submit Button */}
-                <button
+                {/* Submit CTABtn */}
+                <CTABtn
                   type="submit"
+                  label={loading ? "Sending..." : "Submit Inquiry"}
                   disabled={loading}
-                  className={`group flex h-12 w-full items-stretch transition-all sm:w-auto ${loading ? "opacity-50" : "opacity-100"}`}
-                >
-                  <div className="flex flex-1 items-center justify-center bg-[#EEEEEE] px-8 text-dynamic-body font-semibold tracking-wider text-black transition-colors group-hover:bg-gray-200 sm:flex-none sm:min-w-[180px]">
-                    {loading ? "Sending..." : "Submit Inquiry"}
-                  </div>
-                  <div className="flex w-14 items-center justify-center bg-[#7D774F] transition-colors group-hover:bg-[#8e875e]">
-                    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-white transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
-                      <path d="M21,2.5c-0.2-0.2-0.5-0.3-0.8-0.2l-17,6c-0.4,0.1-0.7,0.5-0.7,0.9c0,0.4,0.3,0.8,0.7,0.9l7.5,2.5l2.5,7.5 c0.1,0.4,0.5,0.7,0.9,0.7c0,0,0,0,0,0c0.4,0,0.8-0.3,0.9-0.7l6-17C21.3,3,21.2,2.7,21,2.5z" />
-                    </svg>
-                  </div>
-                </button>
+                  noScale
+                  block
+                  className="sm:!w-auto sm:min-w-[180px]"
+                />
               </div>
 
               {/* Success Message Overlay */}

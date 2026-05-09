@@ -177,43 +177,97 @@ const usageListData: ExpandableListItem[] = [
 const usageBlocks: BentoBlock[] = [
   { 
     type: 'text', 
-    title: 'Hospitality', 
-    body: 'Create inviting, high-end guest experiences with elegant surfaces designed for the sophisticated aesthetics of luxury hotel lobbies and restaurant dining areas.' 
+    title: 'Residential Spaces', 
+    body: 'Crafted to bring warmth, comfort, and timeless elegance into everyday living.' 
   },
   { 
     type: 'image', 
-    url: '/images/application/app - hospi1.jpeg' 
+    url: '/images/about/interior/1.jpg' 
   },
   { 
     type: 'image', 
-    url: '/images/application/app - hospi2.jpeg'  
+    url: '/images/about/interior/2.jpg'  
   },
   { 
     type: 'image', 
-    url: '/images/application/app - corp1.jpeg'  
+    url: '/images/about/exterior/1.jpg'  
   },
   { 
     type: 'text', 
-    title: 'Corporate', 
-    body: 'Enhance professional work environments with durable, high-performance flooring and wall solutions that stand up to the rigorous demands of high-traffic office spaces.' 
+    title: 'Hospitality Spaces', 
+    body: 'Designed to create refined and memorable guest experiences with lasting visual appeal.' 
   },
   { 
     type: 'image', 
-    url: '/images/application/app - corp2.jpg'  
+    url: '/images/about/exterior/2.jpg' 
+  },
+  
+  { 
+    type: 'text', 
+    title: 'Commercial Spaces', 
+    body: 'Built for modern environments that demand both sophistication and performance.' 
+  },
+  { 
+    type: 'image', 
+    url: '/images/about/commercial/1.jpg' 
+  },
+  { 
+    type: 'image', 
+    url: '/images/about/commercial/2.jpg'  
+  },
+  { 
+    type: 'image', 
+    url: '/images/application/Villas/1.jpg'  
+  },
+  
+  { 
+    type: 'text', 
+    title: 'Luxury Villas & Apartments', 
+    body: 'Elevating premium residences with rich textures and timeless character.' 
+  },
+  { 
+    type: 'image', 
+    url: '/images/application/Villas/1.jpg' 
+  },
+  {
+    type: 'text', 
+    title: 'Hotels & Resorts', 
+    body: 'Flooring that enhances every stay with warmth, elegance, and durability.' 
+  },
+  { 
+    type: 'image', 
+    url: '/images/application/Resorts/1.jpg'  
+  },
+  { 
+    type: 'image', 
+    url: '/images/application/Resorts/2.jpg'  
+  },
+  { 
+    type: 'image', 
+    url: '/images/application/Office/1.jpg'  
   },
   { 
     type: 'text', 
-    title: 'Healthcare', 
-    body: 'Support wellness with specialized, low-emission surfaces engineered for clinical safety, hygiene, and easy maintenance in hospital environments.' 
+    title: 'Offices & Workspaces', 
+    body: 'Contemporary surfaces designed to inspire productivity and refined aesthetics.' 
   },
   { 
     type: 'image', 
-    url: '/images/application/app - health1.jpeg' 
+    url: '/images/application/Office/2.jpg'  
+  },
+  { 
+    type: 'text', 
+    title: 'Retail & Showrooms', 
+    body: 'Crafted to complement premium displays and elevate customer experiences.' 
   },
   { 
     type: 'image', 
-    url: '/images/application/app - health2.jpeg' 
+    url: '/images/application/Reatil/1.jpg' 
   },
+  { 
+    type: 'image', 
+    url: '/images/application/Reatil/2.jpg'  
+  }
 ];
 
 export const AppUsage: React.FC = () => {
@@ -221,13 +275,13 @@ export const AppUsage: React.FC = () => {
     <>
       {/* Assuming ExpandableList has its own internal motion logic, 
           otherwise wrap its heading in a motion.div */}
-      <ExpandableList 
+      {/* <ExpandableList 
         heading="Where Will You Use It?" 
         items={usageListData} 
         expandedHeight={220} 
-      />
+      /> */}
 
-      <section className="pt-0 overflow-hidden">
+      <section className="pt-16 md:pt-24 overflow-hidden">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 50 }}

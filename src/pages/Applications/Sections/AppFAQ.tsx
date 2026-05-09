@@ -242,9 +242,9 @@ export const AppFAQ: React.FC = () => {
           <h2 className="text-dynamic-h2 font-bold tracking-tighter text-gray-900 text-left md:text-left">
             Real FAQs
           </h2>
-          <p className="text-gray-500 text-dynamic-body md:max-w-xs lg:max-w-sm text-left md:text-right leading-relaxed md:leading-tight">
+          {/* <p className="text-gray-500 text-dynamic-body md:max-w-xs lg:max-w-sm text-left md:text-right leading-relaxed md:leading-tight">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* FAQ List with Staggered Entrance */}

@@ -4,18 +4,18 @@ import { ExpandableList, type ExpandableListItem } from '../../../components/com
 const usageData: ExpandableListItem[] = [
   {
     id: 'interior',
-    title: 'Interior',
-    shortDesc: 'Elevating indoor living with premium engineered surfaces that blend timeless wood aesthetics with modern warmth and comfort.',
+    title: 'Residential Spaces',
+    shortDesc: 'Bring warmth, comfort, and timeless elegance into your home with flooring designed to complement refined everyday living.',
     previews: [
-      "/images/about/interior/1.jpeg",
-      "/images/about/interior/3.jpeg",
-      "/images/about/interior/2.jpeg"
+      "/images/about/interior/1.jpg",
+      "/images/about/interior/3.jpg",
+      "/images/about/interior/2.jpg"
     ]
   },
   {
     id: 'exterior',
-    title: 'Exterior',
-    shortDesc: 'Sustainable, high-performance decking and cladding engineered with advanced technology to master the elements and enhance architectural landscapes.',
+    title: 'Hospitality Spaces',
+    shortDesc: 'Create immersive guest experiences with sophisticated flooring that blends luxury, durability, and lasting visual appeal.',
     previews: [
       "/images/about/exterior/1.jpg",
       "/images/about/exterior/3.jpg",
@@ -24,8 +24,8 @@ const usageData: ExpandableListItem[] = [
   },
   {
     id: 'commercial',
-    title: 'Commercial',
-    shortDesc: 'Highly durable and sophisticated surface solutions designed to meet the rigorous demands and aesthetic standards of professional, high-traffic environments.',
+    title: 'Commercial Spaces',
+    shortDesc: 'Elevate modern work and retail environments with high-performance flooring crafted for style, functionality, and enduring impact.',
     previews: [
       "/images/about/commercial/1.jpg",
       "/images/about/commercial/3.jpg",

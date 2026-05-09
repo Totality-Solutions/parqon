@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion'; 
-import { Button } from '../../../components/common/Button';
+import { CTABtn } from '../../../components/common/CTABtn';
 
 // ============================================
 // CHOOSE YOUR ROUTING APPROACH BELOW
@@ -10,6 +10,7 @@ import { Button } from '../../../components/common/Button';
 // OPTION 1: React Router (RECOMMENDED IF USING REACT ROUTER)
 // Uncomment these lines:
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../../../components/common/Button';
 
 // OPTION 2: Next.js (UNCOMMENT IF USING NEXT.JS)
 // import Link from 'next/link';
@@ -19,9 +20,9 @@ import { useNavigate } from 'react-router-dom';
 const heroSlides = [
   {
     id: 1,
-    image: '/images/home/oaken.jpeg',
+    image: '/images/home/hero/1.jpeg',
     swatch: '/images/home/hero3.jpg',
-    title: 'Oaken Wood',
+    title: 'Oaken',
     link: '/products?brand=Oaken', // ← CHANGE THIS TO YOUR FIRST PAGE URL
     // subtitle: 'European Oak Collection'
   },
@@ -30,7 +31,7 @@ const heroSlides = [
     id: 2,
     image: '/images/home/nordwood.jpeg',
     swatch: '/images/home/hero1.jpg',
-    title: 'NordWood',
+    title: 'Nordwood',
     link: '/products?brand=Nordwood', // ← CHANGE THIS TO YOUR SECOND PAGE URL
     // subtitle: 'Artisan Series'
   },
@@ -181,7 +182,7 @@ export const HeroSection: React.FC = () => {
             {/* OPTION 1: REACT ROUTER (RECOMMENDED) */}
             {/* ============================================ */}
             <Button
-              label="Explore This Finish"
+              label="Explore this product"
               variant="primary"
               onClick={handleCtaClick}
               className="w-fit origin-left transition-transform scale-[0.7] md:scale-[0.9] lg:scale-[1] !p-[0px] cursor-pointer hover:opacity-80"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '../../../components/common/Button';
+import { CTABtn } from '../../../components/common/CTABtn';
 
 export const AboutBase: React.FC = () => {
   return (
@@ -17,22 +17,21 @@ export const AboutBase: React.FC = () => {
             className="flex flex-col items-start"
           >
             <h2 className="text-[18px] md:text-2xl lg:text-2xl font-semibold text-gray-900 leading-tight mb-8">
-             About
+             About Us
             </h2>
             <p className="text-gray-500 text-dynamic-body leading-relaxed mb-10 max-w-xl">
-              Parqon is a premium wood veneer and flooring brand dedicated to bringing the natural soul of wood into refined living spaces. Inspired by nature and refined through innovation, we curate collections that offer versatile tones, patterns, and finishes to give designers and homeowners ultimate creative freedom. At Parqon, tradition meets modern design, ensuring every surface is a design element that defines space, mood, and identity with lasting stability and flawless appeal.
+Parqon is a premium wooden flooring brand curated for spaces that value timeless design and refined living. Sourced from globally renowned collections, our flooring brings together rich textures, elegant finishes, and enduring quality to create surfaces that feel as luxurious as they look.
+Designed for architects, designers, and discerning homeowners, Parqon transforms every floor into a statement of warmth, character, and sophistication — where every detail is chosen to leave a lasting impression.
             </p>
 
             {/* Custom Split Button */}
-            <div className="w-fit">
-              <Button
+            {/* <div className="w-fit">
+              <CTABtn
                 label="Explore"
                 variant="primary"
-                // onClick={() => window.location.href = '/'}
-                arrowDirection="ne"
-                arrowColor="fill-white"
+                to="/products"
               />
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right Image */}
@@ -44,7 +43,7 @@ export const AboutBase: React.FC = () => {
             className="relative h-[400px] lg:h-[600px] w-full"
           >
             <img
-              src="/images/about/2.jpeg" // Replace with your image path
+              src="/images/about/about.jpeg" // Replace with your image path
               alt="Minimal Interior Design"
               className="w-full h-full object-cover "
             />

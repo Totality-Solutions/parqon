@@ -10,7 +10,7 @@ export const AboutIntro: React.FC = () => {
             Perfectly Designed by Nature, Refined for You.
           </div>
           <p className="text-gray-500 text-dynamic-body  font-medium ">
-          Parqon brings the natural soul of wood to every environment, from the Oaken collection's elegant indoor floors to Nordwood’s high-performance outdoor surfaces. 
+Parqon brings the natural soul of wood to every space, from the Oaken collection's elegant indoor floors to Nordwood’s high-performance outdoor surfaces.
           </p>
           <p className="text-gray-500 text-dynamic-body  font-medium ">
             Crafted for connoisseurs, our sustainably sourced designs blend timeless craftsmanship with advanced technology to transform your space.

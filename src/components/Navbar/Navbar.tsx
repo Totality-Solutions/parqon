@@ -313,7 +313,7 @@ const navItems = [
   { name: 'Applications', path: '/applications' },
   { name: 'Products', path: '/products' },
   { name: 'Contact Us', path: '/contact' },
-  { name: 'Projects', path: '/projects' }
+  // { name: 'Projects', path: '/projects' }
 ];
 
 const MOBILE_STYLE_DATA = [
@@ -461,7 +461,7 @@ export const Navbar: React.FC = () => {
             className="fixed inset-0 bg-white z-[1200] p-6 sm:p-8 overflow-y-auto"
           >
             <div className="flex items-center justify-between w-full mb-8">
-              <Link to="/" onClick={() => setIsOpen(false)}>
+             <Link to="/" className="block">
                 <img src={PAROONLogo} alt="Logo" className="h-8 w-auto object-contain" />
               </Link>
               <button onClick={() => setIsOpen(false)} className="text-gray-700 p-2">

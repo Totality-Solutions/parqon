@@ -1,7 +1,7 @@
 // // src/pages/Home/Sections/ProjectCallout.tsx
 // import React from 'react';
 // import { Container } from '../../../components/common/Container';
-// import { Button } from '../../../components/common/Button';
+// import { CTABtn } from '../../../components/common/CTABtn';
 
 // export const ProjectCallout: React.FC = () => {
 //   return (
@@ -21,7 +21,7 @@
 
 //         {/* Action Button with 0.7 scale on Tablet */}
 //         <div className="flex items-center justify-center">
-//           <Button 
+//           <CTABtn 
 //             label="Connect with Us" 
 //             variant="primary"
 //             /* md:scale-[0.7] -> Shrinks on Tablet 
@@ -43,7 +43,7 @@
 import React from 'react';
 import { motion } from 'framer-motion'; // Added Framer Motion
 import { Container } from '../../../components/common/Container';
-import { Button } from '../../../components/common/Button';
+import { CTABtn } from '../../../components/common/CTABtn';
 
 export const ProjectCallout: React.FC = () => {
   return (
@@ -58,12 +58,13 @@ export const ProjectCallout: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center md:text-left transition-all"
         >
-          <p className="text-gray-600 text-dynamic-body mb-2 font-medium tracking-wide">
-            We’re here to help
-          </p>
           <h3 className="text-dynamic-h2 text-gray-900 tracking-tighter leading-tight font-medium">
-            Let's Talk About
+            Crafted For Connoisseurs Like You
           </h3>
+          <p className="text-gray-600 text-dynamic-body mb-2 font-medium tracking-wide">
+            Reach out today
+          </p>
+          
         </motion.div>
 
         {/* Action Button with Slide-in from Right */}
@@ -74,9 +75,10 @@ export const ProjectCallout: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex items-center justify-center"
         >
-          <Button 
+          <CTABtn 
             label="Connect with Us" 
             variant="primary"
+            to="/contact"
             /* md:scale-[0.7] -> Shrinks on Tablet 
                 xl:scale-100   -> Back to full size on Desktop
                 md:origin-right -> Anchors it to the right side of the container 

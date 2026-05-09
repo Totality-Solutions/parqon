@@ -22,9 +22,7 @@ export const AboutStory: React.FC = () => {
           </div>
           <div className="lg:col-span-8">
             <p className="text-gray-500 leading-relaxed font-medium text-dynamic-body">
-              Born from the idea that flooring is more than a surface, Parqon set out to shape spaces through 
-              craftsmanship, precision, and design-led thinking. Parqon began with a vision to redefine 
-              wooden flooring through a balance of design, material integrity, and precision craftsmanship.
+              Born from a passion for refined interiors, Parqon believes flooring is more than just a surface — it is the foundation of every space. With a carefully curated range of premium wooden flooring, we bring together timeless aesthetics, material excellence, and modern design to create spaces that feel warm, sophisticated, and enduring.
             </p>
           </div>
         </div>
