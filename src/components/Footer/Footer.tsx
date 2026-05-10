@@ -8,7 +8,6 @@ import PAROONLogo from '../../assets/logo.png';
 import { 
   AiOutlineInstagram, 
   AiOutlineLinkedin, 
-  AiOutlineWhatsApp 
 } from 'react-icons/ai';
 import { RiFacebookLine } from 'react-icons/ri';
 
