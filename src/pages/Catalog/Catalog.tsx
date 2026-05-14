@@ -10,7 +10,6 @@ import { cdn } from "../../config/cdn";
 const livingRoomImg = cdn("/images/home/collection-1.png");
 const kitchenImg = cdn("/images/home/collection-2.png");
 
-
 const catalogs = [
   {
     id: 1,
@@ -18,7 +17,7 @@ const catalogs = [
     title:
       "Premium indoor flooring crafted to deliver the authentic beauty of real wood with enhanced strength and performance for modern interiors.",
     img: livingRoomImg,
-    pdf: cdn("/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf"),
+    pdf: cdn("/pdf/PARQON BROCHURE OAKEN (1).pdf"),
   },
   {
     id: 2,
