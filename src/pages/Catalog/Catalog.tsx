@@ -10,7 +10,6 @@ import { cdn } from "../../config/cdn";
 const livingRoomImg = cdn("/images/home/collection-1.png");
 const kitchenImg = cdn("/images/home/collection-2.png");
 
-
 const catalogs = [
   {
     id: 1,
