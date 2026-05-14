@@ -1,4 +1,5 @@
 import React from 'react';
+import { cdn } from '../../config/cdn';
 import { AppHero } from './Sections/AppHero';
 
 import { AppUsage } from './Sections/AppUsage';
@@ -10,7 +11,7 @@ export const ApplicationsPage: React.FC = () => {
         <main className="bg-white ">
             <AppHero
                 mediaType="image"
-                mediaUrl="/images/application/app main.jpeg"
+                mediaUrl={cdn('/images/application/app main.jpeg')}
             />
             <AppUsage />
             <AppFAQ />

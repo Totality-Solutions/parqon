@@ -4,7 +4,8 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Container } from '../common/Container';
-import PAROONLogo from '../../assets/logo.png';
+import { cdn } from '../../config/cdn';
+const PAROONLogo = cdn('/assets/logo.png');
 import { 
   AiOutlineInstagram, 
   AiOutlineLinkedin, 
@@ -17,7 +18,7 @@ import { RiFacebookLine } from 'react-icons/ri';
  */
 const SmallArrow = ({ active }: { active: boolean }) => (
   <img
-    src="/icons/arrow-right.png"
+    src={cdn('/icons/arrow-right.png')}
     alt=""
     className={`w-3 h-3 object-contain transition-all duration-300 ${
       active 

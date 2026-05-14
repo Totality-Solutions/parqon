@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from '../../../components/common/Container';
+import { cdn } from '../../../config/cdn';
 
 export const AboutHero: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ export const AboutHero: React.FC = () => {
       <Container>
         <div className="w-full h-[50vh] md:h-[70vh] overflow-hidden bg-gray-100">
           <img 
-            src="/images/about/aboutBanner.jpeg" 
+            src={cdn('/images/about/aboutBanner.jpeg')} 
             className="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-1000" 
             alt="Parqon Architectural Space"
           />

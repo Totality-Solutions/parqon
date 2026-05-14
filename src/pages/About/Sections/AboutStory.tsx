@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '../../../components/common/Container';
-// Make sure to import your logo file here
-import PAROONLogo from '../../../assets/logo1.png';
+import { cdn } from '../../../config/cdn';
+const PAROONLogo = cdn('/assets/logo1.png');
 
 export const AboutStory: React.FC = () => {
   return (
@@ -29,13 +29,13 @@ export const AboutStory: React.FC = () => {
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-6">
           <div className="overflow-hidden">
-            <img src="/images/about/interior/1.jpg" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Craft" />
+            <img src={cdn('/images/about/interior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Craft" />
           </div>
           <div className="overflow-hidden">
-            <img src="/images/about/exterior/1.jpg" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Material" />
+            <img src={cdn('/images/about/exterior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Material" />
           </div>
           <div className="overflow-hidden">
-            <img src="/images/about/commercial/1.jpg" className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Detail" />
+            <img src={cdn('/images/about/commercial/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Detail" />
           </div>
         </div>
       </Container>
@@ -46,7 +46,7 @@ export const AboutStory: React.FC = () => {
 // import React from 'react';
 // import { Container } from '../../../components/common/Container';
 // import { Link } from 'react-router-dom';
-// import PAROONLogo from '../../../assets/logo1.png';
+// const PAROONLogo = '/assets/logo1.png';
 
 // export const AboutStory: React.FC = () => {
 //   return (

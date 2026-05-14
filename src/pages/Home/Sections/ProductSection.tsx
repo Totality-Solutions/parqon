@@ -48,7 +48,7 @@
 // export const ProductSection: React.FC = () => {
 //   const [activeTab, setActiveTab] = useState<Category>('Outdoor');
 //   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-//   const iconSrc = "/icons/arrow-right.png";
+//   const iconSrc = cdn('/icons/arrow-right.png');
 
 //   const handleTabChange = (tab: Category) => {
 //     setActiveTab(tab);
@@ -189,43 +189,44 @@
 import React, { useState } from 'react';
 import { Section } from '../../../components/common/Section';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cdn } from '../../../config/cdn';
 import { Button } from '../../../components/common/Button';
 
 const productData = {
   'Living Rooms': {
     description: 'Where sophisticated design meets everyday living. Elevate your lounge with durable, high-end surfaces engineered to provide a seamless blend of natural grain textures and contemporary aesthetic appeal.',
     images: [
-      '/images/home/products/living-room/1.png',
-      '/images/home/products/living-room/2.jpg',
-      '/images/home/products/living-room/3.jpg',
-      '/images/home/products/living-room/4.jpg',
+      cdn('/images/home/products/living-room/1.png'),
+      cdn('/images/home/products/living-room/2.jpg'),
+      cdn('/images/home/products/living-room/3.jpg'),
+      cdn('/images/home/products/living-room/4.jpg'),
     ]
   },
   'Bed Rooms': {
     description: 'Elevate your rest with masterfully engineered finishes that speak to understated elegance. By combining a minimalist aesthetic with the rich grain of hand-selected timber, we bring a refined architectural touch to your most personal environment.',
     images: [
-      '/images/home/products/bedroom/1.jpg',
-      '/images/home/products/bedroom/2.jpg',
-      '/images/home/products/bedroom/3.jpg',
-      '/images/home/products/bedroom/4.jpg',
+      cdn('/images/home/products/bedroom/1.jpg'),
+      cdn('/images/home/products/bedroom/2.jpg'),
+      cdn('/images/home/products/bedroom/3.jpg'),
+      cdn('/images/home/products/bedroom/4.jpg'),
     ]
   },
   'Outdoor Decks': {
     description: 'Define your outdoor living with surfaces built for performance. Combining rugged durability with a refined timber aesthetic, our decking solutions provide a resilient, high-end foundation for your exterior entertaining spaces and private retreats.',
     images: [
-      '/images/home/products/outdoor/1.jpeg',
-      '/images/home/products/outdoor/2.jpeg',
-      '/images/home/products/outdoor/3.jpeg',
-      '/images/home/products/outdoor/4.jpeg',
+      cdn('/images/home/products/outdoor/1.jpeg'),
+      cdn('/images/home/products/outdoor/2.jpeg'),
+      cdn('/images/home/products/outdoor/3.jpeg'),
+      cdn('/images/home/products/outdoor/4.jpeg'),
     ]
   },
   'Indoor': {
     description: 'Elevate your courtyard experience with high-end surfaces crafted for the modern patio. Combining a sleek architectural aesthetic with the inviting warmth of wood, these durable finishes transform any outdoor niche into a premium retreat.',
     images: [
-      '/images/home/products/indoor/1.jpg',
-      '/images/home/products/indoor/2.jpg',
-      '/images/home/products/indoor/3.jpg',
-      '/images/home/products/indoor/4.jpg',
+      cdn('/images/home/products/indoor/1.jpg'),
+      cdn('/images/home/products/indoor/2.jpg'),
+      cdn('/images/home/products/indoor/3.jpg'),
+      cdn('/images/home/products/indoor/4.jpg'),
     ]
   }
 };
@@ -235,7 +236,7 @@ type Category = keyof typeof productData;
 export const ProductSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Category>('Living Rooms');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const iconSrc = "/icons/arrow-right.png";
+  const iconSrc = cdn('/icons/arrow-right.png');
 
   const handleTabChange = (tab: Category) => {
     setActiveTab(tab);

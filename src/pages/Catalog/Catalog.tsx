@@ -5,12 +5,11 @@ import { Eye, X } from "lucide-react";
 import { Section } from "../../components/common/Section";
 import CategoryHeader from "../../components/common/CategoryHeader";
 import { CTABtn } from "../../components/common/CTABtn";
+import { cdn } from "../../config/cdn";
 
-import livingRoomImg from "/images/home/collection-1.png";
-import kitchenImg from "/images/home/collection-2.png";
+const livingRoomImg = cdn("/images/home/collection-1.png");
+const kitchenImg = cdn("/images/home/collection-2.png");
 
-import oakenPdf from "/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf";
-import nordwoodPdf from "/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf";
 
 const catalogs = [
   {
@@ -19,7 +18,7 @@ const catalogs = [
     title:
       "Premium indoor flooring crafted to deliver the authentic beauty of real wood with enhanced strength and performance for modern interiors.",
     img: livingRoomImg,
-    pdf: oakenPdf,
+    pdf: cdn("/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf"),
   },
   {
     id: 2,
@@ -27,7 +26,7 @@ const catalogs = [
     title:
       "Sustainable outdoor surfaces that transform the timeless beauty of wood into durable, weather-enduring landscapes and architectural elements.",
     img: kitchenImg,
-    pdf: nordwoodPdf,
+    pdf: cdn("/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf"),
   },
 ];
 
@@ -93,7 +92,7 @@ export const CatalogPage: React.FC = () => {
           <CategoryHeader
             title="Product Catalogs"
             description="Explore our curated catalogs designed to bring warmth, texture, and timeless materiality into modern architectural spaces."
-            iconSrc="/icons/arrow-right.png"
+            iconSrc={cdn("/icons/arrow-right.png")}
           />
         </motion.div>
 
