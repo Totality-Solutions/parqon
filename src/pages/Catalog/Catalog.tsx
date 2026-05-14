@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, X } from "lucide-react";
@@ -9,7 +11,6 @@ import { cdn } from "../../config/cdn";
 
 const livingRoomImg = cdn("/images/home/collection-1.png");
 const kitchenImg = cdn("/images/home/collection-2.png");
-
 
 const catalogs = [
   {
@@ -33,7 +34,7 @@ const catalogs = [
 export const CatalogPage: React.FC = () => {
   const [selectedPDF, setSelectedPDF] = useState<string | null>(null);
 
-  // LOCK BODY SCROLL WHEN MODAL OPENS
+  // LOCK BODY SCROLL
   useEffect(() => {
     if (selectedPDF) {
       document.body.style.overflow = "hidden";
@@ -49,7 +50,7 @@ export const CatalogPage: React.FC = () => {
     };
   }, [selectedPDF]);
 
-  // ESC KEY CLOSE
+  // ESC CLOSE
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -66,16 +67,34 @@ export const CatalogPage: React.FC = () => {
     };
   }, [selectedPDF]);
 
-  const handleDownload = (url: string, title: string) => {
-    const link = document.createElement("a");
+  // DOWNLOAD FUNCTION
+  const handleDownload = async (
+    url: string,
+    title: string
+  ) => {
+    try {
+      const response = await fetch(url);
 
-    link.href = url;
-    link.setAttribute("download", `${title}.pdf`);
-    link.target = "_blank";
+      const blob = await response.blob();
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+
+      link.href = blobUrl;
+      link.download = `${title}.pdf`;
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
+      window.open(url, "_blank");
+    }
   };
 
   return (
