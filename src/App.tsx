@@ -13,6 +13,7 @@ import { ProjectDetail } from './pages/Projects/Sections/ProjectDetail';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { NotFoundPage } from './pages/NotFound/NotFoundPage';
 import { PrivacyPolicy } from './components/common/PrivacyPolicy';
+import { CatalogPage } from './pages/Catalog/Catalog';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/catalog" element={<CatalogPage />} />
       </Routes>
       <Footer />
     </>

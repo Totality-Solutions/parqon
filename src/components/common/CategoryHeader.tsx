@@ -100,7 +100,7 @@ import { motion } from 'framer-motion'; // Added Framer Motion
 interface CategoryHeaderProps {
   title: string;
   description: string;
-  iconSrc: string; 
+  iconSrc?: string; 
   onClick?: () => void;
 }
 
