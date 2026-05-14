@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, Download, X } from "lucide-react";
+import { Eye, X } from "lucide-react";
 
 import { Section } from "../../components/common/Section";
 import CategoryHeader from "../../components/common/CategoryHeader";
@@ -9,11 +9,8 @@ import { CTABtn } from "../../components/common/CTABtn";
 import livingRoomImg from "/images/home/collection-1.png";
 import kitchenImg from "/images/home/collection-2.png";
 
-
 import oakenPdf from "/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf";
 import nordwoodPdf from "/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf";
-
-
 
 const catalogs = [
   {
@@ -37,11 +34,44 @@ const catalogs = [
 export const CatalogPage: React.FC = () => {
   const [selectedPDF, setSelectedPDF] = useState<string | null>(null);
 
+  // LOCK BODY SCROLL WHEN MODAL OPENS
+  useEffect(() => {
+    if (selectedPDF) {
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+    } else {
+      document.body.style.overflow = "auto";
+      document.body.style.height = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+      document.body.style.height = "auto";
+    };
+  }, [selectedPDF]);
+
+  // ESC KEY CLOSE
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedPDF(null);
+      }
+    };
+
+    if (selectedPDF) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedPDF]);
+
   const handleDownload = (url: string, title: string) => {
     const link = document.createElement("a");
 
     link.href = url;
-    link.download = `${title}.pdf`;
+    link.setAttribute("download", `${title}.pdf`);
     link.target = "_blank";
 
     document.body.appendChild(link);
@@ -92,7 +122,7 @@ export const CatalogPage: React.FC = () => {
               />
 
               {/* OVERLAY */}
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-all duration-500" />
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-500" />
 
               {/* CONTENT */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12 text-white">
@@ -144,20 +174,30 @@ export const CatalogPage: React.FC = () => {
 
       {/* PDF MODAL */}
       {selectedPDF && (
-        <div className="fixed inset-0 z-[999] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div
+          className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSelectedPDF(null);
+            }
+          }}
+        >
           
-          <div className="relative w-full max-w-6xl h-[90vh] bg-white overflow-y-auto custom-scrollbar">
+          <div className="relative w-full max-w-6xl h-[90vh] bg-white overflow-hidden shadow-2xl">
             
+            {/* CLOSE BUTTON */}
             <button
               onClick={() => setSelectedPDF(null)}
-              className="absolute top-0 right-0 z-20 bg-black text-white w-10 h-10 flex items-center justify-center"
+              className="absolute top-0 right-0 z-20 bg-black text-white w-10 h-10 flex items-center justify-center hover:bg-black/80 transition-all duration-300"
             >
               <X size={18} />
             </button>
 
+            {/* PDF VIEWER */}
             <iframe
-              src={`${selectedPDF}#toolbar=0`}
+              src={`${selectedPDF}#toolbar=0&navpanes=0&scrollbar=1`}
               className="w-full h-full border-0"
+              title="PDF Viewer"
             />
           </div>
         </div>
@@ -165,3 +205,5 @@ export const CatalogPage: React.FC = () => {
     </>
   );
 };
+
+export default CatalogPage;
