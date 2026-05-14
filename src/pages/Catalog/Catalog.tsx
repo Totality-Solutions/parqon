@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, X } from "lucide-react";
 
@@ -32,16 +34,67 @@ const catalogs = [
 export const CatalogPage: React.FC = () => {
   const [selectedPDF, setSelectedPDF] = useState<string | null>(null);
 
-  const handleDownload = (url: string, title: string) => {
-    const link = document.createElement("a");
+  // LOCK BODY SCROLL
+  useEffect(() => {
+    if (selectedPDF) {
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+    } else {
+      document.body.style.overflow = "auto";
+      document.body.style.height = "auto";
+    }
 
-    link.href = url;
-    link.download = `${title}.pdf`;
-    link.target = "_blank";
+    return () => {
+      document.body.style.overflow = "auto";
+      document.body.style.height = "auto";
+    };
+  }, [selectedPDF]);
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  // ESC CLOSE
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedPDF(null);
+      }
+    };
+
+    if (selectedPDF) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedPDF]);
+
+  // DOWNLOAD FUNCTION
+  const handleDownload = async (
+    url: string,
+    title: string
+  ) => {
+    try {
+      const response = await fetch(url);
+
+      const blob = await response.blob();
+
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+
+      link.href = blobUrl;
+      link.download = `${title}.pdf`;
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
+      window.open(url, "_blank");
+    }
   };
 
   return (
@@ -87,7 +140,7 @@ export const CatalogPage: React.FC = () => {
               />
 
               {/* OVERLAY */}
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-all duration-500" />
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-500" />
 
               {/* CONTENT */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12 text-white">
@@ -139,20 +192,30 @@ export const CatalogPage: React.FC = () => {
 
       {/* PDF MODAL */}
       {selectedPDF && (
-        <div className="fixed inset-0 z-[999] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div
+          className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSelectedPDF(null);
+            }
+          }}
+        >
           
-          <div className="relative w-full max-w-6xl h-[90vh] bg-white overflow-y-auto custom-scrollbar">
+          <div className="relative w-full max-w-6xl h-[90vh] bg-white overflow-hidden shadow-2xl">
             
+            {/* CLOSE BUTTON */}
             <button
               onClick={() => setSelectedPDF(null)}
-              className="absolute top-0 right-0 z-20 bg-black text-white w-10 h-10 flex items-center justify-center"
+              className="absolute top-0 right-0 z-20 bg-black text-white w-10 h-10 flex items-center justify-center hover:bg-black/80 transition-all duration-300"
             >
               <X size={18} />
             </button>
 
+            {/* PDF VIEWER */}
             <iframe
-              src={`${selectedPDF}#toolbar=0`}
+              src={`${selectedPDF}#toolbar=0&navpanes=0&scrollbar=1`}
               className="w-full h-full border-0"
+              title="PDF Viewer"
             />
           </div>
         </div>
@@ -160,3 +223,5 @@ export const CatalogPage: React.FC = () => {
     </>
   );
 };
+
+export default CatalogPage;
