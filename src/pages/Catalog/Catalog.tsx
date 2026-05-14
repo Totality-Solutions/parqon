@@ -17,7 +17,7 @@ const catalogs = [
     title:
       "Premium indoor flooring crafted to deliver the authentic beauty of real wood with enhanced strength and performance for modern interiors.",
     img: livingRoomImg,
-    pdf: cdn("/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf"),
+    pdf: cdn("/pdf/PARQON BROCHURE OAKEN (1).pdf"),
   },
   {
     id: 2,
