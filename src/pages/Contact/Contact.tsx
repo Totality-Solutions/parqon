@@ -453,8 +453,7 @@
 // export default ContactPage;
 
 import React, { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
-import { motion, AnimatePresence } from 'framer-motion'; // Added motion
+import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '../../components/common/Container';
 import { CTABtn } from '../../components/common/CTABtn';
 
@@ -502,38 +501,36 @@ export const ContactPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formRef.current) return;
     setLoading(true);
 
-    const SERVICE_ID = "service_2rdde1h"; 
-    const TEMPLATE_ID = "template_znrwxdi";
-    const PUBLIC_KEY = "vQgZ8a61Cat3WwNDv";
+    const form = formRef.current;
+    const payload = {
+      name: (form.elements.namedItem('user_name') as HTMLInputElement).value,
+      email: (form.elements.namedItem('user_contact') as HTMLInputElement).value,
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+    };
 
-    if (formRef.current) {
-      const currentDate = new Date().toLocaleString('en-IN', {
-        day: '2-digit', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit', hour12: true
-      });
-
-      const templateParams = {
-        user_name: formRef.current.user_name.value,
-        user_contact: formRef.current.user_contact.value,
-        message: formRef.current.message.value,
-        date: currentDate,
-      };
-
-      emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
-        .then(() => {
-          setSent(true);
-          setTimeout(() => setSent(false), 5000); // Reset success message after 5s
-          formRef.current?.reset();
-        })
-        .catch((error) => {
-          console.error("EmailJS Error:", error);
-          alert("Failed to send message. Please try again.");
-        })
-        .finally(() => setLoading(false));
+    try {
+      const res = await fetch(
+        'https://vgiwdmx3zpohc62m5gqsnnj3ee0owsue.lambda-url.ap-south-1.on.aws/',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }
+      );
+      if (!res.ok) throw new Error(`Status ${res.status}`);
+      setSent(true);
+      setTimeout(() => setSent(false), 5000);
+      form.reset();
+    } catch (err) {
+      console.error('Lambda error:', err);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
