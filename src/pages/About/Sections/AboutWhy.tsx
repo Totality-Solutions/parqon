@@ -152,37 +152,38 @@
 import React, { useState } from 'react';
 import { Container } from '../../../components/common/Container';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cdn } from '../../../config/cdn';
 
 const features = [
   {
     id: 'premium',
     title: "Natural & Sustainable Sourcing",
     description: "Materials are 100% sustainably sourced and free from chemical additives, using only natural methods like heat and steam in the modification process.",
-    image: "/images/about/nature.jpeg"
+    image: cdn("/images/about/nature.jpeg")
   },
   {
     id: 'durability',
     title: "High Performance & Durability",
     description: "Across all lines, the products offer high resistance to scratches, stains, dents, and daily wear, making them suitable for high-usage residential and commercial environments.",
-    image: "/images/about/high per.jpeg"
+    image: cdn("/images/about/high per.jpeg")
   },
   {
     id: 'weather',
     title: "Advanced Installation Systems",
     description: `Many collections utilize precision-fit systems such as the "Safe lock Pro" click mechanism, "Tongue & Groove" profiles, or the "Pi-Grad" invisible, screwless fastening system for easy and seamless execution.`,
-    image: "/images/about/install.jpeg"
+    image: cdn("/images/about/install.jpeg")
   },
   {
     id: 'sustainability',
     title: "Weather & Environmental Resilience",
     description: "Outdoor-specific products feature superior resistance to moisture, insects, decay, and temperature variations, with some exceeding standards for slip resistance even in wet environments.",
-    image: "/images/about/weather.PNG"
+    image: cdn("/images/about/weather.PNG")
   },
   {
     id: 'maintenance',
     title: "Health & Comfort",
     description: "Indoor flooring products are designed with best-in-class formaldehyde emission standards to protect health, while providing a warm and anti-static underfoot feel.",
-    image: "/images/about/health.jpeg"
+    image: cdn("/images/about/health.jpeg")
   }
 ];
 
@@ -236,7 +237,7 @@ export const AboutWhy: React.FC = () => {
                       className="flex-shrink-0 ml-4"
                     >
                       <img
-                        src="/icons/arrow-right.png"
+                        src={cdn('/icons/arrow-right.png')}
                         alt="arrow"
                         className={`w-6 h-6 object-contain transition-opacity duration-300 ${openId === item.id ? 'opacity-100' : 'opacity-40 group-hover:opacity-70'
                           }`}

@@ -103,6 +103,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BentoGrid, type BentoBlock } from '../../../components/common/BentoGrid';
 import { Container } from '../../../components/common/Container';
+import { cdn } from '../../../config/cdn';
 
 
 
@@ -181,91 +182,91 @@ const usageBlocks: BentoBlock[] = [
   },
   { 
     type: 'image', 
-    url: '/images/about/interior/1.jpg' 
-  },
-  { 
-    type: 'image', 
-    url: '/images/about/interior/2.jpg'  
-  },
-  { 
-    type: 'image', 
-    url: '/images/about/exterior/1.jpg'  
-  },
-  { 
-    type: 'text', 
-    title: 'Hospitality Spaces', 
-    body: 'Designed to create refined and memorable guest experiences with lasting visual appeal.' 
-  },
-  { 
-    type: 'image', 
-    url: '/images/about/exterior/2.jpg' 
-  },
-  
-  { 
-    type: 'text', 
-    title: 'Commercial Spaces', 
-    body: 'Built for modern environments that demand both sophistication and performance.' 
-  },
-  { 
-    type: 'image', 
-    url: '/images/about/commercial/1.jpg' 
-  },
-  { 
-    type: 'image', 
-    url: '/images/about/commercial/2.jpg'  
-  },
-  { 
-    type: 'image', 
-    url: '/images/application/Villas/1.jpg'  
-  },
-  
-  { 
-    type: 'text', 
-    title: 'Luxury Villas & Apartments', 
-    body: 'Elevating premium residences with rich textures and timeless character.' 
-  },
-  { 
-    type: 'image', 
-    url: '/images/application/Villas/1.jpg' 
+    url: cdn('/images/about/interior/1.jpg')
   },
   {
-    type: 'text', 
-    title: 'Hotels & Resorts', 
-    body: 'Flooring that enhances every stay with warmth, elegance, and durability.' 
+    type: 'image',
+    url: cdn('/images/about/interior/2.jpg')
   },
-  { 
-    type: 'image', 
-    url: '/images/application/Resorts/1.jpg'  
+  {
+    type: 'image',
+    url: cdn('/images/about/exterior/1.jpg')
   },
-  { 
-    type: 'image', 
-    url: '/images/application/Resorts/2.jpg'  
+  {
+    type: 'text',
+    title: 'Hospitality Spaces',
+    body: 'Designed to create refined and memorable guest experiences with lasting visual appeal.'
   },
-  { 
-    type: 'image', 
-    url: '/images/application/Office/1.jpg'  
+  {
+    type: 'image',
+    url: cdn('/images/about/exterior/2.jpg')
   },
-  { 
-    type: 'text', 
-    title: 'Offices & Workspaces', 
-    body: 'Contemporary surfaces designed to inspire productivity and refined aesthetics.' 
+
+  {
+    type: 'text',
+    title: 'Commercial Spaces',
+    body: 'Built for modern environments that demand both sophistication and performance.'
   },
-  { 
-    type: 'image', 
-    url: '/images/application/Office/2.jpg'  
+  {
+    type: 'image',
+    url: cdn('/images/about/commercial/1.jpg')
   },
-  { 
-    type: 'text', 
-    title: 'Retail & Showrooms', 
-    body: 'Crafted to complement premium displays and elevate customer experiences.' 
+  {
+    type: 'image',
+    url: cdn('/images/about/commercial/2.jpg')
   },
-  { 
-    type: 'image', 
-    url: '/images/application/Reatil/1.jpg' 
+  {
+    type: 'image',
+    url: cdn('/images/application/Villas/1.jpg')
   },
-  { 
-    type: 'image', 
-    url: '/images/application/Reatil/2.jpg'  
+
+  {
+    type: 'text',
+    title: 'Luxury Villas & Apartments',
+    body: 'Elevating premium residences with rich textures and timeless character.'
+  },
+  {
+    type: 'image',
+    url: cdn('/images/application/Villas/1.jpg')
+  },
+  {
+    type: 'text',
+    title: 'Hotels & Resorts',
+    body: 'Flooring that enhances every stay with warmth, elegance, and durability.'
+  },
+  {
+    type: 'image',
+    url: cdn('/images/application/Resorts/1.jpg')
+  },
+  {
+    type: 'image',
+    url: cdn('/images/application/Resorts/2.jpg')
+  },
+  {
+    type: 'image',
+    url: cdn('/images/application/Office/1.jpg')
+  },
+  {
+    type: 'text',
+    title: 'Offices & Workspaces',
+    body: 'Contemporary surfaces designed to inspire productivity and refined aesthetics.'
+  },
+  {
+    type: 'image',
+    url: cdn('/images/application/Office/2.jpg')
+  },
+  {
+    type: 'text',
+    title: 'Retail & Showrooms',
+    body: 'Crafted to complement premium displays and elevate customer experiences.'
+  },
+  {
+    type: 'image',
+    url: cdn('/images/application/Reatil/1.jpg')
+  },
+  {
+    type: 'image',
+    url: cdn('/images/application/Reatil/2.jpg')
   }
 ];
 

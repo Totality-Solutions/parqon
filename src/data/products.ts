@@ -1,4 +1,6 @@
-export interface Finish { 
+import { cdn } from '../config/cdn';
+
+export interface Finish {
   id: string; 
   name: string; 
   color: string; 
@@ -320,84 +322,84 @@ export const BRAND_CATEGORIES = {
 
 export const ALL_PRODUCTS: Product[] = [
   // --- Oaken Collection ---
-  { 
-    id: 'o-1', 
-    title: 'European Oak Plank', 
-    brand: 'Oaken', 
-    category: 'Engineered Flooring', 
-    image: '/images/product/OAKEN/ENGINEERED FLOORING.png' 
+  {
+    id: 'o-1',
+    title: 'European Oak Plank',
+    brand: 'Oaken',
+    category: 'Engineered Flooring',
+    image: cdn('/images/product/OAKEN/ENGINEERED FLOORING.png')
   },
-  { 
-    id: 'o-2', 
-    title: 'Heritage Walnut', 
-    brand: 'Oaken', 
-    category: 'Solid Wood', 
-    image: '/images/product/OAKEN/SOLID WOOD.png' 
+  {
+    id: 'o-2',
+    title: 'Heritage Walnut',
+    brand: 'Oaken',
+    category: 'Solid Wood',
+    image: cdn('/images/product/OAKEN/SOLID WOOD.png')
   },
-  { 
-    id: 'o-3', 
-    title: 'Classic Oak Laminate', 
-    brand: 'Oaken', 
-    category: 'Laminated Flooring', 
-    image: '/images/product/OAKEN/LAMINATED FLOORING.png' 
+  {
+    id: 'o-3',
+    title: 'Classic Oak Laminate',
+    brand: 'Oaken',
+    category: 'Laminated Flooring',
+    image: cdn('/images/product/OAKEN/LAMINATED FLOORING.png')
   },
-  { 
-    id: 'o-4', 
-    title: 'Modern Stone SPC', 
-    brand: 'Oaken', 
-    category: 'SPC Flooring', 
-    image: '/images/product/OAKEN/SPC FLOORING.png' 
+  {
+    id: 'o-4',
+    title: 'Modern Stone SPC',
+    brand: 'Oaken',
+    category: 'SPC Flooring',
+    image: cdn('/images/product/OAKEN/SPC FLOORING.png')
   },
 
   // --- Nordwood Indoor ---
-  { 
-    id: 'n-i1', 
-    title: 'Textured Pine Wall', 
-    brand: 'Nordwood', 
-    category: 'Wall Panel', 
-    subCategory: 'Indoor', 
-    image: '/images/product/NORDWOOD/Wall Panel.png' 
+  {
+    id: 'n-i1',
+    title: 'Textured Pine Wall',
+    brand: 'Nordwood',
+    category: 'Wall Panel',
+    subCategory: 'Indoor',
+    image: cdn('/images/product/NORDWOOD/Wall Panel.png')
   },
-  { 
-    id: 'n-i2', 
-    title: 'Linear Ceiling Slat', 
-    brand: 'Nordwood', 
-    category: 'Ceiling Panel', 
-    subCategory: 'Indoor', 
-    image: '/images/product/NORDWOOD/Ceiling Panel.png' 
+  {
+    id: 'n-i2',
+    title: 'Linear Ceiling Slat',
+    brand: 'Nordwood',
+    category: 'Ceiling Panel',
+    subCategory: 'Indoor',
+    image: cdn('/images/product/NORDWOOD/Ceiling Panel.png')
   },
 
   // --- Nordwood Outdoor ---
-  { 
-    id: 'n-o1', 
-    title: 'Weatherproof Deck', 
-    brand: 'Nordwood', 
-    category: 'Deckwood', 
-    subCategory: 'Outdoor', 
-    image: '/images/product/NORDWOOD/Deckwood.png' 
+  {
+    id: 'n-o1',
+    title: 'Weatherproof Deck',
+    brand: 'Nordwood',
+    category: 'Deckwood',
+    subCategory: 'Outdoor',
+    image: cdn('/images/product/NORDWOOD/Deckwood.png')
   },
-  { 
-    id: 'n-o2', 
-    title: 'Vertical Cladding', 
-    brand: 'Nordwood', 
-    category: 'Wall Cladding', 
-    subCategory: 'Outdoor', 
-    image: '/images/product/NORDWOOD/Wall Cladding.png' 
+  {
+    id: 'n-o2',
+    title: 'Vertical Cladding',
+    brand: 'Nordwood',
+    category: 'Wall Cladding',
+    subCategory: 'Outdoor',
+    image: cdn('/images/product/NORDWOOD/Wall Cladding.png')
   },
-  { 
-    id: 'n-o3', 
-    title: 'External Sofit Panel', 
-    brand: 'Nordwood', 
-    category: 'Ceiling | Sofit', 
-    subCategory: 'Outdoor', 
-    image: '/images/product/NORDWOOD/Ceiling  Sofit.png' 
+  {
+    id: 'n-o3',
+    title: 'External Sofit Panel',
+    brand: 'Nordwood',
+    category: 'Ceiling | Sofit',
+    subCategory: 'Outdoor',
+    image: cdn('/images/product/NORDWOOD/Ceiling  Sofit.png')
   },
-  { 
-    id: 'n-o4', 
-    title: 'Architectural Facade', 
-    brand: 'Nordwood', 
-    category: 'Facade', 
-    subCategory: 'Outdoor', 
-    image: '/images/product/NORDWOOD/Facade.png' 
+  {
+    id: 'n-o4',
+    title: 'Architectural Facade',
+    brand: 'Nordwood',
+    category: 'Facade',
+    subCategory: 'Outdoor',
+    image: cdn('/images/product/NORDWOOD/Facade.png')
   }
 ]; 

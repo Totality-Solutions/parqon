@@ -28,7 +28,7 @@
 //       <CategoryHeader 
 //         title="Our Collections"
 //         description="Explore our curated sets."
-//         iconSrc="/icons/arrow-right.png" 
+//         iconSrc={cdn('/icons/arrow-right.png')} 
 //         onClick={() => console.log("Navigating...")}
 //       />
 
@@ -90,8 +90,9 @@
 import React from 'react';
 import { motion } from 'framer-motion'; // Added Framer Motion
 import { Section } from '../../../components/common/Section';
-import livingRoomImg from '/images/home/collection-1.png';
-import kitchenImg from '/images/home/collection-2.png';
+import { cdn } from '../../../config/cdn';
+const livingRoomImg = cdn('/images/home/collection-1.png');
+const kitchenImg = cdn('/images/home/collection-2.png');
 import CategoryHeader from '../../../components/common/CategoryHeader';
 import { CTABtn } from '../../../components/common/CTABtn';
 
@@ -126,7 +127,7 @@ export const CategorySection: React.FC = () => {
           title="Our Collections"
           description="A thoughtfully engineered selection of surfaces designed to enhance Spaces ̰ with character, depth, and enduring elegance.
 "
-          iconSrc="/icons/arrow-right.png" 
+          iconSrc={cdn('/icons/arrow-right.png')} 
           onClick={() => console.log("Navigating...")}
         />
       </motion.div>

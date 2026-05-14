@@ -302,7 +302,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Container } from '../common/Container';
-import PAROONLogo from '../../assets/logo.png';
+import { cdn } from '../../config/cdn';
+const PAROONLogo = cdn('/assets/logo.png');
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProductSubmenu } from './ProductSubmenu';
@@ -505,7 +506,7 @@ export const Navbar: React.FC = () => {
                               className="flex-shrink-0"
                             >
                               <img
-                                src="/icons/arrow-right.png"
+                                src={cdn('/icons/arrow-right.png')}
                                 alt="arrow"
                                 className={`w-6 h-6 object-contain transition-opacity duration-300 ${
                                   mobileSubmenuOpen ? 'opacity-100' : 'opacity-40'

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExpandableList, type ExpandableListItem } from '../../../components/common/ExpandableList';
+import { cdn } from '../../../config/cdn';
 
 const usageData: ExpandableListItem[] = [
   {
@@ -7,9 +8,9 @@ const usageData: ExpandableListItem[] = [
     title: 'Residential Spaces',
     shortDesc: 'Bring warmth, comfort, and timeless elegance into your home with flooring designed to complement refined everyday living.',
     previews: [
-      "/images/about/interior/1.jpg",
-      "/images/about/interior/3.jpg",
-      "/images/about/interior/2.jpg"
+      cdn("/images/about/interior/1.jpg"),
+      cdn("/images/about/interior/3.jpg"),
+      cdn("/images/about/interior/2.jpg")
     ]
   },
   {
@@ -17,9 +18,9 @@ const usageData: ExpandableListItem[] = [
     title: 'Hospitality Spaces',
     shortDesc: 'Create immersive guest experiences with sophisticated flooring that blends luxury, durability, and lasting visual appeal.',
     previews: [
-      "/images/about/exterior/1.jpg",
-      "/images/about/exterior/3.jpg",
-      "/images/about/exterior/2.jpg"
+      cdn("/images/about/exterior/1.jpg"),
+      cdn("/images/about/exterior/3.jpg"),
+      cdn("/images/about/exterior/2.jpg")
     ]
   },
   {
@@ -27,9 +28,9 @@ const usageData: ExpandableListItem[] = [
     title: 'Commercial Spaces',
     shortDesc: 'Elevate modern work and retail environments with high-performance flooring crafted for style, functionality, and enduring impact.',
     previews: [
-      "/images/about/commercial/1.jpg",
-      "/images/about/commercial/3.jpg",
-      "/images/about/commercial/2.jpg"
+      cdn("/images/about/commercial/1.jpg"),
+      cdn("/images/about/commercial/3.jpg"),
+      cdn("/images/about/commercial/2.jpg")
     ]
   },
 

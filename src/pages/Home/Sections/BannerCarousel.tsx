@@ -1,19 +1,20 @@
 // src/pages/Home/Sections/BannerCarousel.tsx
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cdn } from '../../../config/cdn';
 
 const slides = [
   {
     id: 1,
-    url: '/images/home/carousel/1.jpeg',
+    url: cdn('/images/home/carousel/1.jpeg'),
   },
   {
     id: 2,
-    url: '/images/home/carousel/2.jpeg',
+    url: cdn('/images/home/carousel/2.jpeg'),
   },
   {
     id: 3,
-    url: '/images/home/carousel/3.jpeg',
+    url: cdn('/images/home/carousel/3.jpeg'),
   }
 ];
 

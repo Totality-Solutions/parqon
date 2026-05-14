@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cdn } from '../../../config/cdn';
 import type { Variants } from 'framer-motion'; 
 
 // ============================================
@@ -19,8 +20,8 @@ import { Button } from '../../../components/common/Button';
 const heroSlides = [
   {
     id: 1,
-    image: '/images/home/hero/1.jpeg',
-    swatch: '/images/home/hero3.jpg',
+    image: cdn('/images/home/hero/1.jpeg'),
+    swatch: cdn('/images/home/hero3.jpg'),
     title: 'Oaken',
     link: '/products?brand=Oaken', // ← CHANGE THIS TO YOUR FIRST PAGE URL
     // subtitle: 'European Oak Collection'
@@ -28,8 +29,8 @@ const heroSlides = [
   
   {
     id: 2,
-    image: '/images/home/nordwood.jpeg',
-    swatch: '/images/home/hero1.jpg',
+    image: cdn('/images/home/nordwood.jpeg'),
+    swatch: cdn('/images/home/hero1.jpg'),
     title: 'Nordwood',
     link: '/products?brand=Nordwood', // ← CHANGE THIS TO YOUR SECOND PAGE URL
     // subtitle: 'Artisan Series'

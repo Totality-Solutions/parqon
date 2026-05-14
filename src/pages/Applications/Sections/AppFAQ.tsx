@@ -166,7 +166,7 @@
 //                   className="flex-shrink-0 ml-4"
 //                 >
 //                   <img
-//                     src="/icons/arrow-right.png"
+//                     src={cdn('/icons/arrow-right.png')}
 //                     alt="arrow"
 //                     className={`w-5 h-5 object-contain transition-opacity duration-300 ${openIndex === index ? 'opacity-100' : 'opacity-40 group-hover:opacity-70'}`}
 //                   />
@@ -200,6 +200,7 @@
 import React, { useState } from 'react';
 import { Container } from '../../../components/common/Container';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cdn } from '../../../config/cdn';
 
 interface FAQItem {
   question: string;
@@ -292,7 +293,7 @@ export const AppFAQ: React.FC = () => {
                   className="flex-shrink-0 ml-4"
                 >
                   <img
-                    src="/icons/arrow-right.png"
+                    src={cdn('/icons/arrow-right.png')}
                     alt="arrow"
                     className={`w-5 h-5 object-contain transition-opacity duration-300 ${openIndex === index ? 'opacity-100' : 'opacity-40 group-hover:opacity-70'}`}
                   />

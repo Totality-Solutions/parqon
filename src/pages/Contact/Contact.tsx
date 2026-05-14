@@ -459,10 +459,11 @@ import { Container } from '../../components/common/Container';
 import { CTABtn } from '../../components/common/CTABtn';
 
 // Import Icons
-import emailIconImg from '../../assets/icons/email.png';
-import phoneIconImg from '../../assets/icons/phone.png';
-import whatsappIconImg from '../../assets/icons/whatsapp.png';
-import resetIconImg from '../../assets/icons/reset-arrow.png';
+import { cdn } from '../../config/cdn';
+const emailIconImg = cdn('/assets/icons/email.png');
+const phoneIconImg = cdn('/assets/icons/phone.png');
+const whatsappIconImg = cdn('/assets/icons/whatsapp.png');
+const resetIconImg = cdn('/assets/icons/reset-arrow.png');
 
 const ContactInfoCard = ({ title, detail, imageSrc, index }: { title: string; detail: string; imageSrc: string, index: number }) => (
   <motion.div 
