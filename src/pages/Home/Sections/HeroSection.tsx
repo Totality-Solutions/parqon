@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cdn } from '../../../config/cdn';
-import type { Variants } from 'framer-motion'; 
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
+import type { Variants } from 'framer-motion';
 
 // ============================================
 // CHOOSE YOUR ROUTING APPROACH BELOW
@@ -95,7 +96,7 @@ export const HeroSection: React.FC = () => {
             exit="exit"
             className="absolute inset-0 w-full h-full"
           >
-            <img src={heroSlides[index].image} alt="" className="w-full h-full object-cover" />
+            <ProgressiveImg src={heroSlides[index].image} alt="" className="w-full h-full object-cover" wrapperClassName="w-full h-full" priority />
             <div className="absolute inset-0 bg-black/5" />
           </motion.div>
         </AnimatePresence>
@@ -148,16 +149,22 @@ export const HeroSection: React.FC = () => {
         {/* Left: Swatch Image */}
         <div className="w-24 sm:w-32 md:w-30 lg:w-30 aspect-square overflow-hidden flex-shrink-0 bg-gray-100">
           <AnimatePresence mode="wait">
-            <motion.img
+            <motion.div
               key={heroSlides[index].swatch}
               initial={{ opacity: 0, scale: 1.1 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
-              src={heroSlides[index].swatch}
-              alt={heroSlides[index].title}
-              className="w-full h-full object-cover"
-            />
+              className="w-full h-full"
+            >
+              <ProgressiveImg
+                src={heroSlides[index].swatch}
+                alt={heroSlides[index].title}
+                className="w-full h-full object-cover"
+                wrapperClassName="w-full h-full"
+                priority
+              />
+            </motion.div>
           </AnimatePresence>
         </div>
 

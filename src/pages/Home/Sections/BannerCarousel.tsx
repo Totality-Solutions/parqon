@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cdn } from '../../../config/cdn';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 const slides = [
   {
@@ -43,10 +44,12 @@ export const BannerCarousel: React.FC = () => {
           }}
           className="absolute inset-0 w-full h-full"
         >
-          <img
+          <ProgressiveImg
             src={slides[index].url}
             alt="Parqon Interior Collection"
             className="w-full h-full object-cover transition-transform duration-[5000ms] scale-110 animate-pulse-slow"
+            wrapperClassName="w-full h-full"
+            priority={index === 0}
           />
         </motion.div>
       </AnimatePresence>

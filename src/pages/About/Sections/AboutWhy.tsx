@@ -153,6 +153,7 @@ import React, { useState } from 'react';
 import { Container } from '../../../components/common/Container';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cdn } from '../../../config/cdn';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 const features = [
   {
@@ -274,10 +275,11 @@ export const AboutWhy: React.FC = () => {
                             transition={{ duration: 0.5, delay: 0.1 }}
                             className="w-full md:w-56 h-36 overflow-hidden bg-gray-100 shrink-0 "
                           >
-                            <img
+                            <ProgressiveImg
                               src={item.image}
                               alt={item.title}
                               className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110"
+                              wrapperClassName="w-full h-full"
                             />
                           </motion.div>
 

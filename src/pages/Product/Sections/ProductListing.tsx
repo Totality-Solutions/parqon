@@ -385,6 +385,7 @@ import { Container } from '../../../components/common/Container';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ALL_PRODUCTS, BRAND_CATEGORIES, BRANDS } from '../../../data/products';
 import { X, ChevronLeft, ChevronRight, Plus, Minus, Search, Filter } from 'lucide-react';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 export const ProductListing: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -643,7 +644,7 @@ export const ProductListing: React.FC = () => {
                   {currentProducts.map(p => (
                     <motion.div layout key={p.id} className="group block w-full">
                       <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
-                        <img src={p.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={p.title} />
+                        <ProgressiveImg src={p.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={p.title} />
                       </div>
                       <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.category}</h4>
                       {/* <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4> */}

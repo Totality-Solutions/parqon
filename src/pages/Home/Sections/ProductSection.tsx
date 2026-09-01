@@ -191,6 +191,7 @@ import { Section } from '../../../components/common/Section';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cdn } from '../../../config/cdn';
 import { Button } from '../../../components/common/Button';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 const productData = {
   'Living Rooms': {
@@ -344,12 +345,11 @@ export const ProductSection: React.FC = () => {
                 transition={{ duration: 0.5 }}
                 className="relative group aspect-[3/4] overflow-hidden cursor-pointer bg-gray-100 shadow-sm"
               >
-                <img
+                <ProgressiveImg
                   src={img}
                   alt={`${activeTab} collection`}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  loading="lazy" 
-                  decoding="async"
+                  wrapperClassName="w-full h-full"
                 />
 
                 <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center px-8 z-10">
@@ -369,12 +369,6 @@ export const ProductSection: React.FC = () => {
             ))}
           </motion.div>
         </div>
-      </div>
-
-      <div className="hidden" aria-hidden="true">
-        {Object.values(productData).flatMap(cat => cat.images).map((src, i) => (
-          <link key={i} rel="preload" as="image" href={src} />
-        ))}
       </div>
     </Section>
   );

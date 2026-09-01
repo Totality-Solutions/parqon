@@ -122,6 +122,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from './Container';
 import { ChevronDown } from 'lucide-react';
+import { ProgressiveImg } from './ProgressiveImg';
 
 export interface ExpandableListItem {
   id: string;
@@ -231,10 +232,11 @@ export const ExpandableList: React.FC<ExpandableListProps> = ({
                           key={i}
                           className="w-20 h-14 sm:w-28 sm:h-20 md:w-40 md:h-28 overflow-hidden flex-shrink-0"
                         >
-                          <img 
-                            src={img} 
-                            className="w-full h-full object-cover" 
-                            alt="Preview" 
+                          <ProgressiveImg
+                            src={img}
+                            className="w-full h-full object-cover"
+                            wrapperClassName="w-full h-full"
+                            alt="Preview"
                           />
                         </div>
                       ))}

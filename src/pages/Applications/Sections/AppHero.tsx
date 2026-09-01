@@ -65,6 +65,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion'; // Added motion
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 interface AppHeroProps {
   title?: string;
@@ -99,11 +100,12 @@ export const AppHero: React.FC<AppHeroProps> = ({
             className="w-full h-full object-cover"
           />
         ) : (
-          <img 
-            src={mediaUrl} 
-            alt={title} 
+          <ProgressiveImg
+            src={mediaUrl}
+            alt={title}
             className="w-full h-full object-cover"
-            fetchPriority="high" // Performance optimization for Hero images
+            wrapperClassName="w-full h-full"
+            priority
           />
         )}
       </motion.div>

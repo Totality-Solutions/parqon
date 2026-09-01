@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '../../../components/common/Container';
 import { cdn } from '../../../config/cdn';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 const PAROONLogo = cdn('/assets/logo1.png');
 
 export const AboutStory: React.FC = () => {
@@ -29,13 +30,13 @@ export const AboutStory: React.FC = () => {
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-6">
           <div className="overflow-hidden">
-            <img src={cdn('/images/about/interior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Craft" />
+            <ProgressiveImg src={cdn('/images/about/interior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Craft" />
           </div>
           <div className="overflow-hidden">
-            <img src={cdn('/images/about/exterior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Material" />
+            <ProgressiveImg src={cdn('/images/about/exterior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Material" />
           </div>
           <div className="overflow-hidden">
-            <img src={cdn('/images/about/commercial/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" alt="Detail" />
+            <ProgressiveImg src={cdn('/images/about/commercial/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Detail" />
           </div>
         </div>
       </Container>

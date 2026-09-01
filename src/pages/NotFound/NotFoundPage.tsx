@@ -2,6 +2,7 @@ import React from 'react';
 // import { Container } from './components/common/Container';
 import { motion } from 'framer-motion';
 import { Container } from '../../components/common/Container';
+import { cdn } from '../../config/cdn';
 // import { Button } from './components/common/Button';
 
 export const NotFoundPage: React.FC = () => {
@@ -29,9 +30,9 @@ export const NotFoundPage: React.FC = () => {
             }}
             className="flex-shrink-0"
           >
-            <img 
-              src="/tree-rings.png" 
-              alt="Tree Ring Icon" 
+            <img
+              src={cdn('/tree-rings.png')}
+              alt="Tree Ring Icon"
               className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 object-contain"
             />
           </motion.div>

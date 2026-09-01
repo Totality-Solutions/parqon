@@ -1,5 +1,6 @@
 // src/components/common/BentoGrid.tsx
 import React from 'react';
+import { ProgressiveImg } from './ProgressiveImg';
 
 export type BentoBlock = 
   | { type: 'text'; title: string; body: string }
@@ -27,10 +28,11 @@ export const BentoGrid: React.FC<{ blocks: BentoBlock[] }> = ({ blocks }) => {
           )}
 
           {block.type === 'image' && (
-            <img 
-              src={block.url} 
-              className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" 
-              alt="Gallery" 
+            <ProgressiveImg
+              src={block.url}
+              className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
+              wrapperClassName="w-full h-full"
+              alt="Gallery"
             />
           )}
 

@@ -94,6 +94,7 @@ import { cdn } from '../../../config/cdn';
 const livingRoomImg = cdn('/images/home/collection-1.png');
 const kitchenImg = cdn('/images/home/collection-2.png');
 import CategoryHeader from '../../../components/common/CategoryHeader';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 import { CTABtn } from '../../../components/common/CTABtn';
 
 const categories = [
@@ -149,10 +150,12 @@ export const CategorySection: React.FC = () => {
           >
             {/* Image Container with fixed aspect ratio on mobile */}
             <div className="h-[300px] sm:h-[400px] md:h-full w-full overflow-hidden">
-              <img 
-                src={cat.img} 
-                alt={cat.title} 
-                className="w-full h-full object-cover transition-transform duration-1000 md:group-hover:scale-110" 
+              <ProgressiveImg
+                src={cat.img}
+                alt={cat.title}
+                className="w-full h-full object-cover transition-transform duration-1000 md:group-hover:scale-110"
+                wrapperClassName="w-full h-full"
+                priority={index === 0}
               />
             </div>
 

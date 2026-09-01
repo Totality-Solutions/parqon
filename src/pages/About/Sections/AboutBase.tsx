@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { cdn } from '../../../config/cdn';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 export const AboutBase: React.FC = () => {
   return (
@@ -41,10 +43,11 @@ Designed for architects, designers, and discerning homeowners, Parqon transforms
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="relative h-[400px] lg:h-[600px] w-full"
           >
-            <img
-              src="/images/about/about.jpeg" // Replace with your image path
+            <ProgressiveImg
+              src={cdn('/images/about/about.jpeg')}
               alt="Minimal Interior Design"
-              className="w-full h-full object-cover "
+              className="w-full h-full object-cover"
+              wrapperClassName="w-full h-full"
             />
           </motion.div>
 

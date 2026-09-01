@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Component Imports
 import { Container } from '../../../components/common/Container';
 import { FeaturesGrid } from '../../../components/common/FeaturesGrid';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 // Data & Type Imports
 import { ALL_PRODUCTS, type Finish } from '../../../data/products';
@@ -97,16 +98,22 @@ export const ProductDetail: React.FC = () => {
           <div className="flex-[1.4]">
             <div className="aspect-[16/10] bg-gray-50 overflow-hidden mb-6 relative">
               <AnimatePresence mode="wait">
-                <motion.img 
+                <motion.div
                   key={activeImage}
-                  initial={{ opacity: 0 }} 
-                  animate={{ opacity: 1 }} 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  src={activeImage} 
-                  className="w-full h-full object-cover" 
-                  alt={product.title}
-                />
+                  className="w-full h-full"
+                >
+                  <ProgressiveImg
+                    src={activeImage}
+                    className="w-full h-full object-cover"
+                    wrapperClassName="w-full h-full"
+                    alt={product.title}
+                    priority
+                  />
+                </motion.div>
               </AnimatePresence>
             </div>
             
@@ -118,7 +125,7 @@ export const ProductDetail: React.FC = () => {
                   onClick={() => setActiveImage(img)}
                   className={`aspect-[4/3] border transition-all duration-300 ${activeImage === img ? 'border-black' : 'border-transparent opacity-50 hover:opacity-100'}`}
                 >
-                  <img src={img} className="w-full h-full object-cover" alt={`${product.title} view ${i}`} />
+                  <ProgressiveImg src={img} className="w-full h-full object-cover" wrapperClassName="w-full h-full" alt={`${product.title} view ${i}`} />
                 </button>
               ))}
             </div>
@@ -207,7 +214,7 @@ export const ProductDetail: React.FC = () => {
               {recommendations.map((item) => (
                 <Link key={item.id} to={`/product/${item.id}`} className="group block">
                   <div className="aspect-[4/5] overflow-hidden bg-gray-50 mb-4">
-                    <img src={item.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={item.title} />
+                    <ProgressiveImg src={item.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" wrapperClassName="w-full h-full" alt={item.title} />
                   </div>
                   <h4 className="text-[11px] font-bold uppercase tracking-widest group-hover:text-gray-500 transition-colors">{item.title}</h4>
                   <p className="text-[9px] text-gray-400 uppercase mt-1">{item.collection}</p>

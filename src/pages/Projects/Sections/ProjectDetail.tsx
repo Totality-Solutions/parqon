@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { PROJECTS } from '../../../data/projectsData';
 import { ProductSupport } from '../../Product/Sections/ProductSupport';
 import { Container } from '../../../components/common/Container';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 export const ProjectDetail: React.FC = () => {
   const { slug } = useParams();
@@ -57,10 +58,12 @@ export const ProjectDetail: React.FC = () => {
 
           {/* --- HERO IMAGE --- */}
           <div className="mb-16 overflow-hidden">
-            <img 
-              src={project.image} 
-              className="w-full h-auto object-cover" 
-              alt={project.title} 
+            <ProgressiveImg
+              src={project.image}
+              className="w-full h-full object-cover"
+              wrapperClassName="w-full aspect-[16/9]"
+              alt={project.title}
+              priority
             />
           </div>
 
@@ -80,28 +83,31 @@ export const ProjectDetail: React.FC = () => {
               <div className="grid grid-cols-2 gap-5">
                 {/* Image 1 (Square) */}
                 <div className="aspect-square overflow-hidden bg-gray-50">
-                   <img 
-                    src={project.gallery[0]} 
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
-                    alt="Detail 1" 
+                   <ProgressiveImg
+                    src={project.gallery[0]}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                    wrapperClassName="w-full h-full"
+                    alt="Detail 1"
                    />
                 </div>
                 {/* Image 2 (Square - Lifestyle) */}
                 <div className="aspect-square overflow-hidden bg-gray-50 grayscale hover:grayscale-0 transition-all duration-700">
-                   <img 
-                    src={project.gallery[1]} 
-                    className="w-full h-full object-cover" 
-                    alt="Lifestyle detail" 
+                   <ProgressiveImg
+                    src={project.gallery[1]}
+                    className="w-full h-full object-cover"
+                    wrapperClassName="w-full h-full"
+                    alt="Lifestyle detail"
                    />
                 </div>
               </div>
 
               {/* Image 3 (Landscape) */}
               <div className="aspect-[16/10] overflow-hidden bg-gray-50">
-                <img 
-                  src={project.gallery[2]} 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
-                  alt="Architecture detail" 
+                <ProgressiveImg
+                  src={project.gallery[2]}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  wrapperClassName="w-full h-full"
+                  alt="Architecture detail"
                 />
               </div>
             </div>
@@ -109,10 +115,11 @@ export const ProjectDetail: React.FC = () => {
             {/* RIGHT COLUMN: Tall Vertical Showcase */}
             <div className="col-span-4">
               <div className="h-full w-full overflow-hidden bg-gray-50">
-                <img 
-                  src={project.gallery[3]} 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
-                  alt="Full space vertical" 
+                <ProgressiveImg
+                  src={project.gallery[3]}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  wrapperClassName="w-full h-full"
+                  alt="Full space vertical"
                 />
               </div>
             </div>

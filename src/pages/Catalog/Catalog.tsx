@@ -8,6 +8,7 @@ import { Section } from "../../components/common/Section";
 import CategoryHeader from "../../components/common/CategoryHeader";
 import { CTABtn } from "../../components/common/CTABtn";
 import { cdn } from "../../config/cdn";
+import { ProgressiveImg } from "../../components/common/ProgressiveImg";
 
 const livingRoomImg = cdn("/images/home/collection-1.png");
 const kitchenImg = cdn("/images/home/collection-2.png");
@@ -133,10 +134,12 @@ export const CatalogPage: React.FC = () => {
             >
               
               {/* IMAGE */}
-              <img
+              <ProgressiveImg
                 src={catalog.img}
                 alt={catalog.subTitle}
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                wrapperClassName="w-full h-full"
+                priority={index === 0}
               />
 
               {/* OVERLAY */}

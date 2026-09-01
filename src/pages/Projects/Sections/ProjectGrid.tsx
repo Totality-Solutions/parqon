@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Container } from '../../../components/common/Container';
 import { PROJECTS, PROJECT_CATEGORIES } from '../../../data/projectsData';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 interface ProjectGridProps {
   searchQuery: string;
@@ -67,7 +68,7 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ searchQuery }) => {
               >
                 <Link to={`/projects/${project.slug}`}>
                   <div className="relative aspect-square overflow-hidden bg-gray-100 mb-4">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <ProgressiveImg src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" wrapperClassName="w-full h-full" />
                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <div className="space-y-1">
