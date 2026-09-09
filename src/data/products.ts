@@ -8,6 +8,7 @@ export interface Finish {
   finishGallery?: string[]; 
 }
 
+
 export interface Product {
   id: string;
   title: string;
