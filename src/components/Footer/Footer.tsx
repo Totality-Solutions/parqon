@@ -138,17 +138,20 @@ export const Footer: React.FC = () => {
 
         {/* FOOTER BOTTOM */}
         <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+            <div className="text-[#924321] text-dynamic-small font-semibold tracking-widest uppercase opacity-80">
+              © {currentYear} Parqon. All rights reserved.
+            </div>
           <NavLink 
             to="/privacy" 
             className={({ isActive }) => `
-              text-dynamic-small font-bold hover:underline underline-offset-4 tracking-tight
+              text-dynamic-small font-semibold tracking-widest uppercase opacity-80 hover:underline  underline-offset-4 
               ${isActive ? 'text-[#924321]' : 'text-gray-500'}
             `}
           >
-            privacy policy.
+            privacy policy
           </NavLink>
           <div className="text-[#924321] text-dynamic-small font-semibold tracking-widest uppercase opacity-80">
-            © {currentYear} Parqon. All rights reserved.
+             Built by <a href="https://www.totality.solutions" target="_blank" rel="noopener noreferrer" className=" hover:underline">Totality Solutions</a>
           </div>
         </div>
       </Container>
