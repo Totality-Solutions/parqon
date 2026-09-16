@@ -16,6 +16,7 @@ import { PrivacyPolicy } from './components/common/PrivacyPolicy';
 import { CatalogPage } from './pages/Catalog/Catalog';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
+
 function App() {
   return (
     <> {/* Use a Fragment or <div> instead of <Router> */}
