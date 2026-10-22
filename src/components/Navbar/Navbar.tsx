@@ -307,6 +307,7 @@ const PAROONLogo = cdn('/assets/logo.png');
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProductSubmenu } from './ProductSubmenu';
+import { getCategoryLinks } from '../../data/products';
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -319,13 +320,13 @@ const navItems = [
 
 const MOBILE_STYLE_DATA = [
   {
-    id: 'Oaken',
+    id: 'Oaken' as const,
     title: "Oaken Wood",
     description: "Premium architectural flooring",
     image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400",
   },
   {
-    id: 'Nordwood',
+    id: 'Nordwood' as const,
     title: "Nordwood",
     description: "Environment-driven collections",
     image: "https://images.unsplash.com/photo-1542621334-a254cf47733d?w=400",
@@ -526,21 +527,43 @@ export const Navbar: React.FC = () => {
                             >
                               <div className="flex flex-col py-4 gap-4 px-2">
                                 {MOBILE_STYLE_DATA.map((style) => (
-                                  <Link
-                                    key={style.id}
-                                    to={`/products?brand=${style.id}`}
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center gap-4 p-3 bg-gray-50 active:bg-gray-100 transition-colors"
-                                  >
-                                    <div className="w-14 h-14 overflow-hidden flex-shrink-0">
-                                      <img src={style.image} alt={style.title} className="w-full h-full object-cover" />
+                                  <div key={style.id} className="flex flex-col">
+                                    <Link
+                                      to={`/products?brand=${style.id}`}
+                                      onClick={() => setIsOpen(false)}
+                                      className="flex items-center gap-4 p-3 bg-gray-50 active:bg-gray-100 transition-colors"
+                                    >
+                                      <div className="w-14 h-14 overflow-hidden flex-shrink-0">
+                                        <img src={style.image} alt={style.title} className="w-full h-full object-cover" />
+                                      </div>
+                                      <div className="flex flex-col text-left flex-grow">
+                                        <span className="font-medium text-gray-900">{style.title}</span>
+                                        <span className="text-xs text-gray-500">View Collection</span>
+                                      </div>
+                                      {/* <ChevronRight size={18} /> */}
+                                    </Link>
+
+                                    {/* Category links */}
+                                    <div className="flex flex-col gap-4 pl-6 pt-4 border-l-2 border-gray-100 ml-6">
+                                      {getCategoryLinks(style.id).map((group) => (
+                                        <div key={group.title ?? style.id} className="flex flex-col gap-3">
+                                          {group.title && (
+                                            <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">{group.title}</span>
+                                          )}
+                                          {group.items.map((item) => (
+                                            <Link
+                                              key={item.to}
+                                              to={item.to}
+                                              onClick={() => setIsOpen(false)}
+                                              className="text-gray-600 hover:text-[#924321] transition-colors"
+                                            >
+                                              {item.label}
+                                            </Link>
+                                          ))}
+                                        </div>
+                                      ))}
                                     </div>
-                                    <div className="flex flex-col text-left flex-grow">
-                                      <span className="font-medium text-gray-900">{style.title}</span>
-                                      <span className="text-xs text-gray-500">View Collection</span>
-                                    </div>
-                                    {/* <ChevronRight size={18} /> */}
-                                  </Link>
+                                  </div>
                                 ))}
                               </div>
                             </motion.div>

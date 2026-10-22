@@ -165,6 +165,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '../common/Container';
+import { getCategoryLinks } from '../../data/products';
 
 const STYLE_DATA = {
   Oaken: {
@@ -228,6 +229,27 @@ export const ProductSubmenu: React.FC<{ onClose: () => void }> = ({ onClose }) =
                   </div>
                 </div>
               </Link>
+
+              {/* Category links */}
+              <div className="flex gap-10 mt-6 pl-1">
+                {getCategoryLinks(style).map((group) => (
+                  <div key={group.title ?? style} className="flex flex-col gap-2">
+                    {group.title && (
+                      <span className="text-[11px] font-bold text-[#6D6546] capitalize mb-1">{group.title}</span>
+                    )}
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        onClick={onClose}
+                        className="text-sm text-gray-400 hover:text-[#924321] transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

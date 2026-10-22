@@ -9,16 +9,30 @@ import { FeaturesGrid } from '../../../components/common/FeaturesGrid';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 // Data & Type Imports
-import { ALL_PRODUCTS, type Finish } from '../../../data/products';
+import { ALL_PRODUCTS, CATEGORY_PRODUCTS, type Finish } from '../../../data/products';
 
-export const ProductDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+interface ProductDetailProps {
+  // Set when the detail is shown inside the products page's right panel
+  productId?: string;
+  embedded?: boolean;
+  productLink?: (id: string) => string;
+}
+
+export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedded = false, productLink }) => {
+  const params = useParams<{ id: string }>();
+  const id = productId ?? params.id;
   const navigate = useNavigate();
+  const Shell = embedded ? React.Fragment : Container;
 
   // 1. Optimized Product Lookup
-  const product = useMemo(() => 
-    ALL_PRODUCTS.find((p) => String(p.id) === id), 
+  const product = useMemo(() =>
+    CATEGORY_PRODUCTS.find((p) => String(p.id) === id),
   [id]);
+
+  // The category card this product sits under, for the breadcrumb link
+  const categoryCard = useMemo(() =>
+    ALL_PRODUCTS.find((p) => p.category === product?.category),
+  [product]);
 
   // 2. States for Interactivity
   const [selectedFinish, setSelectedFinish] = useState<Finish | null>(null);
@@ -32,9 +46,9 @@ export const ProductDetail: React.FC = () => {
       setSelectedFinish(defaultFinish);
       // Logic: Set main image to the default finish image if available, else product image
       setActiveImage(defaultFinish?.img || product.image);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (!embedded) window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [product]);
+  }, [product, embedded]);
 
   // 4. SMART WORKFLOW: Determine which gallery to show
   // If the selected finish has its own gallery, show it. Otherwise, show the product gallery.
@@ -66,7 +80,7 @@ export const ProductDetail: React.FC = () => {
 
   const recommendations = useMemo(() => {
     if (!product) return [];
-    return ALL_PRODUCTS
+    return CATEGORY_PRODUCTS
       .filter(p => p.category === product.category && String(p.id) !== id)
       .slice(0, 4);
   }, [product, id]);
@@ -81,18 +95,30 @@ export const ProductDetail: React.FC = () => {
   }
 
   return (
-    <section className="py-20 bg-white font-sans text-gray-900">
-      <Container>
+    <section className={embedded ? 'font-sans text-gray-900' : 'py-20 bg-white font-sans text-gray-900'}>
+      <Shell>
         {/* BREADCRUMB */}
+        {!embedded && (
         <nav className="mb-10 flex items-center gap-2 text-[10px] uppercase font-bold tracking-[0.2em] text-gray-400">
           <button onClick={() => navigate(-1)} className="hover:text-gray-900 transition-colors uppercase">
             Collections
           </button>
           <span>/</span>
-          <span className="text-gray-900">{product.category}</span>
+          {categoryCard ? (
+            <Link
+              to={`/products?${new URLSearchParams({
+                brand: categoryCard.brand,
+                ...(categoryCard.subCategory ? { sub: categoryCard.subCategory } : {}),
+                category: categoryCard.category
+              })}`}
+              className="text-gray-900 hover:text-gray-500 transition-colors">{product.category}</Link>
+          ) : (
+            <span className="text-gray-900">{product.category}</span>
+          )}
         </nav>
+        )}
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-32">
+        <div className={embedded ? 'flex flex-col xl:flex-row gap-10 xl:gap-12 mb-20' : 'flex flex-col lg:flex-row gap-12 lg:gap-24 mb-32'}>
           
           {/* LEFT: GALLERY SECTION */}
           <div className="flex-[1.4]">
@@ -148,12 +174,12 @@ export const ProductDetail: React.FC = () => {
             <div className="grid grid-cols-1 gap-4 mb-12 border-t border-gray-100 pt-8">
               {[
                 { label: 'Category', value: product.category },
-                { label: 'Environment', value: product.environment },
-                { label: 'Core', value: product.category === 'SPC Flooring' ? 'Stone Core' : 'Solid Wood' }
+                ...(product.environment ? [{ label: 'Environment', value: product.environment }] : []),
+                ...(product.specs ?? [])
               ].map((spec, i) => (
-                <div key={i} className="flex justify-between border-b border-gray-50 pb-3 text-sm">
-                  <span className="text-gray-400 uppercase text-[9px] font-bold tracking-widest">{spec.label}</span>
-                  <span className="font-semibold">{spec.value}</span>
+                <div key={i} className="flex justify-between gap-6 border-b border-gray-50 pb-3 text-sm">
+                  <span className="text-gray-400 uppercase text-[9px] font-bold tracking-widest shrink-0">{spec.label}</span>
+                  <span className="font-semibold text-right">{spec.value}</span>
                 </div>
               ))}
             </div>
@@ -204,15 +230,15 @@ export const ProductDetail: React.FC = () => {
           </div>
         </div>
 
-        <FeaturesGrid />
+        {!embedded && <FeaturesGrid />}
 
         {/* RELATED PRODUCTS */}
         {recommendations.length > 0 && (
-          <div className="border-t border-gray-100 pt-24 pb-12">
+          <div className={`border-t border-gray-100 ${embedded ? 'pt-12' : 'pt-24 pb-12'}`}>
             <h2 className="text-xl font-bold uppercase tracking-tight mb-12">Related Products</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {recommendations.map((item) => (
-                <Link key={item.id} to={`/product/${item.id}`} className="group block">
+                <Link key={item.id} to={productLink ? productLink(item.id) : `/product/${item.id}`} preventScrollReset={embedded} className="group block">
                   <div className="aspect-[4/5] overflow-hidden bg-gray-50 mb-4">
                     <ProgressiveImg src={item.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" wrapperClassName="w-full h-full" alt={item.title} />
                   </div>
@@ -223,7 +249,7 @@ export const ProductDetail: React.FC = () => {
             </div>
           </div>
         )}
-      </Container>
+      </Shell>
     </section>
   );
 };

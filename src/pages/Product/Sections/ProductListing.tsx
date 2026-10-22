@@ -380,12 +380,15 @@
 "use client";
 
 import React, { useMemo, useEffect, useState, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Container } from '../../../components/common/Container';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ALL_PRODUCTS, BRAND_CATEGORIES, BRANDS } from '../../../data/products';
+import { ALL_PRODUCTS, BRAND_CATEGORIES, BRANDS, CATEGORY_PRODUCTS } from '../../../data/products';
 import { X, ChevronLeft, ChevronRight, Plus, Minus, Search, Filter } from 'lucide-react';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
+import { ProductDetail } from './ProductDetail';
+
+const ALL_CATEGORY = 'All';
 
 export const ProductListing: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -405,13 +408,25 @@ export const ProductListing: React.FC = () => {
   const activeBrand = searchParams.get('brand');
   const activeCategory = searchParams.get('category');
   const activeSub = searchParams.get('sub');
+  const activeProductId = searchParams.get('product');
+  const selectedProduct = activeProductId ? CATEGORY_PRODUCTS.find((p) => p.id === activeProductId) : undefined;
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Opens a product's detail in the right panel, keeping the current filters
+  const productLink = (id: string) => {
+    const next = new URLSearchParams(searchParams);
+    next.set('product', id);
+    return `?${next}`;
+  };
 
   // --- FILTER LOGIC ---
+  // With a category selected, show the products inside it; otherwise show the category cards
   const filteredProducts = useMemo(() => {
-    return ALL_PRODUCTS.filter(p => {
+    const source = activeCategory ? CATEGORY_PRODUCTS : ALL_PRODUCTS;
+    return source.filter(p => {
       const mSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
       const mBrand = activeBrand ? p.brand === activeBrand : true;
-      const mCat = activeCategory ? p.category === activeCategory : true;
+      const mCat = activeCategory && activeCategory !== ALL_CATEGORY ? p.category === activeCategory : true;
       const mSub = activeSub ? p.subCategory === activeSub : true;
       return mSearch && mBrand && mCat && mSub;
     });
@@ -452,7 +467,14 @@ export const ProductListing: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => { setCurrentPage(1); }, [searchParams, searchQuery]);
+  useEffect(() => { setCurrentPage(1); }, [activeBrand, activeCategory, activeSub, searchQuery]);
+
+  // Bring the right panel into view when a product opens
+  useEffect(() => {
+    if (!activeProductId || !contentRef.current) return;
+    const top = contentRef.current.getBoundingClientRect().top + window.scrollY - 140;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, [activeProductId]);
 
   useEffect(() => {
     if (isSidebarOpen) document.body.style.overflow = 'hidden';
@@ -462,7 +484,8 @@ export const ProductListing: React.FC = () => {
   // --- HANDLERS ---
   const updateFilter = (key: 'brand' | 'category' | 'sub', value: string | null) => {
     const next = new URLSearchParams(searchParams);
-    
+    next.delete('product');
+
     if (key === 'brand') {
       next.delete('category');
       next.delete('sub');
@@ -477,7 +500,16 @@ export const ProductListing: React.FC = () => {
       else next.set('sub', value!);
     } else {
       if (activeCategory === value) next.delete('category');
-      else next.set('category', value!);
+      else {
+        next.set('category', value!);
+        // Keep brand/series in sync with the chosen category
+        const card = ALL_PRODUCTS.find((p) => p.category === value);
+        if (card) {
+          next.set('brand', card.brand);
+          if (card.subCategory) next.set('sub', card.subCategory);
+          else next.delete('sub');
+        }
+      }
     }
 
     setSearchParams(next, { preventScrollReset: true });
@@ -490,13 +522,38 @@ export const ProductListing: React.FC = () => {
     if (window.innerWidth < 1024) setIsSidebarOpen(false);
   };
 
+  // "All" = every product of the brand (or Nordwood series) instead of one category
+  const selectAll = (brand: string, sub?: string) => {
+    const isActive = activeCategory === ALL_CATEGORY && activeBrand === brand && (activeSub ?? undefined) === sub;
+    const next = new URLSearchParams({ brand, ...(sub ? { sub } : {}) });
+    if (!isActive) next.set('category', ALL_CATEGORY);
+    setSearchParams(next, { preventScrollReset: true });
+    if (window.innerWidth < 1024) setIsSidebarOpen(false);
+  };
+
+  const renderAllButton = (brand: string, sub?: string) => {
+    const isActive = activeCategory === ALL_CATEGORY && (activeSub ?? undefined) === sub;
+    return (
+      <button
+        key={`all-${sub ?? brand}`}
+        onClick={() => selectAll(brand, sub)}
+        className={`text-sm text-left transition-colors font-medium capitalize ${
+          isActive ? 'text-[#924321]' : 'text-slate-400 hover:text-slate-600'
+        }`}
+      >
+        All
+      </button>
+    );
+  };
+
   const renderCategories = (brand: string) => {
     const data = BRAND_CATEGORIES[brand as keyof typeof BRAND_CATEGORIES];
     if (!data) return null;
-    
+
     if (Array.isArray(data)) {
       return (
         <div className="flex flex-col gap-3">
+          {renderAllButton(brand)}
           {data.map((cat) => (
             <button
               key={cat}
@@ -522,6 +579,7 @@ export const ProductListing: React.FC = () => {
           {subTitle} series {activeSub === subTitle && "•"}
         </button>
         <div className="flex flex-col gap-3 pl-2">
+          {renderAllButton(brand, subTitle)}
           {materials.map((cat) => (
             <button
               key={cat}
@@ -583,7 +641,7 @@ export const ProductListing: React.FC = () => {
           {/* 2. SIDEBAR DRAWER */}
           <aside className={`
             fixed inset-x-0 bottom-0 w-full bg-white z-[120] p-8 pb-12 transition-transform duration-500 ease-in-out max-h-[90vh] overflow-y-auto
-            lg:relative lg:inset-auto lg:translate-y-0 lg:w-64 lg:block lg:sticky lg:top-40 lg:z-10 lg:p-0
+            lg:relative lg:inset-auto lg:translate-y-0 lg:w-64 lg:block lg:sticky lg:top-20 lg:z-10 lg:p-0 lg:pt-4
             ${isSidebarOpen ? 'translate-y-0' : 'translate-y-full lg:translate-y-0'}
           `}>
             <div className="flex justify-between items-center mb-8 lg:hidden">
@@ -593,16 +651,16 @@ export const ProductListing: React.FC = () => {
 
             <div className="mb-12">
               <div className='flex justify-between items-end mb-4'>
-                <h3 className="text-[11px] font-bold text-slate-400 tracking-widest capitalize">Search</h3>
+                <h3 className="text-sm font-bold text-slate-400 tracking-widest capitalize">Search</h3>
                 {(activeBrand || activeCategory || activeSub || searchQuery) && (
-                  <button onClick={clearAllFilters} className="text-[10px] font-bold text-[#924321] capitalize">Clear all</button>
+                  <button onClick={clearAllFilters} className="text-xs font-bold text-[#924321] capitalize">Clear all</button>
                 )}
               </div>
               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Find a material..." className="w-full py-2 bg-transparent border-b border-gray-200 outline-none focus:border-slate-900 capitalize" />
             </div>
 
             <div className="mb-12">
-              <h3 className="text-[11px] font-bold text-slate-400 tracking-widest mb-8 capitalize">Collections</h3>
+              <h3 className="text-sm font-bold text-slate-400 tracking-widest mb-8 capitalize">Collections</h3>
               <div className="flex flex-col gap-8">
                 {BRANDS.map((brand) => (
                   <div key={brand} className="flex flex-col">
@@ -637,16 +695,65 @@ export const ProductListing: React.FC = () => {
           </aside>
 
           {/* 3. MAIN CONTENT */}
-          <div className="flex-1 w-full pb-5 lg:pb-0">
-            {currentProducts.length > 0 ? (
+          <div ref={contentRef} className="flex-1 w-full min-w-0 pb-5 lg:pb-0">
+            {/* BREADCRUMB (sticks below the navbar while scrolling) */}
+            <nav className="lg:sticky lg:top-20 z-40 bg-white py-4 mb-6 flex flex-wrap items-center gap-2 text-xs capitalize font-bold tracking-[0.1em] text-gray-400">
+              {([
+                { label: 'Products', params: {} },
+                ...(activeBrand ? [{ label: activeBrand, params: { brand: activeBrand } }] : []),
+                ...(activeBrand && activeSub ? [{ label: activeSub, params: { brand: activeBrand, sub: activeSub } }] : []),
+                ...(activeCategory ? [{
+                  label: activeCategory,
+                  params: { ...(activeBrand ? { brand: activeBrand } : {}), ...(activeSub ? { sub: activeSub } : {}), category: activeCategory }
+                }] : []),
+                ...(selectedProduct ? [{ label: selectedProduct.title, params: {} }] : [])
+              ] as { label: string; params: Record<string, string> }[]).map((crumb, i, all) => {
+                const isLast = i === all.length - 1;
+                return (
+                  <React.Fragment key={crumb.label}>
+                    {i > 0 && <span>/</span>}
+                    {isLast ? (
+                      <span className="text-[#924321]">{crumb.label}</span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setSearchParams(crumb.params, { preventScrollReset: true })}
+                        className="capitalize  hover:text-[#924321]/70 transition-colors"
+                      >
+                        {crumb.label}
+                      </button>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </nav>
+
+            {selectedProduct ? (
+              // Product detail inside the right panel
+              <ProductDetail key={selectedProduct.id} productId={selectedProduct.id} embedded productLink={productLink} />
+            ) : currentProducts.length > 0 ? (
               <>
                 <main className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
                   {currentProducts.map(p => (
-                    <motion.div layout key={p.id} className="group block w-full">
-                      <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
-                        <ProgressiveImg src={p.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={p.title} />
-                      </div>
-                      <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.category}</h4>
+                    <motion.div layout key={p.id} className="w-full">
+                      {activeCategory ? (
+                        // Product inside the selected category -> its detail page
+                        <Link to={productLink(p.id)} preventScrollReset className="group block w-full">
+                          <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
+                            <ProgressiveImg src={p.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={p.title} />
+                          </div>
+                          <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4>
+                          {p.collection && <p className="text-[11px] text-slate-400 font-bold capitalize">{p.collection}</p>}
+                        </Link>
+                      ) : (
+                        // Category card -> show its products on this page
+                        <button type="button" onClick={() => updateFilter('category', p.category)} className="group block w-full text-left">
+                          <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
+                            <ProgressiveImg src={p.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={p.title} />
+                          </div>
+                          <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.category}</h4>
+                        </button>
+                      )}
                       {/* <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4> */}
                       {/* <p className="text-[11px] text-slate-400 font-bold capitalize">
                         {p.brand} series • {p.subCategory ? `${p.subCategory} • ` : ""}{p.category}
