@@ -1,5 +1,6 @@
 import { cdn } from '../config/cdn';
 import { BROCHURE_PRODUCTS, type Spec } from './brochureProducts';
+import { PRODUCT_IMAGES } from './productImages';
 
 export interface Finish {
   id: string; 
@@ -203,6 +204,7 @@ export const CATEGORY_PRODUCTS: Product[] = BROCHURE_PRODUCTS.map((item) => {
     brand: parent?.brand ?? 'Oaken',
     subCategory: parent?.subCategory,
     environment: parent?.subCategory,
-    image: parent?.image ?? ''
+    // brochure image; blank when the brochure has none
+    image: PRODUCT_IMAGES[item.id] ?? ''
   };
 });

@@ -61,7 +61,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
     }
     
     // Fallback to product gallery. If empty, at least show the main image.
-    return (product.gallery?.length ?? 0) > 0 ? product.gallery! : [product.image];
+    return (product.gallery?.length ?? 0) > 0 ? product.gallery! : product.image ? [product.image] : [];
   }, [product, selectedFinish]);
 
   // 5. Action Handlers

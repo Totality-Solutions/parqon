@@ -32,6 +32,11 @@ export const ProgressiveImg: React.FC<ProgressiveImgProps> = ({
   const [loaded, setLoaded] = useState(false);
   const placeholder = resolvePlaceholder(src, placeholderSrc);
 
+  // No image: plain blank tile
+  if (!src) {
+    return <span role="img" aria-label={alt} className={`block bg-gray-100 ${wrapperClassName}`} />;
+  }
+
   return (
     <span className={`relative block overflow-hidden ${wrapperClassName}`}>
       {placeholder && (
