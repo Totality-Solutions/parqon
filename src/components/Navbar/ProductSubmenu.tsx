@@ -165,7 +165,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '../common/Container';
-import { getCategoryLinks } from '../../data/products';
+// import { getCategoryLinks } from '../../data/products';
 
 const STYLE_DATA = {
   Oaken: {

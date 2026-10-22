@@ -5,7 +5,7 @@ import { HeroIntro } from './Sections/HeroIntro'; // New exact UI component
 import { CategorySection } from './Sections/CategorySection';
 import { ProductSection } from './Sections/ProductSection';    
 import { ProjectCallout } from './Sections/ProjectCallout';
-import { BannerCarousel } from './Sections/BannerCarousel';
+// import { BannerCarousel } from './Sections/BannerCarousel';
 
 const HomePage: React.FC = () => {
   return (

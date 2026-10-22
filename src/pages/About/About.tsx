@@ -1,7 +1,7 @@
 import React from 'react';
 // import { AboutHero } from './Sections/AboutStory';
 // import { AboutIntro } from './Sections/AboutIntro';
-import { AboutCollections } from './Sections/AboutCollections';
+// import { AboutCollections } from './Sections/AboutCollections';
 import { ProjectCallout } from '../Home/Sections/ProjectCallout'; // Reuse your existing CTA
 import { AboutIntro } from './Sections/AboutIntro';
 import { AboutStory } from './Sections/AboutStory';
