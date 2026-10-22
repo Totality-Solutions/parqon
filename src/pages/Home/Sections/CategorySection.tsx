@@ -112,6 +112,13 @@ const categories = [
     img: kitchenImg,
     path: '/products?brand=Nordwood'
   },
+  { 
+    id: 3, 
+    subTitle: 'Heatwood',
+    title: 'Define your outdoor living with surfaces built for performance. Combining rugged durability with a refined timber aesthetic, our decking solutions provide a resilient, high-end foundation for your exterior entertaining spaces and private retreats.', 
+    img: kitchenImg,
+    path: '/products?brand=Heatwood'
+  },
 ];
 
 export const CategorySection: React.FC = () => {
@@ -133,7 +140,7 @@ export const CategorySection: React.FC = () => {
         />
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 2xl:gap-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 2xl:gap-16">
         {categories.map((cat, index) => (
           <motion.div 
             key={cat.id} 
@@ -146,7 +153,7 @@ export const CategorySection: React.FC = () => {
               delay: index * 0.2, // First card starts at 0s, second at 0.2s
               ease: [0.21, 0.47, 0.32, 0.98] 
             }}
-            className="flex flex-col md:relative group overflow-hidden h-auto md:h-[500px] 2xl:h-[700px] transition-all duration-500"
+            className="flex flex-col md:relative group overflow-hidden h-auto md:h-[500px] 2xl:h-[500px] transition-all duration-500"
           >
             {/* Image Container with fixed aspect ratio on mobile */}
             <div className="h-[300px] sm:h-[400px] md:h-full w-full overflow-hidden">

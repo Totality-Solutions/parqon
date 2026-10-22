@@ -14,7 +14,7 @@ export interface Finish {
 export interface Product {
   id: string;
   title: string;
-  brand: 'Oaken' | 'Nordwood';
+  brand: 'Oaken' | 'Nordwood' | 'Heatwood';
   category: string;
   subCategory?: 'Indoor' | 'Outdoor';
   image: string;
@@ -80,33 +80,36 @@ export interface Product {
 export interface Product {
   id: string;
   title: string;
-  brand: 'Oaken' | 'Nordwood';
+  brand: 'Oaken' | 'Nordwood' | 'Heatwood';
   category: string;
   subCategory?: 'Indoor' | 'Outdoor';
   image: string;
 }
 
-export const BRANDS = ['Oaken', 'Nordwood'] as const;
+export const BRANDS = ['Oaken', 'Nordwood', 'Heatwood'] as const;
 
-export const BRAND_CATEGORIES = {
+export const BRAND_CATEGORIES: Record<(typeof BRANDS)[number], string[] | Record<string, string[]>> = {
   Oaken: ['Engineered Flooring', 'Solid Wood', 'Laminated Flooring', 'SPC Flooring'],
   Nordwood: {
     Indoor: ['Wall Panel', 'Ceiling Panel'],
     Outdoor: ['Deckwood', 'Wall Cladding', 'Ceiling | Sofit', 'Facade']
-  }
+  },
+  // TODO: Heatwood categories (add a category card to ALL_PRODUCTS for each one)
+  Heatwood: []
 };
 
-// Category links for a brand, grouped by series for Nordwood (used by the navbar menus)
+// Category links for a brand, grouped by series when the brand has them (used by the navbar menus)
 export const getCategoryLinks = (brand: (typeof BRANDS)[number]) => {
   const toLink = (category: string, sub?: string) => ({
     label: category,
     to: `/products?${new URLSearchParams({ brand, ...(sub ? { sub } : {}), category })}`
   });
 
-  if (brand === 'Oaken') {
-    return [{ title: null, items: BRAND_CATEGORIES.Oaken.map((cat) => toLink(cat)) }];
+  const data = BRAND_CATEGORIES[brand];
+  if (Array.isArray(data)) {
+    return data.length ? [{ title: null, items: data.map((cat) => toLink(cat)) }] : [];
   }
-  return Object.entries(BRAND_CATEGORIES.Nordwood).map(([sub, cats]) => ({
+  return Object.entries(data).map(([sub, cats]) => ({
     title: sub,
     items: cats.map((cat) => toLink(cat, sub))
   }));

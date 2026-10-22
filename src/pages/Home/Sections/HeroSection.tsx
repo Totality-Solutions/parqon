@@ -36,6 +36,15 @@ const heroSlides = [
     link: '/products?brand=Nordwood', // ← CHANGE THIS TO YOUR SECOND PAGE URL
     // subtitle: 'Artisan Series'
   },
+
+  {
+    id: 3,
+    // TODO: replace with the Heatwood banner and swatch once they're uploaded to the CDN
+    image: cdn('/images/home/hero2.jpg'),
+    swatch: cdn('/images/home/hero2.jpg'),
+    title: 'Heatwood',
+    link: '/products?brand=Heatwood',
+  },
 ];
 
 export const HeroSection: React.FC = () => {

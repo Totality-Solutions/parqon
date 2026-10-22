@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '../../components/common/Container';
 import { CTABtn } from '../../components/common/CTABtn';
+import { ADDRESSES, mapEmbed, mapLink, PHONE, PHONE_LINK, WHATSAPP_LINK } from '../../data/contact';
 
 // Import Icons
 import { cdn } from '../../config/cdn';
@@ -10,8 +11,11 @@ const phoneIconImg = cdn('/assets/icons/phone.png');
 const whatsappIconImg = cdn('/assets/icons/whatsapp.png');
 const resetIconImg = cdn('/assets/icons/reset-arrow.png');
 
-const ContactInfoCard = ({ title, detail, imageSrc, index }: { title: string; detail: string; imageSrc: string, index: number }) => (
-  <motion.div 
+const ContactInfoCard = ({ title, detail, imageSrc, index, href }: { title: string; detail: string; imageSrc: string, index: number, href: string }) => (
+  <motion.a
+    href={href}
+    // mailto:/tel: open in place; web links (WhatsApp) open in a new tab
+    {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     initial={{ opacity: 0, x: -30 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
@@ -39,13 +43,40 @@ const ContactInfoCard = ({ title, detail, imageSrc, index }: { title: string; de
         <path d="M21,2.5c-0.2-0.2-0.5-0.3-0.8-0.2l-17,6c-0.4,0.1-0.7,0.5-0.7,0.9c0,0.4,0.3,0.8,0.7,0.9l7.5,2.5l2.5,7.5 c0.1,0.4,0.5,0.7,0.9,0.7c0,0,0,0,0,0c0.4,0,0.8-0.3,0.9-0.7l6-17C21.3,3,21.2,2.7,21,2.5z" />
       </svg>
     </div>
-  </motion.div>
+  </motion.a>
+);
+
+// Office / showroom address with a link to Google Maps
+const AddressCard = ({ label, lines, href, index }: { label: string; lines: string[]; href: string; index: number }) => (
+  <motion.a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
+    className="flex items-start gap-4 md:gap-6 border border-gray-100 p-4 md:p-6 bg-white group transition-all hover:border-[#837B55]"
+  >
+    <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 bg-[#837B55] flex items-center justify-center">
+      <svg viewBox="0 0 24 24" className="w-6 h-6 md:w-7 md:h-7 fill-white" aria-hidden="true">
+        <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+      </svg>
+    </div>
+    <div className="flex-1">
+      <h4 className="text-[14px] md:text-[16px] font-bold text-gray-900 leading-tight tracking-tight mb-2">{label}</h4>
+      <address className="not-italic text-[13px] md:text-[15px] text-gray-500 font-medium leading-relaxed">
+        {lines.map((line) => <span key={line} className="block">{line}</span>)}
+      </address>
+      <span className="inline-block mt-3 text-[12px] font-bold text-[#837B55] group-hover:underline underline-offset-4">Get directions</span>
+    </div>
+  </motion.a>
 );
 
 export const ContactPage: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [mapIndex, setMapIndex] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,10 +130,10 @@ export const ContactPage: React.FC = () => {
             </motion.div>
 
             <div className="space-y-6">
-              <ContactInfoCard index={0} title="E-mail" detail="bdm@parqon.co.in" imageSrc={emailIconImg} />
-              <ContactInfoCard index={1} title="E-mail" detail="horizoninterspace@gmail.com" imageSrc={emailIconImg} />
-              <ContactInfoCard index={2} title="Call us" detail="+91 96631 02951" imageSrc={phoneIconImg} />
-              <ContactInfoCard index={3} title="Msg on Whatsapp" detail="10:00 am to 6:00 pm" imageSrc={whatsappIconImg} />
+              <ContactInfoCard index={0} title="E-mail" detail="bdm@parqon.co.in" imageSrc={emailIconImg} href="mailto:bdm@parqon.co.in" />
+              <ContactInfoCard index={1} title="E-mail" detail="horizoninterspace@gmail.com" imageSrc={emailIconImg} href="mailto:horizoninterspace@gmail.com" />
+              <ContactInfoCard index={2} title="Call us" detail={PHONE} imageSrc={phoneIconImg} href={PHONE_LINK} />
+              <ContactInfoCard index={3} title="Msg on Whatsapp" detail="10:00 am to 6:00 pm" imageSrc={whatsappIconImg} href={WHATSAPP_LINK} />
             </div>
           </div>
 
@@ -179,6 +210,49 @@ export const ContactPage: React.FC = () => {
               </AnimatePresence>
             </form>
           </motion.div>
+        </div>
+
+        {/* Full-width map of the selected address */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-24 w-full"
+        >
+          <div className="flex gap-2 mb-3">
+            {ADDRESSES.map((address, i) => (
+              <button
+                key={address.label}
+                type="button"
+                onClick={() => setMapIndex(i)}
+                className={`text-[12px] font-bold px-4 py-2 border transition-colors ${
+                  mapIndex === i ? 'bg-[#837B55] text-white border-[#837B55]' : 'bg-white text-gray-500 border-gray-200 hover:border-[#837B55]'
+                }`}
+              >
+                {address.label.replace(' Address', '')}
+              </button>
+            ))}
+          </div>
+          <iframe
+            key={mapIndex}
+            title={`Map: ${ADDRESSES[mapIndex].label}`}
+            src={mapEmbed(ADDRESSES[mapIndex])}
+            className="w-full h-[320px] md:h-[450px] border border-gray-100"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </motion.div>
+
+        {/* Office & showroom addresses */}
+        <div className="mt-12 w-full">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight mb-6">Visit us</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {ADDRESSES.map((address, i) => (
+              <AddressCard key={address.label} index={i} label={address.label} lines={address.lines} href={mapLink(address)} />
+            ))}
+          </div>
         </div>
       </Container>
     </div>

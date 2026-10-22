@@ -179,6 +179,12 @@ const STYLE_DATA = {
     subtitle: "Lifestyle Series",
     description: "Modern textures designed for versatile living.",
     image: "https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=600&auto=format&fit=crop"
+  },
+  Heatwood: {
+    title: "Heatwood",
+    subtitle: "New Collection",
+    description: "New collection coming soon.", // TODO: Heatwood description
+    image: "" // TODO: Heatwood image
   }
 };
 
@@ -190,7 +196,7 @@ export const ProductSubmenu: React.FC<{ onClose: () => void }> = ({ onClose }) =
     <div className="w-full bg-white py-8 lg:py-12 border-b border-gray-100">
       <Container>
         <div className="flex flex-col md:flex-row gap-12 lg:gap-24 justify-center">
-          {(['Oaken', 'Nordwood'] as const).map((style) => (
+          {(['Oaken', 'Nordwood', 'Heatwood'] as const).map((style) => (
             <div key={style} className="group flex-1 max-w-lg">
               <Link
                 to={`/products?brand=${style}`}
@@ -199,11 +205,11 @@ export const ProductSubmenu: React.FC<{ onClose: () => void }> = ({ onClose }) =
               >
                 {/* 1. Compact Sharp Image */}
                 <div className="relative w-24 lg:w-32 aspect-square flex-shrink-0 overflow-hidden bg-gray-50 border border-gray-100 transition-all duration-500 group-hover:border-gray-900">
-                  <img
+                  {STYLE_DATA[style].image && <img
                     src={STYLE_DATA[style].image}
                     alt={style}
                     className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
-                  />
+                  />}
                 </div>
 
                 {/* 2. Typographic Content */}
@@ -231,7 +237,7 @@ export const ProductSubmenu: React.FC<{ onClose: () => void }> = ({ onClose }) =
               </Link>
 
               {/* Category links */}
-              <div className="flex gap-10 mt-6 pl-1">
+              {/* <div className="flex gap-10 mt-6 pl-1">
                 {getCategoryLinks(style).map((group) => (
                   <div key={group.title ?? style} className="flex flex-col gap-2">
                     {group.title && (
@@ -249,7 +255,7 @@ export const ProductSubmenu: React.FC<{ onClose: () => void }> = ({ onClose }) =
                     ))}
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

@@ -186,7 +186,7 @@
 
 
 // src/pages/Home/Sections/ProductSection.tsx
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Section } from '../../../components/common/Section';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cdn } from '../../../config/cdn';
@@ -194,50 +194,62 @@ import { Button } from '../../../components/common/Button';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 const productData = {
-  'Living Rooms': {
+  'Oaken': {
     description: 'Where sophisticated design meets everyday living. Elevate your lounge with durable, high-end surfaces engineered to provide a seamless blend of natural grain textures and contemporary aesthetic appeal.',
     images: [
       cdn('/images/home/products/living-room/1.png'),
-      cdn('/images/home/products/living-room/2.jpg'),
-      cdn('/images/home/products/living-room/3.jpg'),
-      cdn('/images/home/products/living-room/4.jpg'),
+      cdn('/images/home/products/bedroom/1.jpg'),
+      cdn('/images/home/products/indoor/1.jpg'),
+      cdn('/images/home/products/outdoor/1.jpeg'),
     ]
   },
-  'Bed Rooms': {
+  'Nordwood': {
     description: 'Elevate your rest with masterfully engineered finishes that speak to understated elegance. By combining a minimalist aesthetic with the rich grain of hand-selected timber, we bring a refined architectural touch to your most personal environment.',
     images: [
-      cdn('/images/home/products/bedroom/1.jpg'),
+      cdn('/images/home/products/living-room/2.jpg'),
       cdn('/images/home/products/bedroom/2.jpg'),
-      cdn('/images/home/products/bedroom/3.jpg'),
-      cdn('/images/home/products/bedroom/4.jpg'),
+      cdn('/images/home/products/indoor/2.jpg'),
+      cdn('/images/home/products/outdoor/2.jpeg'),
     ]
   },
-  'Outdoor Decks': {
+  'Heatwood ': {
     description: 'Define your outdoor living with surfaces built for performance. Combining rugged durability with a refined timber aesthetic, our decking solutions provide a resilient, high-end foundation for your exterior entertaining spaces and private retreats.',
     images: [
-      cdn('/images/home/products/outdoor/1.jpeg'),
-      cdn('/images/home/products/outdoor/2.jpeg'),
+      cdn('/images/home/products/living-room/3.jpg'),
+      cdn('/images/home/products/bedroom/3.jpg'),
+      cdn('/images/home/products/indoor/3.jpg'),
       cdn('/images/home/products/outdoor/3.jpeg'),
-      cdn('/images/home/products/outdoor/4.jpeg'),
     ]
   },
-  'Indoor': {
-    description: 'Elevate your courtyard experience with high-end surfaces crafted for the modern patio. Combining a sleek architectural aesthetic with the inviting warmth of wood, these durable finishes transform any outdoor niche into a premium retreat.',
-    images: [
-      cdn('/images/home/products/indoor/1.jpg'),
-      cdn('/images/home/products/indoor/2.jpg'),
-      cdn('/images/home/products/indoor/3.jpg'),
-      cdn('/images/home/products/indoor/4.jpg'),
-    ]
-  }
+  // 'Vintage': {
+  //   description: 'Experience the charm of bygone eras with our carefully curated collection of timeless designs. Each piece is crafted to bring a sense of nostalgia and sophistication to your space.',
+  //   images: [
+  //     cdn('/images/home/products/living-room/4.jpg'),
+  //     cdn('/images/home/products/bedroom/4.jpg'),
+  //     cdn('/images/home/products/outdoor/4.jpeg'),
+  //     cdn('/images/home/products/indoor/4.jpg'),
+  //   ]
+  // }
 };
 
 type Category = keyof typeof productData;
 
 export const ProductSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Category>('Living Rooms');
+  const [activeTab, setActiveTab] = useState<Category>('Oaken');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const iconSrc = cdn('/icons/arrow-right.png');
+
+  // Mobile: the select sticks under the navbar and the cards stack below it
+  const MOBILE_NAV_HEIGHT = 64;
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [dropdownHeight, setDropdownHeight] = useState(0);
+  useEffect(() => {
+    const el = dropdownRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => setDropdownHeight(el.offsetHeight));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const handleTabChange = (tab: Category) => {
     setActiveTab(tab);
@@ -266,8 +278,8 @@ export const ProductSection: React.FC = () => {
       </motion.div>
 
       <div className="flex flex-col lg:flex-row gap-8 2xl:gap-24">
-        {/* MOBILE DROPDOWN */}
-        <div className="lg:hidden relative z-20">
+        {/* MOBILE DROPDOWN (sticks under the navbar) */}
+        <div ref={dropdownRef} className="lg:hidden sticky top-16 [@media(min-width:781px)]:top-20 z-30 bg-white">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="w-full flex justify-between items-center px-6 py-5 border border-gray-200 bg-white"
@@ -343,7 +355,9 @@ export const ProductSection: React.FC = () => {
                   visible: { opacity: 1, y: 0 }
                 }}
                 transition={{ duration: 0.5 }}
-                className="relative group aspect-[3/4] overflow-hidden cursor-pointer bg-gray-100 shadow-sm"
+                // Mobile: sticky cards, each pinned a little lower, so they stack while scrolling
+                style={{ '--stack-top': `${MOBILE_NAV_HEIGHT + dropdownHeight + 16 + idx * 14}px` } as React.CSSProperties}
+                className="sticky top-[var(--stack-top)] sm:relative sm:top-auto group aspect-[3/4] overflow-hidden cursor-pointer bg-gray-100 sm:shadow-sm"
               >
                 <ProgressiveImg
                   src={img}

@@ -16,10 +16,10 @@ const AboutPage: React.FC = () => {
         <main className="bg-white">
             {/* <AboutHero /> */}
             <AboutHero />
+            <AboutStory />
             <AboutIntro />
             <AboutBase/>
-            <AboutCollections />
-            <AboutStory />
+            {/* <AboutCollections /> */}
             {/* <AboutHistory /> */}
             <AboutWhy/>
             <div className="">

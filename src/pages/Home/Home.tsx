@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
       <ProductSection />
 
       {/* 6. Full Width Brand Image (Optional: suggested for design flow) */}
-      <BannerCarousel />
+      {/* <BannerCarousel /> */}
 
       {/* 7. Blog / News Section */}
       {/* <BlogSection /> */}

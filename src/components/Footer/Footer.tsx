@@ -11,6 +11,7 @@ import {
   AiOutlineLinkedin, 
 } from 'react-icons/ai';
 import { RiFacebookLine } from 'react-icons/ri';
+import { ADDRESSES, mapLink, EMAILS, PHONE, PHONE_LINK } from '../../data/contact';
 
 /**
  * Reusable Small Arrow component
@@ -64,18 +65,18 @@ export const Footer: React.FC = () => {
     <footer className="bg-white pt-24 pb-12 transition-all duration-500 border-t border-gray-100">
       <Container>
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 lg:gap-12 items-start mb-24">
-          
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-10 items-start mb-24">
+
           {/* 1. BRANDING & LOGO */}
-          <div className="md:col-span-6 lg:col-span-7 flex flex-col items-start">
-            <div 
-              className="mb-14 group cursor-pointer" 
+          <div className="md:col-span-2 lg:col-span-3 flex flex-col items-start">
+            <div
+              className="mb-10 group cursor-pointer"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <img 
-                src={PAROONLogo} 
-                alt="PARQON" 
-                className="h-12 w-auto mb-3 transition-transform duration-500 group-hover:scale-105" 
+              <img
+                src={PAROONLogo}
+                alt="PARQON"
+                className="h-12 w-auto transition-transform duration-500 group-hover:scale-105"
               />
             </div>
 
@@ -87,23 +88,58 @@ export const Footer: React.FC = () => {
                 { Icon: AiOutlineLinkedin, href: "https://www.linkedin.com/company/parqonofficial/?viewAsMember=true" },
                 { Icon: RiFacebookLine, href: "https://www.facebook.com/profile.php?id=61572129587882" }
               ].map((social, i) => (
-                <a 
-                  key={i} 
-                  href={social.href} 
+                <a
+                  key={i}
+                  href={social.href}
                   className="text-gray-400 hover:text-[#924321] transition-all duration-300 hover:-translate-y-1"
                 >
                   <social.Icon size={26} strokeWidth={1} />
                 </a>
               ))}
             </div>
+
+            {/* E-mail & phone */}
+            <ul className="mt-8 space-y-2 text-dynamic-body font-semibold">
+              {EMAILS.map((email) => (
+                <li key={email}>
+                  <a href={`mailto:${email}`} className="text-gray-400 hover:text-[#924321] transition-colors break-all">
+                    {email}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={PHONE_LINK} className="text-gray-400 hover:text-[#924321] transition-colors">
+                  {PHONE}
+                </a>
+              </li>
+            </ul>
           </div>
 
-          {/* 2. NAVIGATION LINKS */}
-          <div className="md:col-span-6 lg:col-span-5 grid grid-cols-2 gap-8 lg:gap-16">
-            
+          {/* 2. OFFICE & SHOWROOM ADDRESSES */}
+          <div className="md:col-span-2 lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-10 lg:gap-8">
+            {ADDRESSES.map((address) => (
+              <div key={address.label} className="flex flex-col items-start">
+                <h4 className="font-normal text-[#000] text-dynamic-body mb-4">{address.label}</h4>
+                <a
+                  href={mapLink(address)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-[#924321] transition-colors"
+                >
+                  <address className="not-italic text-dynamic-body font-semibold leading-relaxed">
+                    {address.lines.map((line) => <span key={line} className="block">{line}</span>)}
+                  </address>
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* 3. NAVIGATION LINKS */}
+          <div className="md:col-span-2 lg:col-span-4 grid grid-cols-2 gap-10 lg:gap-8">
+
             {/* Column 1: Main Nav */}
-            <div className="flex flex-col items-start">
-              <h4 className="font-bold text-[#924321] text-dynamic-body mb-4 ">
+            <div className="flex flex-col items-start lg:pl-8">
+              <h4 className="font-bold text-[#000] text-dynamic-body mb-4 ">
                 Menu
               </h4>
               <ul className="space-y-4 text-dynamic-body font-semibold">
@@ -117,7 +153,7 @@ export const Footer: React.FC = () => {
 
             {/* Column 2: Products Nav */}
             <div className="flex flex-col items-start">
-              <h4 className="font-bold text-[#924321] text-dynamic-body mb-4 ">
+              <h4 className="font-bold text-[#000] text-dynamic-body mb-4 ">
                 Products
               </h4>
               <ul className="space-y-4 text-dynamic-body font-semibold ">
@@ -131,6 +167,7 @@ export const Footer: React.FC = () => {
                 <FooterNavLink to="/products/quartz" label="Quartz" /> */}
                 <FooterNavLink to="/products?brand=Nordwood" label="Norwood" />
                 <FooterNavLink to="/products?brand=Oaken" label="Oaken" />
+                <FooterNavLink to="/products?brand=Heatwood" label="Heatwood" />
               </ul>
             </div>
           </div>

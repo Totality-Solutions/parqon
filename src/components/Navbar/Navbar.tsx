@@ -314,9 +314,20 @@ const navItems = [
   { name: 'About Us', path: '/about' },
   { name: 'Applications', path: '/applications' },
   { name: 'Products', path: '/products' },
+  { name: 'Heatwood', path: '/products?brand=Heatwood' },
   { name: 'Contact Us', path: '/contact' },
   // { name: 'Projects', path: '/projects' }
 ];
+
+// Active check that also looks at ?brand=, so "Products" and "Heatwood" don't both highlight
+const isNavActive = (path: string, location: { pathname: string; search: string }) => {
+  const [pathname, query] = path.split('?');
+  if (location.pathname !== pathname) return false;
+  const brand = new URLSearchParams(location.search).get('brand');
+  if (query) return brand === new URLSearchParams(query).get('brand');
+  // plain "Products" is not active while a brand with its own header link is selected
+  return pathname !== '/products' || brand !== 'Heatwood';
+};
 
 const MOBILE_STYLE_DATA = [
   {
@@ -330,6 +341,12 @@ const MOBILE_STYLE_DATA = [
     title: "Nordwood",
     description: "Environment-driven collections",
     image: "https://images.unsplash.com/photo-1542621334-a254cf47733d?w=400",
+  },
+  {
+    id: 'Heatwood' as const,
+    title: "Heatwood",
+    description: "New collection", // TODO: Heatwood tagline
+    image: "", // TODO: Heatwood image
   }
 ];
 
@@ -370,14 +387,15 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <Container className="h-full relative flex items-center justify-between px-4 sm:px-6">
+          {/* z-10 keeps the logo above the (transformed) menu row so it stays clickable */}
           <div
-            className={`transition-all duration-500 ease-in-out flex items-center ${
+            className={`relative z-10 transition-all duration-500 ease-in-out flex items-center ${
               isScrolled
                 ? '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-7 lg:left-8 [@media(min-width:781px)]:translate-x-0'
                 : '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-1/2 [@media(min-width:781px)]:-translate-x-1/2 [@media(min-width:781px)]:top-8'
             }`}
           >
-            <Link to="/" className="block">
+            <Link to="/" aria-label="Go to home page" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="block">
               <img
                 src={PAROONLogo}
                 alt="Logo"
@@ -405,16 +423,16 @@ export const Navbar: React.FC = () => {
                   >
                     <NavLink
                       to={item.path}
-                      className={({ isActive }) => `
+                      className={() => `
                         flex items-center gap-1.5 lg:gap-2 text-dynamic-body font-medium tracking-[0.04em] py-4 whitespace-nowrap transition-colors
-                        ${isActive ? 'text-[#924321]' : 'text-[#000000] hover:text-[#924321]'}
+                        ${isNavActive(item.path, location) ? 'text-[#924321]' : 'text-[#000000] hover:text-[#924321]'}
                       `}
                     >
                       <span className="relative">
                         {item.name}
                         <span className={`
                           absolute -bottom-1 left-0 w-full h-[1.5px] bg-[#924321] transition-transform duration-300 origin-left
-                          ${location.pathname === item.path || (isProducts && showSubmenu) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
+                          ${isNavActive(item.path, location) || (isProducts && showSubmenu) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
                         `} />
                       </span>
                     </NavLink>
@@ -463,7 +481,7 @@ export const Navbar: React.FC = () => {
             className="fixed inset-0 bg-white z-[1200] p-6 sm:p-8 overflow-y-auto"
           >
             <div className="flex items-center justify-between w-full mb-8">
-             <Link to="/" className="block">
+             <Link to="/" aria-label="Go to home page" onClick={() => setIsOpen(false)} className="block">
                 <img src={PAROONLogo} alt="Logo" className="h-8 w-auto object-contain" />
               </Link>
               <button onClick={() => setIsOpen(false)} className="text-gray-700 p-2">
@@ -533,8 +551,8 @@ export const Navbar: React.FC = () => {
                                       onClick={() => setIsOpen(false)}
                                       className="flex items-center gap-4 p-3 bg-gray-50 active:bg-gray-100 transition-colors"
                                     >
-                                      <div className="w-14 h-14 overflow-hidden flex-shrink-0">
-                                        <img src={style.image} alt={style.title} className="w-full h-full object-cover" />
+                                      <div className="w-14 h-14 overflow-hidden flex-shrink-0 bg-gray-200">
+                                        {style.image && <img src={style.image} alt={style.title} className="w-full h-full object-cover" />}
                                       </div>
                                       <div className="flex flex-col text-left flex-grow">
                                         <span className="font-medium text-gray-900">{style.title}</span>
@@ -574,9 +592,9 @@ export const Navbar: React.FC = () => {
                       <NavLink
                         to={item.path}
                         onClick={() => setIsOpen(false)}
-                        className={({ isActive }) => `
+                        className={() => `
                           text-xl font-medium border-b border-gray-50 pb-4 flex justify-between items-center transition-colors
-                          ${isActive ? 'text-[#924321]' : 'text-gray-800'}
+                          ${isNavActive(item.path, location) ? 'text-[#924321]' : 'text-gray-800'}
                         `}
                       >
                         {item.name}

@@ -402,6 +402,9 @@ export const ProductListing: React.FC = () => {
   
   const sectionRef = useRef<HTMLElement>(null);
   const stickySentinelRef = useRef<HTMLDivElement>(null);
+  // Mobile brand tab bar height, so the breadcrumb can stick right below it
+  const tabBarRef = useRef<HTMLDivElement>(null);
+  const [tabBarHeight, setTabBarHeight] = useState(0);
 
   const productsPerPage = 9;
 
@@ -464,6 +467,14 @@ export const ProductListing: React.FC = () => {
     );
 
     if (stickySentinelRef.current) observer.observe(stickySentinelRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = tabBarRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => setTabBarHeight(el.offsetHeight));
+    observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
@@ -609,8 +620,8 @@ export const ProductListing: React.FC = () => {
           ${isTopFilterStuck ? 'shadow-md px-2' : ''}
         `}> */}
 
-        <div className={`
-  lg:hidden flex border-b border-gray-100 mb-8 sticky 
+        <div ref={tabBarRef} className={`
+  lg:hidden flex border-b border-gray-100 mb-8 sticky
   top-[64px] {/* Change this to your Navbar height */}
   bg-white z-[50] transition-shadow duration-300
   ${isTopFilterStuck ? '' : ''}
@@ -669,7 +680,7 @@ export const ProductListing: React.FC = () => {
                       onClick={() => updateFilter('brand', brand)} 
                       className={`flex justify-between items-center text-left w-full transition-colors group ${activeBrand === brand ? 'text-slate-900 font-bold' : 'text-slate-400'}`}
                     >
-                      <span className="text-lg font-medium tracking-tight capitalize">{brand} wood</span>
+                      <span className="text-lg font-medium tracking-tight capitalize">{brand === 'Heatwood' ? brand : `${brand} wood`}</span>
                       <span className="flex items-center pointer-events-none">
                         {activeBrand === brand ? <Minus size={18} strokeWidth={1.5} /> : <Plus size={18} strokeWidth={1.5} />}
                       </span>
@@ -696,8 +707,10 @@ export const ProductListing: React.FC = () => {
 
           {/* 3. MAIN CONTENT */}
           <div ref={contentRef} className="flex-1 w-full min-w-0 pb-5 lg:pb-0">
-            {/* BREADCRUMB (sticks below the navbar while scrolling) */}
-            <nav className="lg:sticky lg:top-20 z-40 bg-white py-4 mb-6 flex flex-wrap items-center gap-2 text-xs capitalize font-bold tracking-[0.1em] text-gray-400">
+            {/* BREADCRUMB (sticks below the navbar while scrolling; on mobile below the brand tabs too) */}
+            <nav
+              style={{ '--crumb-top': `${64 + tabBarHeight}px` } as React.CSSProperties}
+              className="sticky top-[var(--crumb-top)] lg:top-20 z-40 bg-white py-4 mb-6 flex flex-wrap items-center gap-2 text-xs capitalize font-bold tracking-[0.1em] text-gray-400">
               {([
                 { label: 'Products', params: {} },
                 ...(activeBrand ? [{ label: activeBrand, params: { brand: activeBrand } }] : []),

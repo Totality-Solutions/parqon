@@ -11,6 +11,23 @@ export const AboutBase: React.FC = () => {
 
           {/* Left Content */}
           <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative h-[400px] lg:h-[600px] w-full"
+          >
+            <ProgressiveImg
+              src={cdn('/images/about/about.jpeg')}
+              alt="Minimal Interior Design"
+              className="w-full h-full object-cover"
+              wrapperClassName="w-full h-full"
+            />
+          </motion.div>
+          
+
+          {/* Right Image */}
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -33,22 +50,6 @@ Designed for architects, designers, and discerning homeowners, Parqon transforms
                 to="/products"
               />
             </div> */}
-          </motion.div>
-
-          {/* Right Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[400px] lg:h-[600px] w-full"
-          >
-            <ProgressiveImg
-              src={cdn('/images/about/about.jpeg')}
-              alt="Minimal Interior Design"
-              className="w-full h-full object-cover"
-              wrapperClassName="w-full h-full"
-            />
           </motion.div>
 
         </div>
