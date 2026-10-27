@@ -9,7 +9,7 @@ import { FeaturesGrid } from '../../../components/common/FeaturesGrid';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 // Data & Type Imports
-import { ALL_PRODUCTS, CATEGORY_PRODUCTS, type Finish } from '../../../data/products';
+import { CATEGORIES, CATEGORY_PRODUCTS, categoryPath, type Finish } from '../../../data/products';
 
 interface ProductDetailProps {
   // Set when the detail is shown inside the products page's right panel
@@ -31,7 +31,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
 
   // The category card this product sits under, for the breadcrumb link
   const categoryCard = useMemo(() =>
-    ALL_PRODUCTS.find((p) => p.category === product?.category),
+    CATEGORIES.find((c) => c.brand === product?.brand && c.slug === product?.categorySlug),
   [product]);
 
   // 2. States for Interactivity
@@ -106,11 +106,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
           <span>/</span>
           {categoryCard ? (
             <Link
-              to={`/products?${new URLSearchParams({
-                brand: categoryCard.brand,
-                ...(categoryCard.subCategory ? { sub: categoryCard.subCategory } : {}),
-                category: categoryCard.category
-              })}`}
+              to={categoryPath(categoryCard)}
               className="text-gray-900 hover:text-gray-500 transition-colors">{product.category}</Link>
           ) : (
             <span className="text-gray-900">{product.category}</span>

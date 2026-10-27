@@ -26,7 +26,8 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/applications" element={<ApplicationsPage />} />
-        <Route path="/products" element={<ProductPage />} />
+        {/* One route for all product listing pages, so the page stays mounted while moving between categories */}
+        <Route path="/products/:brand?/:category?/:type?" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="*" element={<NotFoundPage />} />

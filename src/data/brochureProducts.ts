@@ -79,6 +79,9 @@ const THERMOWOOD_DESC =
 const CEILING_DESC =
   'Nordwood ceiling systems use the Pi-Grad clip-on, screwless, invisible and removable fastening system for easy and efficient installation. Profiles are tongue and groove and are installed by inserting the tongues in the grooves.';
 
+// Explicit wood species (overrides the name-based guess below)
+const species = (value: string): Spec => ({ label: 'Wood Specie', value });
+
 // Wood species for Oaken flooring, read from the product name
 const speciesSpec = (title: string): Spec => {
   const walnut = /walnut/i.test(title);
@@ -168,15 +171,23 @@ const GROUPS: BrochureGroup[] = [
     collection: 'Solid Wood Collections',
     description: SOLID_DESC,
     specs: [
+      { label: 'Pattern', value: 'Plank' },
       { label: 'Width', value: '120-240 mm' },
       { label: 'Installation', value: 'Tongue & groove' },
       { label: 'Features', value: 'Anti-static, suitable for underfloor heating' },
       { label: 'Warranty', value: 'Lifetime' }
     ],
     items: [
-      'Merbau', 'Natural Oak', 'Oak Almond', 'Oak Antique', 'Oak Caramel', 'Kaya Kuku', 'Oak Smoked Light',
-      'European Oak Grey', 'Burma Teak', 'Asian Walnut', 'American Walnut Antique', 'African Teak',
-      'American Walnut', 'Jatoba'
+      { title: 'Merbau', specs: [species('Merbau')] },
+      'Natural Oak', 'Oak Almond', 'Oak Antique', 'Oak Caramel',
+      { title: 'Kaya Kuku', specs: [species('Kaya Kuku')] },
+      'Oak Smoked Light', 'European Oak Grey',
+      { title: 'Burma Teak', specs: [species('Teak')] },
+      { title: 'Asian Walnut', specs: [species('Asian Walnut')] },
+      'American Walnut Antique',
+      { title: 'African Teak', specs: [species('Teak')] },
+      'American Walnut',
+      { title: 'Jatoba', specs: [species('Jatoba')] }
     ]
   },
 
@@ -185,18 +196,24 @@ const GROUPS: BrochureGroup[] = [
     category: 'Laminated Flooring',
     collection: 'Laminated Flooring',
     description: LAMINATE_DESC,
-    specs: LAMINATE_SPECS,
+    // Patterns read from the brochure swatches: plank unless noted
+    specs: [{ label: 'Pattern', value: 'Plank' }, ...LAMINATE_SPECS],
     items: [
-      'Oak Cross Cut', 'Walnut Wide Plank', 'Oak History', 'Oak Horizont', 'Oak Lumberjack', 'Oak Rough Sawn',
-      'Oak Studioline Sanded', 'Oak Studioline Natural', 'Oak Studioline Honey', 'Walnut', 'Silver Grey',
-      'Oak Grey', 'Forest Nocturne'
+      { title: 'Oak Cross Cut', specs: [{ label: 'Pattern', value: 'Tile' }] },
+      'Walnut Wide Plank', 'Oak History', 'Oak Horizont', 'Oak Lumberjack', 'Oak Rough Sawn', 'Oak Studioline Sanded',
+      { title: 'Oak Studioline Natural', specs: [{ label: 'Pattern', value: 'Herringbone' }] },
+      { title: 'Oak Studioline Honey', specs: [{ label: 'Pattern', value: 'Herringbone' }] },
+      { title: 'Walnut', specs: [{ label: 'Pattern', value: 'Herringbone' }] },
+      { title: 'Silver Grey', specs: [{ label: 'Pattern', value: 'Herringbone' }] },
+      { title: 'Oak Grey', specs: [{ label: 'Pattern', value: 'Herringbone' }] },
+      { title: 'Forest Nocturne', specs: [{ label: 'Pattern', value: 'Herringbone' }] }
     ]
   },
   {
     category: 'Laminated Flooring',
     collection: 'Hybrid Laminated',
     description: LAMINATE_DESC,
-    specs: LAMINATE_SPECS,
+    specs: [{ label: 'Pattern', value: 'Plank' }, ...LAMINATE_SPECS],
     items: ['Cascading Brew', 'Hazel Charm', 'Twilight Whisper', 'Silken Sepia', 'Midnight Hue', 'Oak Montana']
   },
   {
@@ -389,13 +406,37 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 
 const OAKEN_FLOORING = ['Engineered Flooring', 'Solid Wood'];
 
+// Wood species of the Nordwood products (from the brochure product names and botanical names)
+const NORDWOOD_SPECIES: Record<string, string> = {
+  'Thermo Ash · Tres Design': 'Ash',
+  'Thermo Tulip · Uno Profile': 'Tulipwood',
+  'Thermo Oak · Quartes Design': 'Oak',
+  'Thermo Ayous · Theta Design': 'Ayous',
+  'Thermo Pine · Enduro-T Design': 'Pine',
+  'Ash Cladding': 'Ash',
+  'Tulipwood Cladding': 'Tulipwood',
+  'Brazilian Ash Cladding': 'Brazilian Ash',
+  'Pine Cladding': 'Pine',
+  'Thermo Ayous': 'Ayous',
+  'Brazilian Ash Deck': 'Brazilian Ash',
+  'Brazilian Walnut (IPE)': 'IPE',
+  'Brazilian Teak (Cumaru)': 'Cumaru',
+  'Thermo Ash Deck': 'Ash',
+  'Thermo Pine Deck': 'Pine',
+  'WPC Deck': 'WPC (composite)'
+};
+
 export const BROCHURE_PRODUCTS: BrochureProduct[] = GROUPS.flatMap((group) =>
   group.items.map((entry) => {
     const item = typeof entry === 'string' ? { title: entry } : entry;
     const itemSpecs = item.specs ?? [];
+    const hasSpecies = itemSpecs.some((s) => s.label === 'Wood Specie');
+    const autoSpecies = NORDWOOD_SPECIES[item.title]
+      ? species(NORDWOOD_SPECIES[item.title])
+      : OAKEN_FLOORING.includes(group.category) ? speciesSpec(item.title) : null;
     // Item specs override group specs with the same label
     const specs = [
-      ...(OAKEN_FLOORING.includes(group.category) ? [speciesSpec(item.title)] : []),
+      ...(autoSpecies && !hasSpecies ? [autoSpecies] : []),
       ...itemSpecs,
       ...group.specs.filter((s) => !itemSpecs.some((i) => i.label === s.label))
     ];

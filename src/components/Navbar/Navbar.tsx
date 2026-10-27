@@ -322,11 +322,13 @@ const navItems = [
 // Active check that also looks at ?brand=, so "Products" and "Heatwood" don't both highlight
 const isNavActive = (path: string, location: { pathname: string; search: string }) => {
   const [pathname, query] = path.split('?');
-  if (location.pathname !== pathname) return false;
-  const brand = new URLSearchParams(location.search).get('brand');
-  if (query) return brand === new URLSearchParams(query).get('brand');
+  // category pages (/products/<brand>/<category>) count as the products page
+  const onPage = location.pathname === pathname || (pathname === '/products' && location.pathname.startsWith('/products/'));
+  if (!onPage) return false;
+  const brand = (new URLSearchParams(location.search).get('brand') ?? location.pathname.split('/')[2] ?? '').toLowerCase();
+  if (query) return brand === new URLSearchParams(query).get('brand')?.toLowerCase();
   // plain "Products" is not active while a brand with its own header link is selected
-  return pathname !== '/products' || brand !== 'Heatwood';
+  return pathname !== '/products' || brand !== 'heatwood';
 };
 
 const MOBILE_STYLE_DATA = [
