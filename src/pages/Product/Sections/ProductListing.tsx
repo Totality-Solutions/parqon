@@ -397,6 +397,7 @@ import {
 import { X, ChevronLeft, ChevronRight, Plus, Minus, Search, Filter } from 'lucide-react';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 import { ProductDetail } from './ProductDetail';
+import { SearchBox } from '../../../components/search/SearchBox';
 
 // /products/<brand>/all lists every product of the brand
 const ALL_SLUG = 'all';
@@ -407,7 +408,6 @@ export const ProductListing: React.FC = () => {
   const navigate = useNavigate();
   const params = useParams<{ brand?: string; category?: string; type?: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSectionVisible, setIsSectionVisible] = useState(false);
@@ -440,12 +440,11 @@ export const ProductListing: React.FC = () => {
   };
 
   // --- FILTER LOGIC ---
-  const query = searchQuery.toLowerCase();
 
   // Category cards (brand overview)
   const visibleCategories = useMemo(
-    () => CATEGORIES.filter((c) => (!activeBrand || c.brand === activeBrand) && c.title.toLowerCase().includes(query)),
-    [activeBrand, query]
+    () => CATEGORIES.filter((c) => !activeBrand || c.brand === activeBrand),
+    [activeBrand]
   );
 
   // Products on this page (category, type or "All"), before the pattern filter
@@ -454,9 +453,9 @@ export const ProductListing: React.FC = () => {
       CATEGORY_PRODUCTS.filter((p) => {
         if (activeCategory ? p.brand !== activeCategory.brand || p.categorySlug !== activeCategory.slug : p.brand !== activeBrand) return false;
         if (activeType && p.type !== activeType) return false;
-        return p.title.toLowerCase().includes(query);
+        return true;
       }),
-    [activeCategory, activeBrand, activeType, query]
+    [activeCategory, activeBrand, activeType]
   );
 
   // Filters (top right). Each reads a spec of the products and only shows when this page has 2+ options.
@@ -497,8 +496,8 @@ export const ProductListing: React.FC = () => {
 
   // Type cards (category with sub-types, e.g. Engineered / Designer)
   const visibleTypes = useMemo(
-    () => (showTypeCards ? activeCategory!.types!.filter((t) => t.name.toLowerCase().includes(query)) : []),
-    [showTypeCards, activeCategory, query]
+    () => (showTypeCards ? activeCategory!.types! : []),
+    [showTypeCards, activeCategory]
   );
 
   const itemCount = showTypeCards ? visibleTypes.length : showProducts ? visibleProducts.length : visibleCategories.length;
@@ -528,7 +527,7 @@ export const ProductListing: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => { setCurrentPage(1); }, [activeBrand, activeCategory, activeType, activeFilterKey, searchQuery]);
+  useEffect(() => { setCurrentPage(1); }, [activeBrand, activeCategory, activeType, activeFilterKey]);
 
   // Opening a brand, category, type or "All" stays on this page: if the visitor has scrolled
   // past the start of the listing, bring them back to its top (not to the hero)
@@ -567,7 +566,6 @@ export const ProductListing: React.FC = () => {
   };
 
   const clearAllFilters = () => {
-    setSearchQuery('');
     navigate('/products');
     closeDrawerOnMobile();
   };
@@ -711,11 +709,12 @@ export const ProductListing: React.FC = () => {
             <div className="mb-12">
               <div className='flex justify-between items-end mb-4'>
                 <h3 className="text-sm font-bold text-slate-400 tracking-widest capitalize">Search</h3>
-                {(activeBrand || searchQuery) && (
+                {activeBrand && (
                   <button onClick={clearAllFilters} className="text-xs font-bold text-[#924321] capitalize">Clear all</button>
                 )}
               </div>
-              <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Find a material..." className="w-full py-2 bg-transparent border-b border-gray-200 outline-none focus:border-slate-900 capitalize" />
+              {/* Global search: suggestions as you type, Enter opens the results page */}
+              <SearchBox compact placeholder="Find a material..." onNavigate={() => setIsSidebarOpen(false)} />
             </div>
 
             <div className="mb-12">
@@ -842,11 +841,6 @@ export const ProductListing: React.FC = () => {
                   </div>
                 )}
               </>
-            ) : searchQuery ? (
-              <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
-                <h3 className="text-2xl font-light text-slate-900 mb-3 capitalize">Material not found</h3>
-                <button onClick={() => setSearchQuery('')} className="mt-6 px-8 py-3 border border-slate-900 text-[10px] font-bold tracking-widest uppercase hover:bg-slate-900 hover:text-white transition-all">Clear search</button>
-              </div>
             ) : (
               // Category (or brand) with no products yet
               <div className="flex flex-col items-center justify-center min-h-[40vh] text-center px-4">

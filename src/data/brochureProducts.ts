@@ -86,7 +86,7 @@ const species = (value: string): Spec => ({ label: 'Wood Specie', value });
 const speciesSpec = (title: string): Spec => {
   const walnut = /walnut/i.test(title);
   const oak = /oak/i.test(title);
-  return { label: 'Wood Specie', value: walnut && oak ? 'Oak, American Walnut' : walnut ? 'American Walnut' : 'Oak' };
+  return { label: 'Wood Specie', value: walnut && oak ? 'Oak & American Walnut' : walnut ? 'American Walnut' : 'Oak' };
 };
 
 // ---------------------------------------------------------------------------

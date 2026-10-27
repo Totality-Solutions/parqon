@@ -304,7 +304,8 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Container } from '../common/Container';
 import { cdn } from '../../config/cdn';
 const PAROONLogo = cdn('/assets/logo.png');
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
+import { SearchBox } from '../search/SearchBox';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProductSubmenu } from './ProductSubmenu';
 import { getCategoryLinks } from '../../data/products';
@@ -357,7 +358,16 @@ export const Navbar: React.FC = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+
+  // Esc closes the search panel
+  useEffect(() => {
+    if (!searchOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSearchOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [searchOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -375,6 +385,7 @@ export const Navbar: React.FC = () => {
     setIsOpen(false);
     setMobileSubmenuOpen(false);
     setShowSubmenu(false);
+    setSearchOpen(false);
   }, [location.pathname]);
 
   return (
@@ -441,9 +452,26 @@ export const Navbar: React.FC = () => {
                   </div>
                 );
               })}
+
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                aria-label="Search"
+                className="p-2 text-black hover:text-[#924321] transition-colors"
+              >
+                <Search size={22} strokeWidth={1.8} />
+              </button>
             </div>
 
-            <div className="[@media(min-width:781px)]:hidden flex items-center">
+            <div className="[@media(min-width:781px)]:hidden flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                aria-label="Search"
+                className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
+              >
+                <Search size={24} />
+              </button>
               <button
                 onClick={() => setIsOpen(true)}
                 className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
@@ -472,6 +500,39 @@ export const Navbar: React.FC = () => {
           )}
         </AnimatePresence>
       </nav>
+
+      {/* SEARCH PANEL (opens from the search icon, on every page) */}
+      <AnimatePresence>
+        {searchOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSearchOpen(false)}
+              className="fixed inset-0 z-[1100] bg-black/30 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.25 }}
+              className="fixed top-0 left-0 right-0 z-[1101] bg-white shadow-xl pt-6 pb-10"
+            >
+              <Container>
+                <div className="flex justify-end mb-4">
+                  <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search" className="p-2 text-gray-500 hover:text-gray-900">
+                    <X size={26} />
+                  </button>
+                </div>
+                <div className="max-w-2xl mx-auto">
+                  <SearchBox autoFocus onNavigate={() => setSearchOpen(false)} />
+                </div>
+              </Container>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isOpen && (

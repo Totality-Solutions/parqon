@@ -14,6 +14,7 @@ import { ScrollToTop } from './components/common/ScrollToTop';
 import { NotFoundPage } from './pages/NotFound/NotFoundPage';
 import { PrivacyPolicy } from './components/common/PrivacyPolicy';
 import { CatalogPage } from './pages/Catalog/Catalog';
+import { SearchPage } from './pages/Search/SearchPage';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
       <Footer />
     </>
