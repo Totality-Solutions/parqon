@@ -17,6 +17,7 @@ import { CatalogPage } from './pages/Catalog/Catalog';
 import { SearchPage } from './pages/Search/SearchPage';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
+
 function App() {
   return (
     <> {/* Use a Fragment or <div> instead of <Router> */}
