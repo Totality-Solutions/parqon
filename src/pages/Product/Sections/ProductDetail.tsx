@@ -10,6 +10,7 @@ import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 // Data & Type Imports
 import { CATEGORIES, CATEGORY_PRODUCTS, categoryPath, type Finish } from '../../../data/products';
+import { certificationsFor } from '../../../data/certifications';
 
 interface ProductDetailProps {
   // Set when the detail is shown inside the products page's right panel
@@ -199,6 +200,18 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
                     >
                       <div className="w-full h-full" style={{ backgroundColor: finish.color }} />
                     </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CERTIFICATIONS (indoor for Oaken, outdoor for Nordwood) */}
+            {certificationsFor(product.brand).length > 0 && (
+              <div className="mb-12">
+                <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Certifications</h4>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+                  {certificationsFor(product.brand).map((c) => (
+                    <img key={c.logo} src={c.logo} alt={`${c.name} – ${c.detail}`} title={`${c.name} – ${c.detail}`} className="h-10 w-auto object-contain" loading="lazy" />
                   ))}
                 </div>
               </div>

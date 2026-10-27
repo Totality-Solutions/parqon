@@ -404,6 +404,19 @@ const ALL_SLUG = 'all';
 
 const brandLabel = (brand: Brand) => (brand === 'Heatwood' ? brand : `${brand} wood`);
 
+// Product counts per brand, category and type (counted once)
+const COUNTS = new Map<string, number>();
+for (const p of CATEGORY_PRODUCTS) {
+  for (const key of [p.brand, `${p.brand}|${p.categorySlug}`, `${p.brand}|${p.categorySlug}|${p.type ?? ''}`]) {
+    COUNTS.set(key, (COUNTS.get(key) ?? 0) + 1);
+  }
+}
+const countOf = (...parts: string[]) => COUNTS.get(parts.join('|')) ?? 0;
+const productsLabel = (n: number) => `${n} ${n === 1 ? 'product' : 'products'}`;
+const CountBadge: React.FC<{ n: number }> = ({ n }) => (
+  <span className="ml-2 text-[11px] font-semibold text-slate-300 tabular-nums">{n}</span>
+);
+
 export const ProductListing: React.FC = () => {
   const navigate = useNavigate();
   const params = useParams<{ brand?: string; category?: string; type?: string }>();
@@ -461,6 +474,7 @@ export const ProductListing: React.FC = () => {
   // Filters (top right). Each reads a spec of the products and only shows when this page has 2+ options.
   const FILTERS = [
     { key: 'pattern', spec: 'Pattern', all: 'All patterns' },
+    { key: 'profile', spec: 'Profile', all: 'All profiles' },
     { key: 'species', spec: 'Wood Specie', all: 'All wood species' },
     { key: 'tone', spec: 'Tone', all: 'All tones', order: ['Light', 'Medium', 'Dark'] }
   ] as const;
@@ -581,7 +595,7 @@ export const ProductListing: React.FC = () => {
     return (
       <div className="flex flex-col gap-3">
         <Link to={`/products/${brandSlug(brand)}/${ALL_SLUG}`} onClick={closeDrawerOnMobile} className={linkClass(isAllView && activeBrand === brand)}>
-          All
+          All<CountBadge n={countOf(brand)} />
         </Link>
         {series.map((s) => (
           <div key={s ?? 'none'} className="flex flex-col gap-3">
@@ -592,14 +606,14 @@ export const ProductListing: React.FC = () => {
                 return (
                   <div key={c.slug} className="flex flex-col gap-3">
                     <Link to={categoryPath(c)} onClick={closeDrawerOnMobile} className={linkClass(isActive && !activeType)}>
-                      {c.title}
+                      {c.title}<CountBadge n={countOf(c.brand, c.slug)} />
                     </Link>
                     {/* Sub-types of the open category */}
                     {isActive && c.types && (
                       <div className="flex flex-col gap-2 pl-3 border-l border-gray-100">
                         {c.types.map((t) => (
                           <Link key={t.slug} to={categoryPath(c, t.slug)} onClick={closeDrawerOnMobile} className={linkClass(activeType === t.slug)}>
-                            {t.name}
+                            {t.name}<CountBadge n={countOf(c.brand, c.slug, t.slug)} />
                           </Link>
                         ))}
                       </div>
@@ -645,14 +659,16 @@ export const ProductListing: React.FC = () => {
           <ProgressiveImg src={c.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={c.title} />
         </div>
         <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{c.title}</h4>
-        <p className="text-[11px] text-slate-400 font-bold capitalize">{c.brand}{c.series ? ` · ${c.series}` : ''}</p>
+        <p className="text-[11px] text-slate-400 font-bold capitalize">
+          {c.brand}{c.series ? ` · ${c.series}` : ''} · {productsLabel(countOf(c.brand, c.slug))}
+        </p>
       </Link>
     </motion.div>
   );
 
   // Card for a sub-type page (e.g. Engineered); shows how many products it has
   const typeCard = (t: { name: string; slug: string }) => {
-    const count = CATEGORY_PRODUCTS.filter((p) => p.brand === activeCategory!.brand && p.categorySlug === activeCategory!.slug && p.type === t.slug).length;
+    const count = countOf(activeCategory!.brand, activeCategory!.slug, t.slug);
     return (
       <motion.div layout key={t.slug} className="w-full">
         <Link to={categoryPath(activeCategory!, t.slug)} className="group block w-full">
@@ -727,7 +743,7 @@ export const ProductListing: React.FC = () => {
                       onClick={() => selectBrand(brand)}
                       className={`flex justify-between items-center text-left w-full transition-colors group ${activeBrand === brand ? 'text-slate-900 font-bold' : 'text-slate-400'}`}
                     >
-                      <span className="text-lg font-medium tracking-tight capitalize">{brandLabel(brand)}</span>
+                      <span className="text-lg font-medium tracking-tight capitalize">{brandLabel(brand)}<CountBadge n={countOf(brand)} /></span>
                       <span className="flex items-center pointer-events-none">
                         {activeBrand === brand ? <Minus size={18} strokeWidth={1.5} /> : <Plus size={18} strokeWidth={1.5} />}
                       </span>
@@ -806,6 +822,10 @@ export const ProductListing: React.FC = () => {
                 <h1 className="text-3xl md:text-4xl font-bold tracking-tight capitalize">
                   {activeTypeDef?.name ?? activeCategory?.title ?? `All ${activeBrand}`}
                 </h1>
+                {/* count of what's listed (follows the active filters); type-card pages count the whole category */}
+                <p className="mt-2 text-sm font-semibold text-slate-400">
+                  {productsLabel(showProducts ? visibleProducts.length : countOf(activeCategory!.brand, activeCategory!.slug))}
+                </p>
               </div>
             )}
 

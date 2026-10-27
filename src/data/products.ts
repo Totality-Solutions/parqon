@@ -2,6 +2,12 @@ import { cdn } from '../config/cdn';
 import { BROCHURE_PRODUCTS, type BrochureProduct, type Spec } from './brochureProducts';
 import { PRODUCT_IMAGES } from './productImages';
 import { PRODUCT_TONES } from './productTones';
+import { SUPPLIER_PRODUCTS } from './supplierProducts';
+import { SUPPLIER_IMAGES } from './supplierImages';
+import { SUPPLIER_WEB_IMAGES } from './supplierWebImages';
+import { SPC_CATALOG_PRODUCTS, type CatalogProduct } from './spcCatalogProducts';
+import { WPC_DECK_PRODUCTS, WPC_CLADDING_PRODUCTS } from './wpcCatalogProducts';
+import { DESIGNER_CATALOG_PRODUCTS } from './designerCatalogProducts';
 
 export interface Finish {
   id: string; 
@@ -98,6 +104,8 @@ export interface Category {
   brand: Brand;
   series?: 'Indoor' | 'Outdoor';
   image: string;
+  // shown on products that don't have their own description (spreadsheet products)
+  description?: string;
   // brochure categories whose products belong here
   sources: string[];
   // optional sub-types shown as tabs on the category page
@@ -112,6 +120,7 @@ export const CATEGORIES: Category[] = [
     title: 'Engineered / Designer',
     brand: 'Oaken',
     image: cdn('/images/product/OAKEN/ENGINEERED FLOORING.png'),
+    description: 'Engineered wood flooring: a real wood top layer on a multi-layer core for superior stability, with the warmth and character of natural timber.',
     sources: ['Engineered Flooring'],
     types: [{ name: 'Engineered', slug: 'engineered' }, { name: 'Designer', slug: 'designer' }],
     typeOf: (p) => (['Designer Collections', 'Classic Parquet'].includes(p.collection) ? 'designer' : 'engineered')
@@ -121,6 +130,7 @@ export const CATEGORIES: Category[] = [
     title: 'Solid Wood',
     brand: 'Oaken',
     image: cdn('/images/product/OAKEN/SOLID WOOD.png'),
+    description: 'Solid wood flooring with high resistance to scratches, stains and fading, easy to install and maintain.',
     sources: ['Solid Wood']
   },
   {
@@ -128,6 +138,7 @@ export const CATEGORIES: Category[] = [
     title: 'Laminated / Hybrid',
     brand: 'Oaken',
     image: cdn('/images/product/OAKEN/LAMINATED FLOORING.png'),
+    description: 'Laminated and hybrid flooring that replicates the look of natural wood, with consistent texture and high resistance to scratches, stains and fading.',
     sources: ['Laminated Flooring'],
     types: [{ name: 'Laminated', slug: 'laminated' }, { name: 'Hybrid', slug: 'hybrid' }],
     typeOf: (p) => (p.collection === 'Laminated Flooring' ? 'laminated' : 'hybrid')
@@ -137,6 +148,7 @@ export const CATEGORIES: Category[] = [
     title: 'SPC',
     brand: 'Oaken',
     image: cdn('/images/product/OAKEN/SPC FLOORING.png'),
+    description: 'SPC flooring with a rigid stone polymer core: 100% water resistant, dimensionally stable and built for high-usage spaces.',
     sources: ['SPC Flooring']
   },
 
@@ -147,6 +159,7 @@ export const CATEGORIES: Category[] = [
     brand: 'Nordwood',
     series: 'Outdoor',
     image: cdn('/images/product/NORDWOOD/Deckwood.png'),
+    description: 'Outdoor decking in thermally modified and naturally durable hardwoods, built for terraces, pools and gardens.',
     sources: ['Deckwood'],
     types: [{ name: 'Real Wood', slug: 'real-wood' }, { name: 'WPC', slug: 'wpc' }],
     typeOf: (p) => (p.title === 'WPC Deck' ? 'wpc' : 'real-wood')
@@ -157,6 +170,7 @@ export const CATEGORIES: Category[] = [
     brand: 'Nordwood',
     series: 'Outdoor',
     image: cdn('/images/product/NORDWOOD/Wall Cladding.png'),
+    description: 'Wood cladding and wall panels that combine visual appeal with durability and structural integrity.',
     sources: ['Wall Cladding']
   },
   {
@@ -165,6 +179,7 @@ export const CATEGORIES: Category[] = [
     brand: 'Nordwood',
     series: 'Outdoor',
     image: cdn('/images/product/NORDWOOD/Ceiling  Sofit.png'),
+    description: 'Wood ceiling panels and linings for refined ceilings with easy installation.',
     sources: ['Ceiling | Sofit']
   },
   {
@@ -173,6 +188,7 @@ export const CATEGORIES: Category[] = [
     brand: 'Nordwood',
     series: 'Outdoor',
     image: cdn('/images/product/NORDWOOD/Facade.png'),
+    description: 'Thermowood facade cladding, battens and sunshade profiles with enhanced durability and dimensional stability.',
     sources: ['Facade']
   },
   {
@@ -183,16 +199,48 @@ export const CATEGORIES: Category[] = [
     series: 'Outdoor',
     image: '',
     sources: []
-  }
+  },
 
-  // --- Heatwood: TODO add its categories here ---
+  // --- Heatwood (products from the supplier spreadsheet; images to come) ---
+  {
+    slug: 'stairs',
+    title: 'Stairs',
+    brand: 'Heatwood',
+    image: '',
+    description: 'Stair treads and risers in exotic hardwood with brass nosing strips.',
+    sources: []
+  },
+  {
+    slug: 'aurum-mosaico',
+    title: 'Aurum Mosaico',
+    brand: 'Heatwood',
+    image: '',
+    description: 'Inlay parquet panels with a 3 mm hardwood top layer and natural marble or brass inlays.',
+    sources: []
+  },
+  {
+    slug: 'border',
+    title: 'Border',
+    brand: 'Heatwood',
+    image: '',
+    description: 'Border strips with an exotic hardwood frame, natural marble insert and brass strip.',
+    sources: []
+  },
+  {
+    slug: 'classic',
+    title: 'Classic',
+    brand: 'Heatwood',
+    image: '',
+    description: 'Classic and heritage parquet panels with a 3 mm hardwood top layer on waterproof birch plywood.',
+    sources: []
+  }
 ];
 
 // ---------------------------------------------------------------------------
-// Products inside the categories (from the PARQON brochures)
+// Products inside the categories: PARQON brochures + supplier spreadsheet
 // ---------------------------------------------------------------------------
 
-export const CATEGORY_PRODUCTS: Product[] = BROCHURE_PRODUCTS.flatMap((item) => {
+const BROCHURE_CATEGORY_PRODUCTS: Product[] = BROCHURE_PRODUCTS.flatMap((item) => {
   const category = CATEGORIES.find((c) => c.sources.includes(item.category));
   if (!category) return [];
   const tone = PRODUCT_TONES[item.id];
@@ -210,6 +258,59 @@ export const CATEGORY_PRODUCTS: Product[] = BROCHURE_PRODUCTS.flatMap((item) => 
     image: PRODUCT_IMAGES[item.id] ?? ''
   }];
 });
+
+// Supplier spreadsheet products (no images yet: shown as blank tiles)
+const SPREADSHEET_PRODUCTS: Product[] = SUPPLIER_PRODUCTS.flatMap((item) => {
+  const category = CATEGORIES.find((c) => c.slug === item.categorySlug);
+  if (!category) return [];
+  return [{
+    id: item.id,
+    title: item.title,
+    brand: category.brand,
+    category: category.title,
+    categorySlug: category.slug,
+    type: item.type,
+    subCategory: category.series,
+    environment: category.series,
+    collection: item.collection,
+    description: category.description,
+    specs: item.specs,
+    // image from a supplier catalog (matched by name) or the supplier's product page (by id); otherwise blank
+    image: SUPPLIER_IMAGES[item.title]?.image ?? SUPPLIER_WEB_IMAGES[item.id]?.image ?? '',
+    gallery: SUPPLIER_IMAGES[item.title]?.gallery ?? SUPPLIER_WEB_IMAGES[item.id]?.gallery
+  }];
+});
+
+// Products taken from supplier catalogs (PDFs), with images cropped from the catalogs
+const fromCatalog = (items: CatalogProduct[], categorySlug: string, type?: string): Product[] => {
+  const category = CATEGORIES.find((c) => c.slug === categorySlug)!;
+  return items.map((item) => ({
+    ...item,
+    brand: category.brand,
+    category: category.title,
+    categorySlug: category.slug,
+    type,
+    subCategory: category.series,
+    environment: category.series,
+    description: category.description
+  }));
+};
+
+const CATALOG_PRODUCTS: Product[] = [
+  ...fromCatalog(DESIGNER_CATALOG_PRODUCTS, 'engineered-designer', 'designer'),
+  ...fromCatalog(SPC_CATALOG_PRODUCTS, 'spc'),
+  ...fromCatalog(WPC_DECK_PRODUCTS, 'deck-wood', 'wpc'),
+  ...fromCatalog(WPC_CLADDING_PRODUCTS, 'wall-cladding')
+];
+
+// Brochure designer products that also appear in the designer catalog use the catalog version (better image)
+const normTitle = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+const catalogDesignerTitles = new Set(DESIGNER_CATALOG_PRODUCTS.map((p) => normTitle(p.title)));
+const BROCHURE_KEPT = BROCHURE_CATEGORY_PRODUCTS.filter(
+  (p) => !(p.type === 'designer' && catalogDesignerTitles.has(normTitle(p.title)))
+);
+
+export const CATEGORY_PRODUCTS: Product[] = [...BROCHURE_KEPT, ...CATALOG_PRODUCTS, ...SPREADSHEET_PRODUCTS];
 
 // ---------------------------------------------------------------------------
 // URL helpers
