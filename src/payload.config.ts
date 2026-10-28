@@ -15,6 +15,7 @@ import { Media } from './collections/Media'
 import { Products } from './collections/Products'
 import { Users } from './collections/Users'
 import { ContactSettings } from './globals/ContactSettings'
+import { migrations } from './migrations'
 import { SiteSettings } from './globals/SiteSettings'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -22,8 +23,10 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 // Postgres in production (DATABASE_URL), a local SQLite file otherwise
 // (POSTGRES_URL is the name Vercel's Supabase integration uses)
 const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || ''
+// Postgres tables come only from the migrations in src/migrations (npm run payload migrate);
+// the live site applies any new ones when it starts
 const db = databaseUrl.startsWith('postgres')
-  ? postgresAdapter({ pool: { connectionString: databaseUrl } })
+  ? postgresAdapter({ pool: { connectionString: databaseUrl }, push: false, prodMigrations: migrations })
   : sqliteAdapter({ client: { url: databaseUrl || `file:${path.resolve(dirname, '../parqon.db')}` } })
 
 // Uploads go to S3-compatible storage (Supabase Storage or AWS S3) once its keys are set, to ./media on disk otherwise
