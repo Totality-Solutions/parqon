@@ -1,8 +1,9 @@
+'use client';
 
 
 // src/components/Footer/Footer.tsx
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from '@/lib/router';
 import { Container } from '../common/Container';
 import { cdn } from '../../config/cdn';
 const PAROONLogo = cdn('/assets/logo.png');
@@ -12,19 +13,21 @@ import {
 } from 'react-icons/ai';
 import { RiFacebookLine } from 'react-icons/ri';
 import { Download } from 'lucide-react';
-import { ADDRESSES, mapLink, EMAILS, PHONE, PHONE_LINK } from '../../data/contact';
-import { ALL_CERTIFICATIONS } from '../../data/certifications';
-import { SHOW_BROCHURES } from '../../data/brochures';
+import { useCatalog } from '../../lib/catalog/context';
+import { mapLink, phoneLink } from '../../lib/catalog/helpers';
 
 /**
  * Static row of certification logos (Retro + Novawood catalogs), in full colour.
  */
-const CertificationStrip = () => (
+const CertificationStrip = () => {
+  const { certifications } = useCatalog();
+  if (!certifications.length) return null;
+  return (
   <ul
     className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 py-8 border-t border-gray-100"
     aria-label="Certifications"
   >
-    {ALL_CERTIFICATIONS.map((c) => (
+    {certifications.map((c) => (
       <li key={c.logo} className="shrink-0">
         <img
           src={c.logo}
@@ -36,7 +39,8 @@ const CertificationStrip = () => (
       </li>
     ))}
   </ul>
-);
+  );
+};
 
 /**
  * Reusable Small Arrow component
@@ -85,6 +89,7 @@ const FooterNavLink = ({ to, label }: { to: string; label: string }) => {
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const { contact, settings } = useCatalog();
 
   return (
     <footer className="bg-white pt-24 pb-12 transition-all duration-500 border-t border-gray-100">
@@ -108,14 +113,17 @@ export const Footer: React.FC = () => {
             {/* Social Icons */}
             <div className="flex items-center gap-6">
               {[
-                { Icon: AiOutlineInstagram, href: "https://www.instagram.com/parqonofficial/" },
+                { Icon: AiOutlineInstagram, href: contact.social.instagram, label: "Instagram" },
                 // { Icon: AiOutlineWhatsApp, href: "#" },
-                { Icon: AiOutlineLinkedin, href: "https://www.linkedin.com/company/parqonofficial/?viewAsMember=true" },
-                { Icon: RiFacebookLine, href: "https://www.facebook.com/profile.php?id=61572129587882" }
-              ].map((social, i) => (
+                { Icon: AiOutlineLinkedin, href: contact.social.linkedin, label: "LinkedIn" },
+                { Icon: RiFacebookLine, href: contact.social.facebook, label: "Facebook" }
+              ].filter((social) => social.href).map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
                   className="text-gray-400 hover:text-[#924321] transition-all duration-300 hover:-translate-y-1"
                 >
                   <social.Icon size={26} strokeWidth={1} />
@@ -124,7 +132,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Brochures */}
-            {SHOW_BROCHURES && (
+            {settings.showBrochures && (
               <NavLink
                 to="/brochures"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -137,7 +145,7 @@ export const Footer: React.FC = () => {
 
             {/* E-mail & phone */}
             <ul className="mt-8 space-y-2 text-dynamic-body font-semibold">
-              {EMAILS.map((email) => (
+              {contact.emails.map((email) => (
                 <li key={email}>
                   <a href={`mailto:${email}`} className="text-gray-400 hover:text-[#924321] transition-colors break-all">
                     {email}
@@ -145,8 +153,8 @@ export const Footer: React.FC = () => {
                 </li>
               ))}
               <li>
-                <a href={PHONE_LINK} className="text-gray-400 hover:text-[#924321] transition-colors">
-                  {PHONE}
+                <a href={phoneLink(contact)} className="text-gray-400 hover:text-[#924321] transition-colors">
+                  {contact.phone}
                 </a>
               </li>
             </ul>
@@ -154,7 +162,7 @@ export const Footer: React.FC = () => {
 
           {/* 2. OFFICE & SHOWROOM ADDRESSES */}
           <div className="md:col-span-2 lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-10 lg:gap-8">
-            {ADDRESSES.map((address) => (
+            {contact.addresses.map((address) => (
               <div key={address.label} className="flex flex-col items-start">
                 <h4 className="font-normal text-[#000] text-dynamic-body mb-4">{address.label}</h4>
                 <a
@@ -185,7 +193,7 @@ export const Footer: React.FC = () => {
                 <FooterNavLink to="/projects" label="Projects" />
                 {/* <FooterNavLink to="/visualizer" label="Visualizer" /> */}
                 <FooterNavLink to="/contact" label="Contact Us" />
-                {SHOW_BROCHURES && <FooterNavLink to="/brochures" label="Brochures" />}
+                {settings.showBrochures && <FooterNavLink to="/brochures" label="Brochures" />}
               </ul>
             </div>
 

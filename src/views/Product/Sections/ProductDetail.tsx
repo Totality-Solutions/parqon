@@ -1,0 +1,296 @@
+'use client';
+
+import React, { useState, useMemo, useEffect } from 'react';
+import { useParams, useNavigate, Link } from '@/lib/router';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// Component Imports
+import { Container } from '../../../components/common/Container';
+import { FeaturesGrid } from '../../../components/common/FeaturesGrid';
+import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
+
+// Data & Type Imports
+import { useCatalog } from '../../../lib/catalog/context';
+import { brochureFor, categoryPath, certificationsFor } from '../../../lib/catalog/helpers';
+import type { Finish } from '../../../lib/catalog/types';
+import { useLeadForm } from '../../../components/lead/LeadForm';
+import type { LeadKind } from '../../../data/leads';
+
+interface ProductDetailProps {
+  // Set when the detail is shown inside the products page's right panel
+  productId?: string;
+  embedded?: boolean;
+  productLink?: (id: string) => string;
+}
+
+export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedded = false, productLink }) => {
+  const params = useParams<{ id: string }>();
+  const id = productId ?? params.id;
+  const catalog = useCatalog();
+  const { categories: CATEGORIES, products: CATEGORY_PRODUCTS } = catalog;
+  const SHOW_BROCHURES = catalog.settings.showBrochures;
+  const navigate = useNavigate();
+  const Shell = embedded ? React.Fragment : Container;
+
+  // 1. Optimized Product Lookup
+  const product = useMemo(() =>
+    CATEGORY_PRODUCTS.find((p) => String(p.id) === id),
+  [CATEGORY_PRODUCTS, id]);
+
+  // The category card this product sits under, for the breadcrumb link
+  const categoryCard = useMemo(() =>
+    CATEGORIES.find((c) => c.brand === product?.brand && c.slug === product?.categorySlug),
+  [product]);
+
+  // 2. States for Interactivity
+  const [selectedFinish, setSelectedFinish] = useState<Finish | null>(null);
+  const [activeImage, setActiveImage] = useState('');
+
+  // 3. Sync State when Product changes or loads
+  useEffect(() => {
+    if (product) {
+      const defaultFinish = product.finishes?.[0] || null;
+      setSelectedFinish(defaultFinish);
+      // Logic: Set main image to the default finish image if available, else product image
+      setActiveImage(defaultFinish?.img || product.image);
+      if (!embedded) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [product, embedded]);
+
+  // 4. SMART WORKFLOW: Determine which gallery to show
+  // If the selected finish has its own gallery, show it. Otherwise, show the product gallery.
+  const currentGallery = useMemo(() => {
+    if (!product) return [];
+    
+    // Check if finish has a specific gallery
+    if (selectedFinish?.finishGallery && selectedFinish.finishGallery.length > 0) {
+      return selectedFinish.finishGallery;
+    }
+    
+    // Fallback to product gallery. If empty, at least show the main image.
+    return (product.gallery?.length ?? 0) > 0 ? product.gallery! : product.image ? [product.image] : [];
+  }, [product, selectedFinish]);
+
+  // 5. Actions: quote / sample / brochure request open the lead form with this product's details
+  const leadForm = useLeadForm();
+  const openLeadForm = (kind: LeadKind) => {
+    if (!product) return;
+    leadForm.open({
+      kind,
+      about: product.title,
+      source: 'Product page',
+      details: [
+        { label: 'Product', value: product.title },
+        { label: 'Brand', value: product.brand },
+        { label: 'Category', value: [product.category, product.type && categoryCard?.types?.find((t) => t.slug === product.type)?.name].filter(Boolean).join(' / ') },
+        { label: 'Collection', value: product.collection },
+        { label: 'Finish', value: selectedFinish?.name },
+        { label: 'Link', value: `${window.location.origin}/product/${product.id}` }
+      ]
+    });
+  };
+  const brochure = product ? brochureFor(catalog, product.brand) : undefined;
+
+  const recommendations = useMemo(() => {
+    if (!product) return [];
+    return CATEGORY_PRODUCTS
+      .filter(p => p.category === product.category && String(p.id) !== id)
+      .slice(0, 4);
+  }, [product, id]);
+
+  if (!product) {
+    return (
+      <div className="py-40 text-center font-sans">
+        <p className="text-gray-400 uppercase tracking-widest">Product not found</p>
+        <Link to="/products" className="mt-4 inline-block font-bold underline">Back to Catalog</Link>
+      </div>
+    );
+  }
+
+  return (
+    <section className={embedded ? 'font-sans text-gray-900' : 'py-20 bg-white font-sans text-gray-900'}>
+      <Shell>
+        {/* BREADCRUMB */}
+        {!embedded && (
+        <nav className="mb-10 flex items-center gap-2 text-[10px] uppercase font-bold tracking-[0.2em] text-gray-400">
+          <button onClick={() => navigate(-1)} className="hover:text-gray-900 transition-colors uppercase">
+            Collections
+          </button>
+          <span>/</span>
+          {categoryCard ? (
+            <Link
+              to={categoryPath(categoryCard)}
+              className="text-gray-900 hover:text-gray-500 transition-colors">{product.category}</Link>
+          ) : (
+            <span className="text-gray-900">{product.category}</span>
+          )}
+        </nav>
+        )}
+
+        <div className={embedded ? 'flex flex-col xl:flex-row gap-10 xl:gap-12 mb-20' : 'flex flex-col lg:flex-row gap-12 lg:gap-24 mb-32'}>
+          
+          {/* LEFT: GALLERY SECTION */}
+          <div className="flex-[1.4]">
+            <div className="aspect-[16/10] bg-gray-50 overflow-hidden mb-6 relative">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeImage}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full h-full"
+                >
+                  <ProgressiveImg
+                    src={activeImage}
+                    className="w-full h-full object-cover"
+                    wrapperClassName="w-full h-full"
+                    alt={product.title}
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            
+            {/* THUMBNAILS (NOW DYNAMIC) */}
+            <div className="grid grid-cols-4 gap-4">
+              {(currentGallery ?? []).map((img, i) => (
+                <button 
+                  key={i} 
+                  onClick={() => setActiveImage(img)}
+                  className={`aspect-[4/3] border transition-all duration-300 ${activeImage === img ? 'border-black' : 'border-transparent opacity-50 hover:opacity-100'}`}
+                >
+                  <ProgressiveImg src={img} className="w-full h-full object-cover" wrapperClassName="w-full h-full" alt={`${product.title} view ${i}`} />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT: CONTENT SECTION */}
+          <div className="flex-1 lg:sticky lg:top-32 h-fit">
+            <div className="mb-2">
+                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{product.collection}</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-6 leading-[1.1]">
+              {product.title}
+            </h1>
+            
+            <p className="text-gray-500 text-base leading-relaxed mb-10 max-w-md">
+              {product.description}
+            </p>
+
+            {/* SPECS */}
+            <div className="grid grid-cols-1 gap-4 mb-12 border-t border-gray-100 pt-8">
+              {[
+                { label: 'Category', value: product.category },
+                ...(product.environment ? [{ label: 'Environment', value: product.environment }] : []),
+                ...(product.specs ?? [])
+              ].map((spec, i) => (
+                <div key={i} className="flex justify-between gap-6 border-b border-gray-50 pb-3 text-sm">
+                  <span className="text-gray-400 uppercase text-[9px] font-bold tracking-widest shrink-0">{spec.label}</span>
+                  <span className="font-semibold text-right">{spec.value}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* FINISH SELECTOR (NOW SQUARE) */}
+            {product.finishes && product.finishes.length > 0 && (
+              <div className="mb-12">
+                <div className="flex justify-between items-end mb-6">
+                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Available Finishes</h4>
+                  <span className="text-[11px] font-bold uppercase text-gray-900">{selectedFinish?.name}</span>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {product.finishes.map((finish: Finish) => (
+                    <button 
+                      key={finish.id} 
+                      onClick={() => { 
+                        setSelectedFinish(finish); 
+                        setActiveImage(finish.img); // Switches main image to the texture swatch
+                      }}
+                      className={`relative w-12 h-12 border transition-all duration-300 ${selectedFinish?.id === finish.id ? 'border-black p-1' : 'border-gray-100 hover:border-gray-300'}`}
+                    >
+                      <div className="w-full h-full" style={{ backgroundColor: finish.color }} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CERTIFICATIONS (indoor for Oaken, outdoor for Nordwood) */}
+            {certificationsFor(catalog, product.brand).length > 0 && (
+              <div className="mb-12">
+                <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Certifications</h4>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+                  {certificationsFor(catalog, product.brand).map((c) => (
+                    <img key={c.logo} src={c.logo} alt={`${c.name} – ${c.detail}`} title={`${c.name} – ${c.detail}`} className="h-10 w-auto object-contain" loading="lazy" />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ACTIONS */}
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => openLeadForm('quote')}
+                className="w-full py-5 text-center text-[11px] font-bold uppercase tracking-[0.2em] bg-gray-900 text-white hover:bg-black transition-all duration-500"
+              >
+                Get a Quote
+              </button>
+
+              <div className={`grid gap-3 ${SHOW_BROCHURES ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                <button
+                  type="button"
+                  onClick={() => openLeadForm('sample')}
+                  className="py-4 text-center border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all"
+                >
+                  Request Sample
+                </button>
+                {!SHOW_BROCHURES ? null : brochure?.pdf ? (
+                  <a
+                    href={brochure.pdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-4 text-center border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all"
+                  >
+                    Brochure
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => openLeadForm('brochure')}
+                    className="py-4 text-center border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all"
+                  >
+                    Request Brochure
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {!embedded && <FeaturesGrid />}
+
+        {/* RELATED PRODUCTS */}
+        {recommendations.length > 0 && (
+          <div className={`border-t border-gray-100 ${embedded ? 'pt-12' : 'pt-24 pb-12'}`}>
+            <h2 className="text-xl font-bold uppercase tracking-tight mb-12">Related Products</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {recommendations.map((item) => (
+                <Link key={item.id} to={productLink ? productLink(item.id) : `/product/${item.id}`} preventScrollReset={embedded} className="group block">
+                  <div className="aspect-[4/5] overflow-hidden bg-gray-50 mb-4">
+                    <ProgressiveImg src={item.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" wrapperClassName="w-full h-full" alt={item.title} />
+                  </div>
+                  <h4 className="text-[11px] font-bold uppercase tracking-widest group-hover:text-gray-500 transition-colors">{item.title}</h4>
+                  <p className="text-[9px] text-gray-400 uppercase mt-1">{item.collection}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </Shell>
+    </section>
+  );
+};
+

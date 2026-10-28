@@ -1,5 +1,6 @@
+'use client';
 import { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from '@/lib/router';
 
 // Product listing pages (/products, /products/<brand>/<category>/...) handle their own scrolling
 const isProductListing = (path: string) => path === "/products" || path.startsWith("/products/");

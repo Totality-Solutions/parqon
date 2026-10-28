@@ -1,10 +1,13 @@
+'use client';
 // Quote / sample / enquiry form in a modal. Open it from anywhere with useLeadForm().open({ kind, about, details, source }).
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, CheckCircle2 } from 'lucide-react';
 import { CTABtn } from '../common/CTABtn';
-import { LEAD_TITLES, sendLead, type LeadContext } from '../../data/leads';
-import { PHONE, PHONE_LINK, WHATSAPP_LINK } from '../../data/contact';
+import { LEAD_TITLES, type LeadContext } from '../../data/leads';
+import { submitLead } from '../../lib/leads';
+import { useCatalog } from '../../lib/catalog/context';
+import { phoneLink, whatsappLink } from '../../lib/catalog/helpers';
 
 const LeadFormContext = createContext<{ open: (context: LeadContext) => void } | null>(null);
 
@@ -18,7 +21,8 @@ const SUBTITLE: Record<LeadContext['kind'], string> = {
   quote: 'Share your details and our team will get back to you with pricing.',
   sample: 'Tell us where to reach you and we will arrange a sample.',
   brochure: 'Share your details and we will send you the brochure.',
-  enquiry: 'Tell us about your space and our specialists will get in touch.'
+  enquiry: 'Tell us about your space and our specialists will get in touch.',
+  contact: 'Tell us how we can help.'
 };
 
 const inputClass =
@@ -29,6 +33,7 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 const LeadFormModal = ({ context, onClose }: { context: LeadContext; onClose: () => void }) => {
   const [status, setStatus] = useState<Status>('idle');
   const firstField = useRef<HTMLInputElement>(null);
+  const { contact } = useCatalog();
 
   // focus the first field, close on Escape, lock page scroll while open
   useEffect(() => {
@@ -49,8 +54,8 @@ const LeadFormModal = ({ context, onClose }: { context: LeadContext; onClose: ()
     const field = (name: string) => String(data.get(name) ?? '').trim();
     setStatus('sending');
     try {
-      await sendLead({ name: field('name'), phone: field('phone'), email: field('email'), message: field('message') }, context);
-      setStatus('sent');
+      const result = await submitLead({ name: field('name'), phone: field('phone'), email: field('email'), message: field('message') }, context);
+      setStatus(result.ok ? 'sent' : 'error');
     } catch (err) {
       console.error('Lead form error:', err);
       setStatus('error');
@@ -139,8 +144,8 @@ const LeadFormModal = ({ context, onClose }: { context: LeadContext; onClose: ()
               {status === 'error' && (
                 <p className="text-sm text-red-600" role="alert">
                   Sorry, we couldn't send your request. Please try again, or call{' '}
-                  <a href={PHONE_LINK} className="underline font-semibold">{PHONE}</a> /{' '}
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="underline font-semibold">WhatsApp us</a>.
+                  <a href={phoneLink(contact)} className="underline font-semibold">{contact.phone}</a> /{' '}
+                  <a href={whatsappLink(contact)} target="_blank" rel="noopener noreferrer" className="underline font-semibold">WhatsApp us</a>.
                 </p>
               )}
 

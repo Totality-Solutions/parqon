@@ -1,7 +1,9 @@
+'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@/lib/router';
 import { Search, X } from 'lucide-react';
-import { search } from '../../data/search';
+import { search } from '../../lib/catalog/search';
+import { useCatalog } from '../../lib/catalog/context';
 import { Highlight } from './Highlight';
 
 interface SearchBoxProps {
@@ -26,7 +28,8 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ initialQuery = '', autoFoc
 
   useEffect(() => setQuery(initialQuery), [initialQuery]);
 
-  const suggestions = useMemo(() => search(query, SUGGESTION_LIMIT), [query]);
+  const catalog = useCatalog();
+  const suggestions = useMemo(() => search(catalog, query, SUGGESTION_LIMIT), [catalog, query]);
 
   // Close the dropdown when clicking outside
   useEffect(() => {

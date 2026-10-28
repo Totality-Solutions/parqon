@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { CDN_BASE_URL } from '../../config/cdn';
 import { imagePlaceholders } from '../../config/imagePlaceholders';

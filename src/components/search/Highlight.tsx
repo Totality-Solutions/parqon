@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import { queryTerms } from '../../data/search';
+import { queryTerms } from '../../lib/catalog/search';
 
 // Bolds the searched words inside a text, like Google's result snippets
 export const Highlight: React.FC<{ text: string; query: string }> = ({ text, query }) => {

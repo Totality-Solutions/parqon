@@ -1,3 +1,4 @@
+'use client';
 
 // import React, { useState } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
@@ -163,7 +164,7 @@
 
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@/lib/router';
 import { Container } from '../common/Container';
 // import { getCategoryLinks } from '../../data/products';
 

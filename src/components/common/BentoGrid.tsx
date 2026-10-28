@@ -1,3 +1,4 @@
+'use client';
 // src/components/common/BentoGrid.tsx
 import React from 'react';
 import { ProgressiveImg } from './ProgressiveImg';

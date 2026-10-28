@@ -1,3 +1,4 @@
+'use client';
 // import React, { useState, useEffect } from 'react';
 // import { NavLink, Link, useLocation } from 'react-router-dom';
 // import { Container } from '../common/Container';
@@ -300,7 +301,7 @@
 
 // these is the second update
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation } from '@/lib/router';
 import { Container } from '../common/Container';
 import { cdn } from '../../config/cdn';
 const PAROONLogo = cdn('/assets/logo.png');
@@ -308,8 +309,8 @@ import { Menu, X, Search, Download } from 'lucide-react';
 import { SearchBox } from '../search/SearchBox';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProductSubmenu } from './ProductSubmenu';
-import { getCategoryLinks } from '../../data/products';
-import { SHOW_BROCHURES } from '../../data/brochures';
+import { getCategoryLinks } from '../../lib/catalog/helpers';
+import { useCatalog } from '../../lib/catalog/context';
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -361,6 +362,8 @@ export const Navbar: React.FC = () => {
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+  const { categories, settings } = useCatalog();
+  const SHOW_BROCHURES = settings.showBrochures;
 
   // Esc closes the search panel
   useEffect(() => {
@@ -650,7 +653,7 @@ export const Navbar: React.FC = () => {
 
                                     {/* Category links */}
                                     <div className="flex flex-col gap-4 pl-6 pt-4 border-l-2 border-gray-100 ml-6">
-                                      {getCategoryLinks(style.id).map((group) => (
+                                      {getCategoryLinks(categories, style.id).map((group) => (
                                         <div key={group.title ?? style.id} className="flex flex-col gap-3">
                                           {group.title && (
                                             <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">{group.title}</span>

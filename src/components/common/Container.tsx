@@ -1,3 +1,4 @@
+'use client';
 // src/components/Common/Container.tsx
 import React from 'react';
 
