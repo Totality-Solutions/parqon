@@ -20,7 +20,8 @@ import { SiteSettings } from './globals/SiteSettings'
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // Postgres in production (DATABASE_URL), a local SQLite file otherwise
-const databaseUrl = process.env.DATABASE_URL || ''
+// (POSTGRES_URL is the name Vercel's Supabase integration uses)
+const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || ''
 const db = databaseUrl.startsWith('postgres')
   ? postgresAdapter({ pool: { connectionString: databaseUrl } })
   : sqliteAdapter({ client: { url: databaseUrl || `file:${path.resolve(dirname, '../parqon.db')}` } })
