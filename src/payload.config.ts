@@ -25,8 +25,8 @@ const db = databaseUrl.startsWith('postgres')
   ? postgresAdapter({ pool: { connectionString: databaseUrl } })
   : sqliteAdapter({ client: { url: databaseUrl || `file:${path.resolve(dirname, '../parqon.db')}` } })
 
-// Uploads go to S3 when it's configured, to ./media on disk otherwise
-const useS3 = Boolean(process.env.S3_BUCKET)
+// Uploads go to S3-compatible storage (Supabase Storage or AWS S3) once its keys are set, to ./media on disk otherwise
+const useS3 = Boolean(process.env.S3_BUCKET && process.env.S3_ACCESS_KEY_ID && process.env.S3_SECRET_ACCESS_KEY)
 
 export default buildConfig({
   admin: {
@@ -52,6 +52,8 @@ export default buildConfig({
           bucket: process.env.S3_BUCKET || '',
           config: {
             region: process.env.S3_REGION,
+            // Supabase Storage (or any non-AWS S3) needs its endpoint and path-style URLs
+            ...(process.env.S3_ENDPOINT ? { endpoint: process.env.S3_ENDPOINT, forcePathStyle: true } : {}),
             credentials: {
               accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
               secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || ''
