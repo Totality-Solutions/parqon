@@ -1,4 +1,3 @@
-import { cdn } from '../config/cdn';
 import { BROCHURE_PRODUCTS, type BrochureProduct, type Spec } from './brochureProducts';
 import { PRODUCT_IMAGES } from './productImages';
 import { PRODUCT_TONES } from './productTones';
@@ -96,6 +95,8 @@ export type Brand = (typeof BRANDS)[number];
 export interface CategoryType {
   name: string;
   slug: string;
+  // card image; falls back to the first product of this type that has an image
+  image?: string;
 }
 
 export interface Category {
@@ -119,17 +120,20 @@ export const CATEGORIES: Category[] = [
     slug: 'engineered-designer',
     title: 'Engineered / Designer',
     brand: 'Oaken',
-    image: cdn('/images/product/OAKEN/ENGINEERED FLOORING.png'),
+    image: '/images/oaken/category-engineered-designer.jpg',
     description: 'Engineered wood flooring: a real wood top layer on a multi-layer core for superior stability, with the warmth and character of natural timber.',
     sources: ['Engineered Flooring'],
-    types: [{ name: 'Engineered', slug: 'engineered' }, { name: 'Designer', slug: 'designer' }],
+    types: [
+      { name: 'Engineered', slug: 'engineered', image: '/images/oaken/type-engineered.jpg' },
+      { name: 'Designer', slug: 'designer', image: '/images/oaken/type-designer.jpg' }
+    ],
     typeOf: (p) => (['Designer Collections', 'Classic Parquet'].includes(p.collection) ? 'designer' : 'engineered')
   },
   {
     slug: 'solid-wood',
     title: 'Solid Wood',
     brand: 'Oaken',
-    image: cdn('/images/product/OAKEN/SOLID WOOD.png'),
+    image: '/images/oaken/category-solid-wood.jpg',
     description: 'Solid wood flooring with high resistance to scratches, stains and fading, easy to install and maintain.',
     sources: ['Solid Wood']
   },
@@ -137,17 +141,20 @@ export const CATEGORIES: Category[] = [
     slug: 'laminated-hybrid',
     title: 'Laminated / Hybrid',
     brand: 'Oaken',
-    image: cdn('/images/product/OAKEN/LAMINATED FLOORING.png'),
+    image: '/images/oaken/category-laminated-hybrid.jpg',
     description: 'Laminated and hybrid flooring that replicates the look of natural wood, with consistent texture and high resistance to scratches, stains and fading.',
     sources: ['Laminated Flooring'],
-    types: [{ name: 'Laminated', slug: 'laminated' }, { name: 'Hybrid', slug: 'hybrid' }],
+    types: [
+      { name: 'Laminated', slug: 'laminated', image: '/images/oaken/type-laminated.jpg' },
+      { name: 'Hybrid', slug: 'hybrid', image: '/images/oaken/type-hybrid.jpg' }
+    ],
     typeOf: (p) => (p.collection === 'Laminated Flooring' ? 'laminated' : 'hybrid')
   },
   {
     slug: 'spc',
     title: 'SPC',
     brand: 'Oaken',
-    image: cdn('/images/product/OAKEN/SPC FLOORING.png'),
+    image: '/images/oaken/category-spc.jpg',
     description: 'SPC flooring with a rigid stone polymer core: 100% water resistant, dimensionally stable and built for high-usage spaces.',
     sources: ['SPC Flooring']
   },
@@ -158,10 +165,13 @@ export const CATEGORIES: Category[] = [
     title: 'Deck Wood',
     brand: 'Nordwood',
     series: 'Outdoor',
-    image: cdn('/images/product/NORDWOOD/Deckwood.png'),
+    image: '/images/nordwood/category-deck-wood.jpg',
     description: 'Outdoor decking in thermally modified and naturally durable hardwoods, built for terraces, pools and gardens.',
     sources: ['Deckwood'],
-    types: [{ name: 'Real Wood', slug: 'real-wood' }, { name: 'WPC', slug: 'wpc' }],
+    types: [
+      { name: 'Real Wood', slug: 'real-wood', image: '/images/nordwood/type-real-wood.jpg' },
+      { name: 'WPC', slug: 'wpc', image: '/images/nordwood/type-wpc.jpg' }
+    ],
     typeOf: (p) => (p.title === 'WPC Deck' ? 'wpc' : 'real-wood')
   },
   {
@@ -169,7 +179,7 @@ export const CATEGORIES: Category[] = [
     title: 'Wall Cladding',
     brand: 'Nordwood',
     series: 'Outdoor',
-    image: cdn('/images/product/NORDWOOD/Wall Cladding.png'),
+    image: '/images/nordwood/category-wall-cladding.jpg',
     description: 'Wood cladding and wall panels that combine visual appeal with durability and structural integrity.',
     sources: ['Wall Cladding']
   },
@@ -178,7 +188,7 @@ export const CATEGORIES: Category[] = [
     title: 'Ceiling',
     brand: 'Nordwood',
     series: 'Outdoor',
-    image: cdn('/images/product/NORDWOOD/Ceiling  Sofit.png'),
+    image: '/images/nordwood/category-ceiling.jpg',
     description: 'Wood ceiling panels and linings for refined ceilings with easy installation.',
     sources: ['Ceiling | Sofit']
   },
@@ -187,26 +197,26 @@ export const CATEGORIES: Category[] = [
     title: 'Facade',
     brand: 'Nordwood',
     series: 'Outdoor',
-    image: cdn('/images/product/NORDWOOD/Facade.png'),
+    image: '/images/nordwood/category-facade.jpg',
     description: 'Thermowood facade cladding, battens and sunshade profiles with enhanced durability and dimensional stability.',
     sources: ['Facade']
   },
   {
-    // TODO: Gates products and image
+    // TODO: Gates products
     slug: 'gates',
     title: 'Gates',
     brand: 'Nordwood',
     series: 'Outdoor',
-    image: '',
+    image: '/images/nordwood/category-gates.jpg',
     sources: []
   },
 
-  // --- Heatwood (products from the supplier spreadsheet; images to come) ---
+  // --- Heatwood (products from the supplier spreadsheet; card images from the Heatwood catalogs) ---
   {
     slug: 'stairs',
     title: 'Stairs',
     brand: 'Heatwood',
-    image: '',
+    image: '/images/heatwood/category-stairs.jpg',
     description: 'Stair treads and risers in exotic hardwood with brass nosing strips.',
     sources: []
   },
@@ -214,7 +224,7 @@ export const CATEGORIES: Category[] = [
     slug: 'aurum-mosaico',
     title: 'Aurum Mosaico',
     brand: 'Heatwood',
-    image: '',
+    image: '/images/heatwood/category-aurum-mosaico.jpg',
     description: 'Inlay parquet panels with a 3 mm hardwood top layer and natural marble or brass inlays.',
     sources: []
   },
@@ -222,7 +232,7 @@ export const CATEGORIES: Category[] = [
     slug: 'border',
     title: 'Border',
     brand: 'Heatwood',
-    image: '',
+    image: '/images/heatwood/category-border.jpg',
     description: 'Border strips with an exotic hardwood frame, natural marble insert and brass strip.',
     sources: []
   },
@@ -230,7 +240,7 @@ export const CATEGORIES: Category[] = [
     slug: 'classic',
     title: 'Classic',
     brand: 'Heatwood',
-    image: '',
+    image: '/images/heatwood/category-classic.jpg',
     description: 'Classic and heritage parquet panels with a 3 mm hardwood top layer on waterproof birch plywood.',
     sources: []
   }
@@ -325,8 +335,9 @@ export const brandFromSlug = (slug?: string | null) =>
 export const categoryPath = (category: Pick<Category, 'brand' | 'slug'>, type?: string) =>
   `/products/${brandSlug(category.brand)}/${category.slug}${type ? `/${type}` : ''}`;
 
-// Card image for a type page: the first product of that type that has an image
-export const typeImage = (category: Pick<Category, 'brand' | 'slug'>, type: string) =>
+// Card image for a type page: the type's own image, else the first product of that type that has an image
+export const typeImage = (category: Pick<Category, 'brand' | 'slug' | 'types'>, type: string) =>
+  category.types?.find((t) => t.slug === type)?.image ??
   CATEGORY_PRODUCTS.find((p) => p.brand === category.brand && p.categorySlug === category.slug && p.type === type && p.image)?.image ?? '';
 
 export const findCategory = (brand?: string, slug?: string) =>

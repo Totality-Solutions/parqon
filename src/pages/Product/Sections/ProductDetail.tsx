@@ -11,6 +11,9 @@ import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 // Data & Type Imports
 import { CATEGORIES, CATEGORY_PRODUCTS, categoryPath, type Finish } from '../../../data/products';
 import { certificationsFor } from '../../../data/certifications';
+import { brochureFor, SHOW_BROCHURES } from '../../../data/brochures';
+import { useLeadForm } from '../../../components/lead/LeadForm';
+import type { LeadKind } from '../../../data/leads';
 
 interface ProductDetailProps {
   // Set when the detail is shown inside the products page's right panel
@@ -38,7 +41,6 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
   // 2. States for Interactivity
   const [selectedFinish, setSelectedFinish] = useState<Finish | null>(null);
   const [activeImage, setActiveImage] = useState('');
-  const [isRedirecting, setIsRedirecting] = useState(false);
 
   // 3. Sync State when Product changes or loads
   useEffect(() => {
@@ -65,19 +67,25 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
     return (product.gallery?.length ?? 0) > 0 ? product.gallery! : product.image ? [product.image] : [];
   }, [product, selectedFinish]);
 
-  // 5. Action Handlers
-  const handleGetQuote = () => {
+  // 5. Actions: quote / sample / brochure request open the lead form with this product's details
+  const leadForm = useLeadForm();
+  const openLeadForm = (kind: LeadKind) => {
     if (!product) return;
-    setIsRedirecting(true);
-    const phoneNumber = "91XXXXXXXXXX"; 
-    const message = `*Inquiry from Website*%0A%0A*Product:* ${product.title}%0A*Collection:* ${product.collection}%0A*Selected Finish:* ${selectedFinish?.name || 'Standard'}%0A%0AHi, I'm interested in this flooring style. Please share pricing.`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-      setIsRedirecting(false);
-    }, 800);
+    leadForm.open({
+      kind,
+      about: product.title,
+      source: 'Product page',
+      details: [
+        { label: 'Product', value: product.title },
+        { label: 'Brand', value: product.brand },
+        { label: 'Category', value: [product.category, product.type && categoryCard?.types?.find((t) => t.slug === product.type)?.name].filter(Boolean).join(' / ') },
+        { label: 'Collection', value: product.collection },
+        { label: 'Finish', value: selectedFinish?.name },
+        { label: 'Link', value: `${window.location.origin}/product/${product.id}` }
+      ]
+    });
   };
+  const brochure = product ? brochureFor(product.brand) : undefined;
 
   const recommendations = useMemo(() => {
     if (!product) return [];
@@ -219,21 +227,40 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
 
             {/* ACTIONS */}
             <div className="flex flex-col gap-3">
-              <button 
-                onClick={handleGetQuote}
-                disabled={isRedirecting}
-                className={`w-full py-5 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-500 ${isRedirecting ? 'bg-green-600 text-white' : 'bg-gray-900 text-white hover:bg-black'}`}
+              <button
+                type="button"
+                onClick={() => openLeadForm('quote')}
+                className="w-full py-5 text-center text-[11px] font-bold uppercase tracking-[0.2em] bg-gray-900 text-white hover:bg-black transition-all duration-500"
               >
-                {isRedirecting ? 'Sending Request...' : 'Get a Quote'}
+                Get a Quote
               </button>
-              
-              <div className="grid grid-cols-2 gap-3">
-                <button className="py-4 border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all">
+
+              <div className={`grid gap-3 ${SHOW_BROCHURES ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                <button
+                  type="button"
+                  onClick={() => openLeadForm('sample')}
+                  className="py-4 text-center border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all"
+                >
                   Request Sample
                 </button>
-                <button className="py-4 border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all">
-                  Brochure
-                </button>
+                {!SHOW_BROCHURES ? null : brochure?.pdf ? (
+                  <a
+                    href={brochure.pdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-4 text-center border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all"
+                  >
+                    Brochure
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => openLeadForm('brochure')}
+                    className="py-4 text-center border border-gray-200 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all"
+                  >
+                    Request Brochure
+                  </button>
+                )}
               </div>
             </div>
           </div>

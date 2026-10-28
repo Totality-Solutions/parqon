@@ -44,8 +44,12 @@ import React from 'react';
 import { motion } from 'framer-motion'; // Added Framer Motion
 import { Container } from '../../../components/common/Container';
 import { CTABtn } from '../../../components/common/CTABtn';
+import { useLocation } from 'react-router-dom';
+import { useLeadForm } from '../../../components/lead/LeadForm';
 
 export const ProjectCallout: React.FC = () => {
+  const leadForm = useLeadForm();
+  const { pathname } = useLocation();
   return (
     <div className="bg-parqon-beige py-16 md:py-16 2xl:py-16 my-5 md:my-5 2xl:my-5 transition-all duration-500 overflow-hidden">
       <Container className="flex flex-col md:flex-row justify-between items-center gap-10 md:gap-8">
@@ -78,7 +82,7 @@ export const ProjectCallout: React.FC = () => {
           <CTABtn 
             label="Connect with Us" 
             variant="primary"
-            to="/contact"
+            onClick={() => leadForm.open({ kind: 'enquiry', source: `"Connect with Us" banner on ${pathname}` })}
             /* md:scale-[0.7] -> Shrinks on Tablet 
                 xl:scale-100   -> Back to full size on Desktop
                 md:origin-right -> Anchors it to the right side of the container 

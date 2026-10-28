@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '../../components/common/Container';
 import { CTABtn } from '../../components/common/CTABtn';
 import { ADDRESSES, mapEmbed, mapLink, PHONE, PHONE_LINK, WHATSAPP_LINK } from '../../data/contact';
+import { LEAD_ENDPOINT } from '../../data/leads';
 
 // Import Icons
 import { cdn } from '../../config/cdn';
@@ -92,7 +93,7 @@ export const ContactPage: React.FC = () => {
 
     try {
       const res = await fetch(
-        'https://vgiwdmx3zpohc62m5gqsnnj3ee0owsue.lambda-url.ap-south-1.on.aws/',
+        LEAD_ENDPOINT,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

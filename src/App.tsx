@@ -1,5 +1,5 @@
 // src/App.tsx
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
 import HomePage from './pages/Home/Home';
@@ -14,13 +14,15 @@ import { ScrollToTop } from './components/common/ScrollToTop';
 import { NotFoundPage } from './pages/NotFound/NotFoundPage';
 import { PrivacyPolicy } from './components/common/PrivacyPolicy';
 import { CatalogPage } from './pages/Catalog/Catalog';
+import { SHOW_BROCHURES } from './data/brochures';
 import { SearchPage } from './pages/Search/SearchPage';
+import { LeadFormProvider } from './components/lead/LeadForm';
 // import AboutPage from './pages/About/Sections/AboutPage';
 
 
 function App() {
   return (
-    <> {/* Use a Fragment or <div> instead of <Router> */}
+    <LeadFormProvider> {/* quote / sample / enquiry form, available on every page */}
       <ScrollToTop />
       <Navbar />
       <Routes>
@@ -35,11 +37,12 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
-        <Route path="/catalog" element={<CatalogPage />} />
+        {SHOW_BROCHURES && <Route path="/brochures" element={<CatalogPage />} />}
+        {SHOW_BROCHURES && <Route path="/catalog" element={<Navigate to="/brochures" replace />} />}
         <Route path="/search" element={<SearchPage />} />
       </Routes>
       <Footer />
-    </>
+    </LeadFormProvider>
   );
 }
 

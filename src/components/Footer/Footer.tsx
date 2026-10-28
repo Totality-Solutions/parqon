@@ -11,7 +11,32 @@ import {
   AiOutlineLinkedin, 
 } from 'react-icons/ai';
 import { RiFacebookLine } from 'react-icons/ri';
+import { Download } from 'lucide-react';
 import { ADDRESSES, mapLink, EMAILS, PHONE, PHONE_LINK } from '../../data/contact';
+import { ALL_CERTIFICATIONS } from '../../data/certifications';
+import { SHOW_BROCHURES } from '../../data/brochures';
+
+/**
+ * Static row of certification logos (Retro + Novawood catalogs), in full colour.
+ */
+const CertificationStrip = () => (
+  <ul
+    className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 py-8 border-t border-gray-100"
+    aria-label="Certifications"
+  >
+    {ALL_CERTIFICATIONS.map((c) => (
+      <li key={c.logo} className="shrink-0">
+        <img
+          src={c.logo}
+          alt={`${c.name} – ${c.detail}`}
+          title={`${c.name} – ${c.detail}`}
+          className="h-10 md:h-12 w-auto object-contain"
+          loading="lazy"
+        />
+      </li>
+    ))}
+  </ul>
+);
 
 /**
  * Reusable Small Arrow component
@@ -98,6 +123,18 @@ export const Footer: React.FC = () => {
               ))}
             </div>
 
+            {/* Brochures */}
+            {SHOW_BROCHURES && (
+              <NavLink
+                to="/brochures"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="mt-8 inline-flex items-center gap-2 border border-[#924321] px-4 py-2.5 text-dynamic-small font-semibold tracking-widest uppercase text-[#924321] hover:bg-[#924321] hover:text-white transition-colors"
+              >
+                <Download size={16} strokeWidth={2} />
+                Download Brochures
+              </NavLink>
+            )}
+
             {/* E-mail & phone */}
             <ul className="mt-8 space-y-2 text-dynamic-body font-semibold">
               {EMAILS.map((email) => (
@@ -148,6 +185,7 @@ export const Footer: React.FC = () => {
                 <FooterNavLink to="/projects" label="Projects" />
                 {/* <FooterNavLink to="/visualizer" label="Visualizer" /> */}
                 <FooterNavLink to="/contact" label="Contact Us" />
+                {SHOW_BROCHURES && <FooterNavLink to="/brochures" label="Brochures" />}
               </ul>
             </div>
 
@@ -172,6 +210,9 @@ export const Footer: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* CERTIFICATIONS */}
+        <CertificationStrip />
 
         {/* FOOTER BOTTOM */}
         <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">

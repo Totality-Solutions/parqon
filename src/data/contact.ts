@@ -8,12 +8,16 @@ export interface Address {
 // TODO: replace the placeholder lines with the real office and showroom addresses
 export const ADDRESSES: Address[] = [
   {
-    label: 'Office Address',
-    lines: ['Office address line 1', 'Office address line 2', 'City, State PIN']
+    label: 'Registered office',
+    lines: ['HORIZON INTERSPACE A 3/4 Indrayudh CHS Ltd, opp A La Mode Showroom, MG Road, Goregaon West Mumbai - 400104 INDIA']
   },
   {
-    label: 'Showroom Address',
-    lines: ['Showroom address line 1', 'Showroom address line 2', 'City, State PIN']
+    label: 'Corporate Office',
+    lines: ['PARQON / HORIZON INTERSPACE','A 16/5, Indrayudh CHS ltd, BMC school Road, Behind MG road, Mitha Nagar, Goregaon West, ','Mumbai - 400104. INDIA']
+  },
+  {
+    label: 'Display Centre',
+    lines: ['A - Block, Basement, Shiv Sagar Estate, Dr Annie Besant Road, Worli, Mumbai - 400018\nINDIA']
   }
 ];
 

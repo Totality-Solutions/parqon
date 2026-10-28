@@ -129,6 +129,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Container } from '../../../components/common/Container';
 import { Button } from '../../../components/common/Button';
+import { useLocation } from 'react-router-dom';
+import { useLeadForm } from '../../../components/lead/LeadForm';
 
 const supportFeatures = [
   {
@@ -177,6 +179,8 @@ const supportFeatures = [
 ];
 
 export const ProductSupport: React.FC = () => {
+  const leadForm = useLeadForm();
+  const { pathname } = useLocation();
   return (
     <section className="pt-0 bg-white border-t border-gray-50 overflow-hidden">
       <Container>
@@ -203,6 +207,7 @@ export const ProductSupport: React.FC = () => {
               <Button
                 label="Get Assistance"
                 variant="primary"
+                onClick={() => leadForm.open({ kind: 'enquiry', source: `"Get Assistance" on ${pathname}` })}
                 arrowDirection="ne"
                 arrowColor="fill-white"
                 className='scale-[1.1]'

@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { cdn } from '../../../config/cdn';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 
 export const AboutBase: React.FC = () => {
@@ -18,7 +17,7 @@ export const AboutBase: React.FC = () => {
             className="relative h-[400px] lg:h-[600px] w-full"
           >
             <ProgressiveImg
-              src={cdn('/images/about/about.jpeg')}
+              src={'/images/pages/about/base.jpg'}
               alt="Minimal Interior Design"
               className="w-full h-full object-cover"
               wrapperClassName="w-full h-full"

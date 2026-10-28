@@ -472,13 +472,13 @@ export const ProductListing: React.FC = () => {
   );
 
   // Filters (top right). Each reads a spec of the products and only shows when this page has 2+ options.
-  const FILTERS = [
+  type FilterKey = 'pattern' | 'profile' | 'species' | 'tone';
+  const FILTERS: { key: FilterKey; spec: string; all: string; order?: readonly string[] }[] = [
     { key: 'pattern', spec: 'Pattern', all: 'All patterns' },
     { key: 'profile', spec: 'Profile', all: 'All profiles' },
     { key: 'species', spec: 'Wood Specie', all: 'All wood species' },
-    { key: 'tone', spec: 'Tone', all: 'All tones', order: ['Light', 'Medium', 'Dark'] }
-  ] as const;
-  type FilterKey = (typeof FILTERS)[number]['key'];
+    // { key: 'tone', spec: 'Tone', all: 'All tones', order: ['Light', 'Medium', 'Dark'] }
+  ];
 
   const specOf = (p: (typeof CATEGORY_PRODUCTS)[number], spec: string) => p.specs?.find((s) => s.label === spec)?.value;
 
@@ -486,7 +486,7 @@ export const ProductListing: React.FC = () => {
     () =>
       FILTERS.map((f) => {
         const values = [...new Set(pageProducts.map((p) => specOf(p, f.spec)).filter((v): v is string => !!v))];
-        const order: readonly string[] | undefined = 'order' in f ? f.order : undefined;
+        const order = f.order;
         values.sort((a, b) => (order ? order.indexOf(a) - order.indexOf(b) : a.localeCompare(b)));
         const requested = searchParams.get(f.key);
         return { ...f, values, active: requested && values.includes(requested) ? requested : null };

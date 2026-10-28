@@ -24,5 +24,10 @@ const OUTDOOR: Certification[] = [
   { name: 'LEED', detail: 'US Green Building Council', logo: '/images/certifications/outdoor/leed.png' }
 ];
 
+// Every certification once (FSC is in both lists), for the footer logo strip
+export const ALL_CERTIFICATIONS: Certification[] = [...INDOOR, ...OUTDOOR].filter(
+  (c, i, all) => all.findIndex((o) => o.name === c.name) === i
+);
+
 export const certificationsFor = (brand: Brand): Certification[] =>
   brand === 'Oaken' ? INDOOR : brand === 'Nordwood' ? OUTDOOR : [];

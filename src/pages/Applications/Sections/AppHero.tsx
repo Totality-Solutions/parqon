@@ -66,6 +66,8 @@
 import React from 'react';
 import { motion } from 'framer-motion'; // Added motion
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
+import { CTABtn } from '../../../components/common/CTABtn';
+import { useLeadForm } from '../../../components/lead/LeadForm';
 
 interface AppHeroProps {
   title?: string;
@@ -80,6 +82,7 @@ export const AppHero: React.FC<AppHeroProps> = ({
   mediaUrl = "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600",
   mediaType = 'image'
 }) => {
+  const leadForm = useLeadForm();
   return (
     <section className="w-full lg:h-[75vh] flex flex-col lg:flex-row items-stretch overflow-hidden">
       
@@ -135,7 +138,19 @@ export const AppHero: React.FC<AppHeroProps> = ({
           >
             {description}
           </motion.p>
-          
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
+            <CTABtn
+              label="Get a Quote"
+              variant="primary"
+              onClick={() => leadForm.open({ kind: 'quote', about: 'Project enquiry', source: 'Applications page' })}
+            />
+          </motion.div>
+
           {/* <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

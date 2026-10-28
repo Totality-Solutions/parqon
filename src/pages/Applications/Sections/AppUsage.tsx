@@ -103,7 +103,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BentoGrid, type BentoBlock } from '../../../components/common/BentoGrid';
 import { Container } from '../../../components/common/Container';
-import { cdn } from '../../../config/cdn';
 
 
 
@@ -182,15 +181,15 @@ const usageBlocks: BentoBlock[] = [
   },
   { 
     type: 'image', 
-    url: cdn('/images/about/interior/1.jpg')
+    url: '/images/pages/applications/residential-1.jpg'
   },
   {
     type: 'image',
-    url: cdn('/images/about/interior/2.jpg')
+    url: '/images/pages/applications/residential-2.jpg'
   },
   {
     type: 'image',
-    url: cdn('/images/about/exterior/1.jpg')
+    url: '/images/pages/applications/hospitality-1.jpg'
   },
   {
     type: 'text',
@@ -199,7 +198,7 @@ const usageBlocks: BentoBlock[] = [
   },
   {
     type: 'image',
-    url: cdn('/images/about/exterior/2.jpg')
+    url: '/images/pages/applications/hospitality-2.jpg'
   },
 
   {
@@ -209,15 +208,15 @@ const usageBlocks: BentoBlock[] = [
   },
   {
     type: 'image',
-    url: cdn('/images/about/commercial/1.jpg')
+    url: '/images/pages/applications/commercial-1.jpg'
   },
   {
     type: 'image',
-    url: cdn('/images/about/commercial/2.jpg')
+    url: '/images/pages/applications/commercial-2.jpg'
   },
   {
     type: 'image',
-    url: cdn('/images/application/Villas/1.jpg')
+    url: '/images/pages/applications/villas-1.jpg'
   },
 
   {
@@ -227,7 +226,7 @@ const usageBlocks: BentoBlock[] = [
   },
   {
     type: 'image',
-    url: cdn('/images/application/Villas/1.jpg')
+    url: '/images/pages/applications/villas-2.jpg'
   },
   {
     type: 'text',
@@ -236,15 +235,15 @@ const usageBlocks: BentoBlock[] = [
   },
   {
     type: 'image',
-    url: cdn('/images/application/Resorts/1.jpg')
+    url: '/images/pages/applications/resorts-1.jpg'
   },
   {
     type: 'image',
-    url: cdn('/images/application/Resorts/2.jpg')
+    url: '/images/pages/applications/resorts-2.jpg'
   },
   {
     type: 'image',
-    url: cdn('/images/application/Office/1.jpg')
+    url: '/images/pages/applications/office-1.jpg'
   },
   {
     type: 'text',
@@ -253,7 +252,7 @@ const usageBlocks: BentoBlock[] = [
   },
   {
     type: 'image',
-    url: cdn('/images/application/Office/2.jpg')
+    url: '/images/pages/applications/office-2.jpg'
   },
   {
     type: 'text',
@@ -262,11 +261,11 @@ const usageBlocks: BentoBlock[] = [
   },
   {
     type: 'image',
-    url: cdn('/images/application/Reatil/1.jpg')
+    url: '/images/pages/applications/retail-1.jpg'
   },
   {
     type: 'image',
-    url: cdn('/images/application/Reatil/2.jpg')
+    url: '/images/pages/applications/retail-2.jpg'
   }
 ];
 

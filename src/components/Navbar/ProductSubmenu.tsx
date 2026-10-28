@@ -172,19 +172,19 @@ const STYLE_DATA = {
     title: "Oaken Wood",
     subtitle: "Architectural Grade",
     description: "Premium timber crafted for structural integrity.",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600"
+    image: "/images/oaken/menu.jpg"
   },
   Nordwood: {
     title: "Nordwood",
     subtitle: "Lifestyle Series",
     description: "Modern textures designed for versatile living.",
-    image: "https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=600&auto=format&fit=crop"
+    image: "/images/nordwood/menu.jpg"
   },
   Heatwood: {
     title: "Heatwood",
-    subtitle: "New Collection",
-    description: "New collection coming soon.", // TODO: Heatwood description
-    image: "" // TODO: Heatwood image
+    subtitle: "Inlay Collection",
+    description: "Exotic hardwood parquet with marble and brass inlays.",
+    image: "/images/heatwood/menu.jpg"
   }
 };
 

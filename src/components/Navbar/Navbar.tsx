@@ -304,11 +304,12 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Container } from '../common/Container';
 import { cdn } from '../../config/cdn';
 const PAROONLogo = cdn('/assets/logo.png');
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, Download } from 'lucide-react';
 import { SearchBox } from '../search/SearchBox';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProductSubmenu } from './ProductSubmenu';
 import { getCategoryLinks } from '../../data/products';
+import { SHOW_BROCHURES } from '../../data/brochures';
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -337,19 +338,19 @@ const MOBILE_STYLE_DATA = [
     id: 'Oaken' as const,
     title: "Oaken Wood",
     description: "Premium architectural flooring",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400",
+    image: "/images/oaken/menu.jpg",
   },
   {
     id: 'Nordwood' as const,
     title: "Nordwood",
     description: "Environment-driven collections",
-    image: "https://images.unsplash.com/photo-1542621334-a254cf47733d?w=400",
+    image: "/images/nordwood/menu.jpg",
   },
   {
     id: 'Heatwood' as const,
     title: "Heatwood",
-    description: "New collection", // TODO: Heatwood tagline
-    image: "", // TODO: Heatwood image
+    description: "Inlay parquet, borders & stairs",
+    image: "/images/heatwood/menu.jpg",
   }
 ];
 
@@ -461,6 +462,20 @@ export const Navbar: React.FC = () => {
               >
                 <Search size={22} strokeWidth={1.8} />
               </button>
+
+              {SHOW_BROCHURES && <Link
+                to="/brochures"
+                aria-label="Download brochures"
+                title="Download brochures"
+                className={`flex items-center gap-2 border px-3 py-2 text-dynamic-small font-medium tracking-[0.04em] whitespace-nowrap transition-colors ${
+                  location.pathname === '/brochures'
+                    ? 'border-[#924321] bg-[#924321] text-white'
+                    : 'border-[#924321] text-[#924321] hover:bg-[#924321] hover:text-white'
+                }`}
+              >
+                <Download size={16} strokeWidth={2} />
+                <span className="hidden xl:inline">Brochures</span>
+              </Link>}
             </div>
 
             <div className="[@media(min-width:781px)]:hidden flex items-center gap-1">
@@ -472,6 +487,15 @@ export const Navbar: React.FC = () => {
               >
                 <Search size={24} />
               </button>
+              {SHOW_BROCHURES && (
+                <Link
+                  to="/brochures"
+                  aria-label="Download brochures"
+                  className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
+                >
+                  <Download size={24} />
+                </Link>
+              )}
               <button
                 onClick={() => setIsOpen(true)}
                 className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
@@ -666,6 +690,17 @@ export const Navbar: React.FC = () => {
                   </div>
                 );
               })}
+
+              {SHOW_BROCHURES && (
+                <Link
+                  to="/brochures"
+                  onClick={() => setIsOpen(false)}
+                  className="mt-6 flex items-center justify-center gap-2 bg-[#924321] text-white py-4 text-base font-medium tracking-[0.04em]"
+                >
+                  <Download size={18} />
+                  Download Brochures
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

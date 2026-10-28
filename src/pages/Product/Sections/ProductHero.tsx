@@ -93,7 +93,7 @@ export const ProductHero: React.FC = () => {
                         initial={{ scale: 1.2, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000"
+                        src="/images/pages/products/banner.jpg"
                         className="w-full h-full object-cover"
                         alt="Product Styles Showcase"
                         // Change lowercase 'p' to uppercase 'P'

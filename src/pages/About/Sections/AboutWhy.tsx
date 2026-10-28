@@ -160,31 +160,31 @@ const features = [
     id: 'premium',
     title: "Natural & Sustainable Sourcing",
     description: "Materials are 100% sustainably sourced and free from chemical additives, using only natural methods like heat and steam in the modification process.",
-    image: cdn("/images/about/nature.jpeg")
+    image: "/images/pages/about/why-nature.jpg"
   },
   {
     id: 'durability',
     title: "High Performance & Durability",
     description: "Across all lines, the products offer high resistance to scratches, stains, dents, and daily wear, making them suitable for high-usage residential and commercial environments.",
-    image: cdn("/images/about/high per.jpeg")
+    image: "/images/pages/about/why-performance.jpg"
   },
   {
     id: 'weather',
     title: "Advanced Installation Systems",
     description: `Many collections utilize precision-fit systems such as the "Safe lock Pro" click mechanism, "Tongue & Groove" profiles, or the "Pi-Grad" invisible, screwless fastening system for easy and seamless execution.`,
-    image: cdn("/images/about/install.jpeg")
+    image: "/images/pages/about/why-install.jpg"
   },
   {
     id: 'sustainability',
     title: "Weather & Environmental Resilience",
     description: "Outdoor-specific products feature superior resistance to moisture, insects, decay, and temperature variations, with some exceeding standards for slip resistance even in wet environments.",
-    image: cdn("/images/about/weather.PNG")
+    image: "/images/pages/about/why-weather.jpg"
   },
   {
     id: 'maintenance',
     title: "Health & Comfort",
     description: "Indoor flooring products are designed with best-in-class formaldehyde emission standards to protect health, while providing a warm and anti-static underfoot feel.",
-    image: cdn("/images/about/health.jpeg")
+    image: "/images/pages/about/why-health.jpg"
   }
 ];
 

@@ -30,13 +30,13 @@ export const AboutStory: React.FC = () => {
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-6">
           <div className="overflow-hidden">
-            <ProgressiveImg src={cdn('/images/about/interior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Craft" />
+            <ProgressiveImg src='/images/pages/about/craft.jpg' className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Craft" />
           </div>
           <div className="overflow-hidden">
-            <ProgressiveImg src={cdn('/images/about/exterior/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Material" />
+            <ProgressiveImg src='/images/pages/about/material.jpg' className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Material" />
           </div>
           <div className="overflow-hidden">
-            <ProgressiveImg src={cdn('/images/about/commercial/1.jpg')} className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Detail" />
+            <ProgressiveImg src='/images/pages/about/detail.jpg' className="w-full aspect-[3/3] object-cover hover:scale-105 transition-transform duration-700" wrapperClassName="w-full aspect-[3/3]" alt="Detail" />
           </div>
         </div>
       </Container>

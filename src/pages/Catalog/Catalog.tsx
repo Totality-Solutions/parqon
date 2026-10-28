@@ -10,30 +10,12 @@ import { CTABtn } from "../../components/common/CTABtn";
 import { cdn } from "../../config/cdn";
 import { ProgressiveImg } from "../../components/common/ProgressiveImg";
 
-const livingRoomImg = cdn("/images/home/collection-1.png");
-const kitchenImg = cdn("/images/home/collection-2.png");
-
-const catalogs = [
-  {
-    id: 1,
-    subTitle: "Oaken",
-    title:
-      "Premium indoor flooring crafted to deliver the authentic beauty of real wood with enhanced strength and performance for modern interiors.",
-    img: livingRoomImg,
-    pdf: cdn("/pdf/PARQON BROCHURE OAKEN (1).pdf"),
-  },
-  {
-    id: 2,
-    subTitle: "NordWood",
-    title:
-      "Sustainable outdoor surfaces that transform the timeless beauty of wood into durable, weather-enduring landscapes and architectural elements.",
-    img: kitchenImg,
-    pdf: cdn("/pdf/PARQON BROCHURE NORDWOOD WT POV.pdf"),
-  },
-];
+import { BROCHURES } from "../../data/brochures";
+import { useLeadForm } from "../../components/lead/LeadForm";
 
 export const CatalogPage: React.FC = () => {
   const [selectedPDF, setSelectedPDF] = useState<string | null>(null);
+  const leadForm = useLeadForm();
 
   // LOCK BODY SCROLL
   useEffect(() => {
@@ -71,7 +53,7 @@ export const CatalogPage: React.FC = () => {
   // DOWNLOAD FUNCTION
   const handleDownload = async (
     url: string,
-    title: string
+    fileName: string
   ) => {
     try {
       const response = await fetch(url);
@@ -83,7 +65,7 @@ export const CatalogPage: React.FC = () => {
       const link = document.createElement("a");
 
       link.href = blobUrl;
-      link.download = `${title}.pdf`;
+      link.download = fileName;
 
       document.body.appendChild(link);
 
@@ -110,18 +92,19 @@ export const CatalogPage: React.FC = () => {
           transition={{ duration: 0.6 }}
         >
           <CategoryHeader
-            title="Product Catalogs"
-            description="Explore our curated catalogs designed to bring warmth, texture, and timeless materiality into modern architectural spaces."
+            title="Brochures"
+            description="Preview and download our brand brochures, designed to bring warmth, texture, and timeless materiality into modern architectural spaces."
             iconSrc={cdn("/icons/arrow-right.png")}
           />
         </motion.div>
 
         {/* GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 2xl:gap-16">
-          
-          {catalogs.map((catalog, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 2xl:gap-12">
+
+          {BROCHURES.map((catalog, index) => (
             <motion.div
-              key={catalog.id}
+              key={catalog.brand}
+              id={catalog.brand.toLowerCase()}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -135,8 +118,8 @@ export const CatalogPage: React.FC = () => {
               
               {/* IMAGE */}
               <ProgressiveImg
-                src={catalog.img}
-                alt={catalog.subTitle}
+                src={catalog.image}
+                alt={`${catalog.title} brochure`}
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 wrapperClassName="w-full h-full"
                 priority={index === 0}
@@ -158,33 +141,40 @@ export const CatalogPage: React.FC = () => {
                   }}
                 >
                   <span className="uppercase text-dynamic-body md:text-dynamic-h3 text-white">
-                    {catalog.subTitle}
+                    {catalog.title}
                   </span>
 
                   <h3 className="mt-3 text-dynamic-small md:text-dynamic-body text-white/80 leading-tight max-w-xl">
-                    {catalog.title}
+                    {catalog.description}
                   </h3>
 
                   {/* ACTIONS */}
                   <div className="flex items-center gap-4 mt-8">
-                    
-                    <CTABtn
-                      label="Download PDF"
-                      variant="primary"
-                      onClick={() =>
-                        handleDownload(
-                          catalog.pdf,
-                          catalog.subTitle
-                        )
-                      }
-                    />
+                    {catalog.pdf ? (
+                      <>
+                        <CTABtn
+                          label="Download PDF"
+                          variant="primary"
+                          onClick={() => handleDownload(catalog.pdf!, catalog.fileName ?? `${catalog.title}.pdf`)}
+                        />
 
-                    <button
-                      onClick={() => setSelectedPDF(catalog.pdf)}
-                      className="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300"
-                    >
-                      <Eye size={16} />
-                    </button>
+                        <button
+                          onClick={() => setSelectedPDF(catalog.pdf!)}
+                          aria-label={`Preview the ${catalog.title} brochure`}
+                          className="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300"
+                        >
+                          <Eye size={16} />
+                        </button>
+                      </>
+                    ) : (
+                      <CTABtn
+                        label="Request Brochure"
+                        variant="primary"
+                        onClick={() =>
+                          leadForm.open({ kind: 'brochure', about: `${catalog.title} brochure`, source: 'Brochures page', details: [{ label: 'Brand', value: catalog.title }] })
+                        }
+                      />
+                    )}
                   </div>
                 </motion.div>
               </div>

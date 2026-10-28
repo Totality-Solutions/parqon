@@ -91,8 +91,6 @@ import React from 'react';
 import { motion } from 'framer-motion'; // Added Framer Motion
 import { Section } from '../../../components/common/Section';
 import { cdn } from '../../../config/cdn';
-const livingRoomImg = cdn('/images/home/collection-1.png');
-const kitchenImg = cdn('/images/home/collection-2.png');
 import CategoryHeader from '../../../components/common/CategoryHeader';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 import { CTABtn } from '../../../components/common/CTABtn';
@@ -102,21 +100,21 @@ const categories = [
     id: 1, 
     subTitle: 'Oaken',
     title: 'Premium indoor flooring crafted to deliver the authentic beauty of real wood with enhanced strength and performance for modern interiors.', 
-    img: livingRoomImg,
+    img: '/images/oaken/collection.jpg',
     path: '/products?brand=Oaken'
   },
   { 
     id: 2, 
     subTitle: 'NordWood',
     title: 'Sustainable outdoor surfaces that transform the timeless beauty of wood into durable, weather-enduring landscapes and architectural elements.', 
-    img: kitchenImg,
+    img: '/images/nordwood/collection.jpg',
     path: '/products?brand=Nordwood'
   },
   { 
     id: 3, 
     subTitle: 'Heatwood',
-    title: 'Define your outdoor living with surfaces built for performance. Combining rugged durability with a refined timber aesthetic, our decking solutions provide a resilient, high-end foundation for your exterior entertaining spaces and private retreats.', 
-    img: kitchenImg,
+    title: 'Handcrafted inlay parquet, borders and stairs that pair exotic hardwoods with natural marble and brass for truly statement interiors.',
+    img: '/images/heatwood/collection.jpg',
     path: '/products?brand=Heatwood'
   },
 ];

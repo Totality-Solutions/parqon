@@ -197,28 +197,28 @@ const productData = {
   'Oaken': {
     description: 'Where sophisticated design meets everyday living. Elevate your lounge with durable, high-end surfaces engineered to provide a seamless blend of natural grain textures and contemporary aesthetic appeal.',
     images: [
-      cdn('/images/home/products/living-room/1.png'),
-      cdn('/images/home/products/bedroom/1.jpg'),
-      cdn('/images/home/products/indoor/1.jpg'),
-      cdn('/images/home/products/outdoor/1.jpeg'),
+      '/images/oaken/showcase-1.jpg',
+      '/images/oaken/showcase-2.jpg',
+      '/images/oaken/showcase-3.jpg',
+      '/images/oaken/showcase-4.jpg',
     ]
   },
   'Nordwood': {
     description: 'Elevate your rest with masterfully engineered finishes that speak to understated elegance. By combining a minimalist aesthetic with the rich grain of hand-selected timber, we bring a refined architectural touch to your most personal environment.',
     images: [
-      cdn('/images/home/products/living-room/2.jpg'),
-      cdn('/images/home/products/bedroom/2.jpg'),
-      cdn('/images/home/products/indoor/2.jpg'),
-      cdn('/images/home/products/outdoor/2.jpeg'),
+      '/images/nordwood/showcase-1.jpg',
+      '/images/nordwood/showcase-2.jpg',
+      '/images/nordwood/showcase-3.jpg',
+      '/images/nordwood/showcase-4.jpg',
     ]
   },
   'Heatwood ': {
-    description: 'Define your outdoor living with surfaces built for performance. Combining rugged durability with a refined timber aesthetic, our decking solutions provide a resilient, high-end foundation for your exterior entertaining spaces and private retreats.',
+    description: 'Turn floors into a signature. Exotic hardwood parquet set with natural marble and polished brass inlays, from intricate mosaics and borders to sweeping staircases, crafted for grand living spaces.',
     images: [
-      cdn('/images/home/products/living-room/3.jpg'),
-      cdn('/images/home/products/bedroom/3.jpg'),
-      cdn('/images/home/products/indoor/3.jpg'),
-      cdn('/images/home/products/outdoor/3.jpeg'),
+      '/images/heatwood/showcase-1.jpg',
+      '/images/heatwood/showcase-2.jpg',
+      '/images/heatwood/showcase-3.jpg',
+      '/images/heatwood/showcase-4.jpg',
     ]
   },
   // 'Vintage': {

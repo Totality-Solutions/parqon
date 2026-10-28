@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cdn } from '../../../config/cdn';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
 import type { Variants } from 'framer-motion';
 
@@ -18,11 +17,12 @@ import { Button } from '../../../components/common/Button';
 
 // ============================================
 
+// Brand images are served from public/images/<brand>/ until they're uploaded to the CDN
 const heroSlides = [
   {
     id: 1,
-    image: cdn('/images/home/hero/1.jpeg'),
-    swatch: cdn('/images/home/hero3.jpg'),
+    image: '/images/oaken/hero.jpg',
+    swatch: '/images/oaken/hero-swatch.jpg',
     title: 'Oaken',
     link: '/products?brand=Oaken', // ← CHANGE THIS TO YOUR FIRST PAGE URL
     // subtitle: 'European Oak Collection'
@@ -30,8 +30,8 @@ const heroSlides = [
   
   {
     id: 2,
-    image: cdn('/images/home/nordwood.jpeg'),
-    swatch: cdn('/images/home/hero1.jpg'),
+    image: '/images/nordwood/hero.jpg',
+    swatch: '/images/nordwood/hero-swatch.jpg',
     title: 'Nordwood',
     link: '/products?brand=Nordwood', // ← CHANGE THIS TO YOUR SECOND PAGE URL
     // subtitle: 'Artisan Series'
@@ -39,9 +39,8 @@ const heroSlides = [
 
   {
     id: 3,
-    // TODO: replace with the Heatwood banner and swatch once they're uploaded to the CDN
-    image: cdn('/images/home/hero2.jpg'),
-    swatch: cdn('/images/home/hero2.jpg'),
+    image: '/images/heatwood/hero.jpg',
+    swatch: '/images/heatwood/hero-swatch.jpg',
     title: 'Heatwood',
     link: '/products?brand=Heatwood',
   },
