@@ -1,11 +1,13 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin, loggedIn, visibleOrLoggedIn } from './access'
 import { orderField, visibleField } from './fields'
+import { revalidateHooks } from './revalidate'
 
 export const Certifications: CollectionConfig = {
   slug: 'certifications',
   admin: { useAsTitle: 'name', defaultColumns: ['name', 'detail', 'brands', 'visible', 'order'], group: 'Content' },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: { read: visibleOrLoggedIn, create: loggedIn, update: loggedIn, delete: isAdmin },
   fields: [
     { name: 'name', type: 'text', required: true },

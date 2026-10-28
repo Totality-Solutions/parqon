@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import CatalogPage from '@/views/Catalog/Catalog';
-import { getCatalog } from '@/lib/catalog/server';
+import { getSiteCatalog } from '@/lib/catalog/server';
 
 export const metadata: Metadata = {
   title: 'Brochures',
@@ -10,6 +10,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   // hidden until brochures are switched on in the CMS (Site settings)
-  if (!(await getCatalog()).settings.showBrochures) notFound();
+  if (!(await getSiteCatalog()).settings.showBrochures) notFound();
   return <CatalogPage />;
 }

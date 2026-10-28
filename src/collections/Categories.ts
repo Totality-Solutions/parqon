@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin, loggedIn, visibleOrLoggedIn } from './access'
 import { brandField, orderField, slugField, visibleField } from './fields'
+import { revalidateHooks } from './revalidate'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -11,6 +12,7 @@ export const Categories: CollectionConfig = {
     listSearchableFields: ['title', 'slug']
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: { read: visibleOrLoggedIn, create: loggedIn, update: loggedIn, delete: isAdmin },
   fields: [
     { name: 'title', type: 'text', required: true },

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ProductDetail } from '@/views/Product/Sections/ProductDetail';
+import { ProductsProvider } from '@/lib/catalog/context';
 import { getCatalog } from '@/lib/catalog/server';
 
 type Props = { params: Promise<{ id: string }> };
@@ -18,6 +19,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const [{ id }, catalog] = await Promise.all([params, getCatalog()]);
-  if (!catalog.products.some((p) => p.id === id)) notFound();
-  return <ProductDetail />;
+  const product = catalog.products.find((p) => p.id === id);
+  if (!product) notFound();
+  // the product and the others in its category (for "Related products")
+  const products = catalog.products.filter((p) => p.brand === product.brand && p.categorySlug === product.categorySlug);
+  return (
+    <ProductsProvider products={products}>
+      <ProductDetail />
+    </ProductsProvider>
+  );
 }

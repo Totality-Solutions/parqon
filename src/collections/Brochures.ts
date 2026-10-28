@@ -1,11 +1,13 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin, loggedIn, visibleOrLoggedIn } from './access'
 import { brandField, orderField, visibleField } from './fields'
+import { revalidateHooks } from './revalidate'
 
 export const Brochures: CollectionConfig = {
   slug: 'brochures',
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'brand', 'visible', 'order'], group: 'Content' },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: { read: visibleOrLoggedIn, create: loggedIn, update: loggedIn, delete: isAdmin },
   fields: [
     { name: 'title', type: 'text', required: true },

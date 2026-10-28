@@ -84,11 +84,16 @@ export interface SiteSettings {
   showBrochures: boolean;
 }
 
-export interface Catalog {
-  products: Product[];
+// Shared site data, loaded on every page
+export interface SiteCatalog {
   categories: Category[];
   certifications: Certification[];
   brochures: Brochure[];
   contact: ContactInfo;
   settings: SiteSettings;
+}
+
+// Site data plus products (product pages and search)
+export interface Catalog extends SiteCatalog {
+  products: Product[];
 }

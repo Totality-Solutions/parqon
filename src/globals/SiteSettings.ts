@@ -1,10 +1,12 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateGlobal } from '../collections/revalidate'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
   label: 'Site settings',
   admin: { group: 'Settings' },
   access: { read: () => true, update: ({ req }) => req.user?.role === 'admin' },
+  hooks: { afterChange: [revalidateGlobal] },
   fields: [
     {
       name: 'showBrochures',

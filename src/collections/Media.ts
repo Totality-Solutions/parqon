@@ -1,11 +1,14 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin, loggedIn } from './access'
+import { revalidateHooks } from './revalidate'
 
 // Every uploaded file: product photos, category/brand images, certificate logos, brochure covers and PDFs
 export const Media: CollectionConfig = {
   slug: 'media',
   admin: { group: 'Settings', description: 'All uploaded images and PDFs.' },
   access: { read: () => true, create: loggedIn, update: loggedIn, delete: isAdmin },
+  // replacing an image changes its URL on the website
+  hooks: revalidateHooks,
   upload: {
     mimeTypes: ['image/*', 'application/pdf'],
     imageSizes: [

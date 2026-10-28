@@ -3,9 +3,10 @@ import React from 'react';
 import '../../index.css';
 import { SiteShell } from '@/components/SiteShell';
 import { CatalogProvider } from '@/lib/catalog/context';
-import { getCatalog } from '@/lib/catalog/server';
+import { getSiteCatalog } from '@/lib/catalog/server';
 
-// Pages read the CMS on every request, so changes made in the CMS show up straight away
+// Pages are rendered per request from the cached CMS data; saving in the CMS refreshes that cache
+// (src/collections/revalidate.ts), so changes show up straight away
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
 export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
-  const catalog = await getCatalog();
+  const catalog = await getSiteCatalog();
   return (
     <html lang="en">
       <body>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ProductPage from '@/views/Product/ProductPage';
-import { getCatalog } from '@/lib/catalog/server';
+import { ProductsProvider } from '@/lib/catalog/context';
+import { getCatalog, getProducts } from '@/lib/catalog/server';
 import { brandFromSlug, findCategory } from '@/lib/catalog/helpers';
 
 type Props = {
@@ -35,6 +36,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   return { title: brand ? `${brand} Products` : 'Products', description: 'Explore Parqon flooring, decking, cladding and inlay parquet collections.' };
 }
 
-export default function Page() {
-  return <ProductPage />;
+export default async function Page() {
+  return (
+    <ProductsProvider products={await getProducts()}>
+      <ProductPage />
+    </ProductsProvider>
+  );
 }

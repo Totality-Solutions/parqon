@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateGlobal } from '../collections/revalidate'
 
 // Addresses, e-mails and phone shown on the Contact page and in the footer
 export const ContactSettings: GlobalConfig = {
@@ -6,6 +7,7 @@ export const ContactSettings: GlobalConfig = {
   label: 'Contact details',
   admin: { group: 'Content' },
   access: { read: () => true, update: ({ req }) => Boolean(req.user) },
+  hooks: { afterChange: [revalidateGlobal] },
   fields: [
     {
       name: 'addresses',

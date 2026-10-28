@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin, loggedIn, visibleOrLoggedIn } from './access'
 import { brandField, orderField, slugField, visibleField } from './fields'
+import { revalidateHooks } from './revalidate'
 
 // Spec labels the product filters use (pattern / profile / wood species)
 export const FILTER_SPECS = ['Pattern', 'Profile', 'Wood Specie']
@@ -15,6 +16,7 @@ export const Products: CollectionConfig = {
     pagination: { defaultLimit: 50 }
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: { read: visibleOrLoggedIn, create: loggedIn, update: loggedIn, delete: isAdmin },
   fields: [
     { name: 'title', type: 'text', required: true },

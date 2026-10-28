@@ -1,9 +1,8 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from '@/lib/router';
 import { Search, X } from 'lucide-react';
-import { search } from '../../lib/catalog/search';
-import { useCatalog } from '../../lib/catalog/context';
+import type { SearchResult } from '../../lib/catalog/search';
 import { Highlight } from './Highlight';
 
 interface SearchBoxProps {
@@ -28,8 +27,21 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ initialQuery = '', autoFoc
 
   useEffect(() => setQuery(initialQuery), [initialQuery]);
 
-  const catalog = useCatalog();
-  const suggestions = useMemo(() => search(catalog, query, SUGGESTION_LIMIT), [catalog, query]);
+  // suggestions come from the server, so pages don't need the whole catalogue
+  const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
+  const [loadedQuery, setLoadedQuery] = useState('');
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) { setSuggestions([]); setLoadedQuery(''); return; }
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      fetch(`/search/suggest?q=${encodeURIComponent(q)}`, { signal: controller.signal })
+        .then((res) => (res.ok ? res.json() : []))
+        .then((results: SearchResult[]) => { setSuggestions(results.slice(0, SUGGESTION_LIMIT)); setLoadedQuery(q); })
+        .catch(() => {});
+    }, 150);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [query]);
 
   // Close the dropdown when clicking outside
   useEffect(() => {
@@ -133,9 +145,9 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ initialQuery = '', autoFoc
                 </button>
               </li>
             </ul>
-          ) : (
+          ) : loadedQuery === query.trim() ? (
             <p className="px-6 py-4 text-sm text-gray-500 border-t border-gray-100">No matches for “{query.trim()}”</p>
-          )}
+          ) : null}
         </div>
       )}
     </div>
