@@ -1,7 +1,7 @@
 /**
  * One-off import of the website's current content into the CMS.
  *   npm run seed            imports anything that isn't in the CMS yet (safe to run again)
- *   npm run seed -- --skip-pdfs   skips downloading the brochure PDFs (large)
+ * Brochure PDFs are not imported; upload them in the CMS.
  *
  * Reads the old static data in ./legacy and the images in /public, uploads every image to Media,
  * then creates categories, products, certifications, brochures and the contact details.
@@ -16,7 +16,6 @@ import { BROCHURES, SHOW_BROCHURES } from './legacy/brochures';
 import { ADDRESSES, EMAILS, PHONE } from './legacy/contact';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
-const skipPdfs = process.argv.includes('--skip-pdfs');
 
 const MIME: Record<string, string> = {
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp',
@@ -24,6 +23,19 @@ const MIME: Record<string, string> = {
 };
 
 const slugify = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+// Storage and database hiccups (e.g. HTTP 5xx, dropped connections) are retried a few times
+async function withRetry<T>(label: string, fn: () => Promise<T>, attempts = 4): Promise<T> {
+  for (let i = 1; ; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (i >= attempts) throw err;
+      console.warn(`  ! ${label} failed (attempt ${i}), retrying…`);
+      await new Promise((r) => setTimeout(r, 2000 * i));
+    }
+  }
+}
 
 // --- uploads -------------------------------------------------------------
 
@@ -48,7 +60,9 @@ async function upload(payload: Payload, src: string | undefined, alt: string): P
   }
 
   const mimetype = MIME[path.extname(name).toLowerCase()] ?? 'application/octet-stream';
-  const doc = await payload.create({ collection: 'media', data: { alt }, file: { data, mimetype, name, size: data.length } });
+  const doc = await withRetry(`upload ${name}`, () =>
+    payload.create({ collection: 'media', data: { alt }, file: { data, mimetype, name, size: data.length } })
+  );
   uploaded.set(src, doc.id);
   if (++uploadCount % 50 === 0) console.log(`  ${uploadCount} files uploaded…`);
   return doc.id;
@@ -95,7 +109,7 @@ async function seed() {
 
     const image = await upload(payload, p.image, p.title);
     const gallery = (await Promise.all((p.gallery ?? []).map((g, i) => upload(payload, g, `${p.title} ${i + 1}`)))).filter(Boolean);
-    await payload.create({
+    await withRetry(`product ${p.title}`, async () => payload.create({
       collection: 'products',
       data: {
         title: p.title, slug, brand: p.brand, category, type: p.type, visible: true, order,
@@ -108,7 +122,7 @@ async function seed() {
           ? await Promise.all(p.finishes.map(async (f) => ({ name: f.name, color: f.color, image: await upload(payload, f.img, `${p.title} – ${f.name}`) })))
           : undefined
       }
-    });
+    }));
     if (++created % 50 === 0) console.log(`  ${created} products…`);
   }
   console.log(`✓ products: ${created} created, ${skipped} already there`);
@@ -127,16 +141,16 @@ async function seed() {
   // Brochures
   for (const [order, b] of BROCHURES.entries()) {
     if (await findBy(payload, 'brochures', 'title', b.title)) continue;
-    const pdf = b.pdf && !skipPdfs ? await upload(payload, b.pdf, `${b.title} brochure`) : undefined;
+    // brochure PDFs are not imported (they're not final yet): upload them in the CMS when they are
     await payload.create({
       collection: 'brochures',
       data: {
         title: b.title, brand: b.brand, description: b.description, visible: true, order,
-        cover: (await upload(payload, b.image, `${b.title} brochure`))!, pdf, fileName: b.fileName
+        cover: (await upload(payload, b.image, `${b.title} brochure`))!, fileName: b.fileName
       }
     });
   }
-  console.log(`✓ ${BROCHURES.length} brochures${skipPdfs ? ' (PDFs skipped)' : ''}`);
+  console.log(`✓ ${BROCHURES.length} brochures (cover images only, no PDFs)`);
 
   // Contact details and settings (only filled in when still empty)
   const contact = await payload.findGlobal({ slug: 'contact-settings' });

@@ -17,6 +17,13 @@ const fileUrl = (upload: Upload) => (upload && typeof upload === 'object' ? uplo
 // public read rules (visible items only), everything in one go, CMS order
 const common = { overrideAccess: false, pagination: false, sort: 'order' } as const;
 
+// The cache belongs to one database: pointing the site at another database (or storage) starts a fresh cache
+const cacheScope = (() => {
+  const db = process.env.DATABASE_URL || process.env.POSTGRES_URL || 'local';
+  const host = db.match(/@([^/:?]+)/)?.[1] ?? db;
+  return `${host}|${process.env.S3_BUCKET ?? 'disk'}|${process.env.S3_PUBLIC_URL ?? ''}`;
+})();
+
 const toCategory = (doc: Doc): Category => ({
   slug: doc.slug,
   title: doc.title,
@@ -95,7 +102,7 @@ const loadSite = unstable_cache(
       settings: { showBrochures: Boolean((settings as Doc).showBrochures) }
     };
   },
-  ['catalog-site'],
+  ['catalog-site', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 
@@ -110,7 +117,7 @@ const loadProducts = unstable_cache(
     const categoryById = new Map(categories.docs.map((c) => [String(c.id), c as Doc]));
     return products.docs.map((d) => toProduct(d as Doc, categoryById)).filter((p): p is Product => !!p);
   },
-  ['catalog-products'],
+  ['catalog-products', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 
