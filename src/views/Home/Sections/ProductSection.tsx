@@ -193,6 +193,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cdn } from '../../../config/cdn';
 import { Button } from '../../../components/common/Button';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
+import { Link } from '@/lib/router';
 
 const productData = {
   'Oaken': {
@@ -273,9 +274,14 @@ export const ProductSection: React.FC = () => {
             {productData[activeTab].description}
           </p>
         </div>
-        <button className="hidden lg:block text-parqon-brown transition-transform duration-300 hover:translate-x-2">
+        {/* opens the products of the brand selected in the tabs */}
+        <Link
+          to={`/products?brand=${activeTab.trim()}`}
+          aria-label={`View all ${activeTab.trim()} products`}
+          className="hidden lg:block text-parqon-brown transition-transform duration-300 hover:translate-x-2"
+        >
           <img src={iconSrc} alt="" className="w-10 h-10 2xl:w-16 2xl:h-10 object-contain" />
-        </button>
+        </Link>
       </motion.div>
 
       <div className="flex flex-col lg:flex-row gap-8 2xl:gap-24">
