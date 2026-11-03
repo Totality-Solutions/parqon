@@ -1,43 +1,56 @@
 'use client';
-// Paints an image in over whatever is behind it with a few rough brush strokes (an SVG mask whose
-// strokes draw themselves). Fills its positioned parent like `object-fit: cover`.
+// "Morph brush" reveal: paints an image in over whatever is behind it with a liquid, blobby edge that sweeps
+// across the box, with droplets forming just ahead of it. Fills its positioned parent like `object-fit: cover`.
+//
+// How: an SVG mask with two parts. The main area grows from one side; a low-frequency noise displacement
+// bends its edge into waves. A band just ahead of the edge is broken into noise spots (the droplets). Both go
+// through a "gooey" blur + alpha threshold, which turns them into smooth blobs.
 import React, { useEffect, useId, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { animate, useReducedMotion } from 'framer-motion';
 
-// Strokes are drawn on a 1600×900 canvas, stretched to the box: zig-zag rows like a wide brush
-const W = 1600;
-const H = 900;
-const STROKES = [
-  'M -200 110 C 300 30, 950 200, 1800 80',
-  'M 1800 290 C 1250 220, 500 380, -200 280',
-  'M -200 470 C 400 400, 1100 560, 1800 460',
-  'M 1800 660 C 1150 590, 450 750, -200 650',
-  'M -200 850 C 500 780, 1050 930, 1800 830'
-];
-const STROKE_WIDTH = 270;
-const STROKE_TIME = 0.5; // seconds per stroke
-const STROKE_GAP = 0.22; // next stroke starts before the previous one ends
+const DURATION = 1.6; // seconds for a full sweep
+// blur + sharp alpha threshold: soft shapes become smooth blobs with crisp edges
+const GOO = '0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 40 -18';
+
+// Where the edge is, how much it wobbles and how wide the droplet band is, at progress 0..1
+const geometry = (w: number, h: number, progress: number) => {
+  const big = Math.max(w, h);
+  // waves grow mid-sweep and settle at the end, so the edge looks like it's morphing
+  const wobble = big * 0.16 * (0.6 + 0.8 * Math.sin(Math.PI * progress));
+  const band = big * 0.22;
+  const start = w + wobble * 0.6;
+  const end = -wobble * 0.6 - band * 0.2;
+  return {
+    wobble,
+    band,
+    edge: start + (end - start) * progress,
+    // the noise drifts a little as it sweeps, which keeps the blobs moving
+    drift: 0.006 + progress * 0.002,
+    blur: Math.max(6, w * 0.01)
+  };
+};
 
 interface BrushRevealProps {
   src: string;
-  // 1 paints left to right, -1 right to left
+  // -1 sweeps from right to left, 1 from left to right
   direction?: number;
   onDone?: () => void;
   className?: string;
 }
 
-export const BrushReveal: React.FC<BrushRevealProps> = ({ src, direction = 1, onDone, className = '' }) => {
+export const BrushReveal: React.FC<BrushRevealProps> = ({ src, direction = -1, onDone, className = '' }) => {
   const id = useId().replace(/:/g, '');
   const reduceMotion = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState<{ w: number; h: number } | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
   const doneRef = useRef(onDone);
   useEffect(() => {
     doneRef.current = onDone;
   });
 
-  // Wait for the image, so the brush never paints an empty area
+  // Wait for the image, so the reveal never shows an empty area
   useEffect(() => {
     let cancelled = false;
     const img = new Image();
@@ -57,50 +70,71 @@ export const BrushReveal: React.FC<BrushRevealProps> = ({ src, direction = 1, on
     return () => observer.disconnect();
   }, []);
 
-  // No animation for people who asked for less motion: show it straight away
+  const ready = Boolean(loaded && size && size.w > 0 && size.h > 0);
+
+  // Run the sweep once the image is ready; people who asked for less motion get it straight away
   useEffect(() => {
-    if (reduceMotion && loaded) doneRef.current?.();
-  }, [reduceMotion, loaded]);
+    if (!ready) return;
+    if (reduceMotion) {
+      doneRef.current?.();
+      return;
+    }
+    const controls = animate(0, 1, {
+      duration: DURATION,
+      ease: [0.45, 0, 0.55, 1],
+      onUpdate: setProgress,
+      onComplete: () => doneRef.current?.()
+    });
+    return () => controls.stop();
+  }, [ready, reduceMotion]);
 
   if (reduceMotion) return null;
 
-  const ready = loaded && size && size.w > 0 && size.h > 0;
-  const flip = direction < 0 ? `translate(${W} 0) scale(-1 1)` : '';
+  const w = size?.w ?? 0;
+  const h = size?.h ?? 0;
+  const { wobble, band, edge, drift, blur } = geometry(w, h, progress);
+  const pad = wobble + 40;
+  // drawn for a right-to-left sweep; mirrored for left to right
+  const flip = direction > 0 ? `translate(${w} 0) scale(-1 1)` : undefined;
+  const region = { x: -w, y: -h, width: w * 3, height: h * 3 };
 
   return (
     <svg
       ref={svgRef}
       className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}
-      viewBox={size ? `0 0 ${size.w} ${size.h}` : `0 0 ${W} ${H}`}
+      viewBox={`0 0 ${w || 1} ${h || 1}`}
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       {ready && (
         <>
           <defs>
-            {/* rough, bristly stroke edges */}
-            <filter id={`brush-${id}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="90" xChannelSelector="R" yChannelSelector="G" />
+            <filter id={`edge-${id}`} filterUnits="userSpaceOnUse" {...region}>
+              <feTurbulence type="fractalNoise" baseFrequency={`${drift} ${drift * 1.4}`} numOctaves="2" seed="11" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale={wobble} xChannelSelector="R" yChannelSelector="G" result="wavy" />
+              <feGaussianBlur in="wavy" stdDeviation={blur} result="soft" />
+              <feColorMatrix in="soft" type="matrix" values={GOO} />
             </filter>
-            <mask id={`mask-${id}`} maskUnits="userSpaceOnUse" x={-size.w} y={-size.h} width={size.w * 3} height={size.h * 3}>
-              <rect x={-size.w} y={-size.h} width={size.w * 3} height={size.h * 3} fill="black" />
-              <g transform={`scale(${size.w / W} ${size.h / H})`}>
-                <g transform={flip} filter={`url(#brush-${id})`}>
-                  {STROKES.map((d, i) => (
-                    <motion.path
-                      key={d}
-                      d={d}
-                      fill="none"
-                      stroke="white"
-                      strokeWidth={STROKE_WIDTH}
-                      strokeLinecap="round"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: STROKE_TIME, delay: i * STROKE_GAP, ease: [0.45, 0, 0.25, 1] }}
-                      onAnimationComplete={i === STROKES.length - 1 ? () => doneRef.current?.() : undefined}
-                    />
-                  ))}
+            <filter id={`drops-${id}`} filterUnits="userSpaceOnUse" {...region}>
+              <feTurbulence type="fractalNoise" baseFrequency={drift * 2.4} numOctaves="2" seed="4" result="noise" />
+              <feColorMatrix in="noise" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  9 0 0 0 -4.6" result="spots" />
+              <feComposite in="spots" in2="SourceGraphic" operator="in" result="inBand" />
+              <feGaussianBlur in="inBand" stdDeviation={blur} result="soft" />
+              <feColorMatrix in="soft" type="matrix" values={GOO} />
+            </filter>
+            {/* droplets thin out the further they are ahead of the edge */}
+            <linearGradient id={`fade-${id}`} gradientUnits="userSpaceOnUse" x1={edge - band} x2={edge} y1="0" y2="0">
+              <stop offset="0" stopColor="white" stopOpacity="0" />
+              <stop offset="1" stopColor="white" stopOpacity="1" />
+            </linearGradient>
+            <mask id={`mask-${id}`} maskUnits="userSpaceOnUse" {...region}>
+              <rect {...region} fill="black" />
+              <g transform={flip}>
+                <g filter={`url(#drops-${id})`}>
+                  <rect x={edge - band} y={-pad} width={band} height={h + pad * 2} fill={`url(#fade-${id})`} />
+                </g>
+                <g filter={`url(#edge-${id})`}>
+                  <rect x={edge} y={-pad} width={w * 2} height={h + pad * 2} fill="white" />
                 </g>
               </g>
             </mask>
@@ -109,8 +143,8 @@ export const BrushReveal: React.FC<BrushRevealProps> = ({ src, direction = 1, on
             href={src}
             x="0"
             y="0"
-            width={size.w}
-            height={size.h}
+            width={w}
+            height={h}
             preserveAspectRatio="xMidYMid slice"
             mask={`url(#mask-${id})`}
           />

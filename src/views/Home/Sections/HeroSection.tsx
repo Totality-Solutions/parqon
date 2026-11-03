@@ -77,14 +77,13 @@ export const HeroSection: React.FC = () => {
     heroSlides.forEach((s) => { const img = new Image(); img.src = s.image; });
   }, []);
 
-  // Each slide features one product (src/views/Home/heroProducts.ts): its photo, name and page.
-  // Without it (hidden or deleted in the CMS) the slide shows the brand swatch and opens the brand page.
+  // Each slide features one product (src/views/Home/heroProducts.ts): its name and page; the card keeps the
+  // brand swatch image. Without it (hidden or deleted in the CMS) the slide opens the brand page.
   const { products, categories } = useCatalog();
   const slide = heroSlides[index];
   const featured = products.find((p) => p.id === HERO_PRODUCTS[slide.title]);
   const featuredCategory = featured && categories.find((c) => c.brand === featured.brand && c.slug === featured.categorySlug);
   const ctaLink = featured && featuredCategory ? `${categoryPath(featuredCategory, featured.type)}?product=${featured.id}` : slide.link;
-  const swatch = featured?.image || slide.swatch;
 
   const handleCtaClick = () => {
     navigate(ctaLink);
@@ -155,25 +154,17 @@ export const HeroSection: React.FC = () => {
         bg-white shadow-2xl z-40 flex items-stretch gap-3 md:gap-4 overflow-hidden 
       ">
         {/* Left: Swatch Image */}
-        <div className="w-24 sm:w-32 md:w-30 lg:w-30 aspect-square overflow-hidden flex-shrink-0 bg-gray-100">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={swatch}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="w-full h-full"
-            >
-              <ProgressiveImg
-                src={swatch}
-                alt={featured?.title ?? slide.title}
-                className="w-full h-full object-cover"
-                wrapperClassName="w-full h-full"
-                priority
-              />
-            </motion.div>
-          </AnimatePresence>
+        {/* brand swatch, morphed in together with the main image */}
+        <div className="relative w-24 sm:w-32 md:w-30 lg:w-30 aspect-square overflow-hidden flex-shrink-0 bg-gray-100">
+          <ProgressiveImg
+            key={heroSlides[baseIndex].id}
+            src={heroSlides[baseIndex].swatch}
+            alt={heroSlides[baseIndex].title}
+            className="w-full h-full object-cover"
+            wrapperClassName="w-full h-full"
+            priority
+          />
+          {index !== baseIndex && <BrushReveal key={heroSlides[index].id} src={heroSlides[index].swatch} direction={-1} />}
         </div>
 
         {/* Right: Info Section */}
