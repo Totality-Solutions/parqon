@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProgressiveImg } from '../../../components/common/ProgressiveImg';
-import type { Variants } from 'framer-motion';
+import { BrushReveal } from '../../../components/common/BrushReveal';
 
 // ============================================
 // CHOOSE YOUR ROUTING APPROACH BELOW
@@ -53,18 +53,17 @@ const heroSlides: { id: number; image: string; swatch: string; title: Brand; lin
 
 export const HeroSection: React.FC = () => {
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  // the slide fully shown underneath; the current slide is brushed in over it, then takes its place
+  const [baseIndex, setBaseIndex] = useState(0);
   
   // OPTION 1: React Router - Initialize navigate hook
   const navigate = useNavigate();
 
   const nextSlide = () => {
-    setDirection(1);
     setIndex((prev) => (prev + 1) % heroSlides.length);
   };
 
   const prevSlide = () => {
-    setDirection(-1);
     setIndex((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
   };
 
@@ -73,22 +72,10 @@ export const HeroSection: React.FC = () => {
     return () => clearInterval(timer);
   }, [index]);
 
-  const slideVariants: Variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? '100%' : '-100%',
-      opacity: 1
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] }
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? '100%' : '-100%',
-      opacity: 1,
-      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] }
-    })
-  };
+  // Load every slide image up front so each brush stroke reveals a ready image
+  useEffect(() => {
+    heroSlides.forEach((s) => { const img = new Image(); img.src = s.image; });
+  }, []);
 
   // Each slide features one product (src/views/Home/heroProducts.ts): its photo, name and page.
   // Without it (hidden or deleted in the CMS) the slide shows the brand swatch and opens the brand page.
@@ -107,20 +94,20 @@ export const HeroSection: React.FC = () => {
     <section id="hero" className="relative w-full overflow-hidden">
       {/* Background Slider */}
       <div className="w-full hero-full bg-[#F1F1F1] relative overflow-hidden">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={heroSlides[index].id}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0 w-full h-full"
-          >
-            <ProgressiveImg src={heroSlides[index].image} alt="" className="w-full h-full object-cover" wrapperClassName="w-full h-full" priority />
-            <div className="absolute inset-0 bg-black/5" />
-          </motion.div>
-        </AnimatePresence>
+        {/* Current slide, with the next one painted over it in brush strokes */}
+        <div className="absolute inset-0 w-full h-full">
+          <ProgressiveImg key={heroSlides[baseIndex].id} src={heroSlides[baseIndex].image} alt="" className="w-full h-full object-cover" wrapperClassName="w-full h-full" priority />
+          {index !== baseIndex && (
+            <BrushReveal
+              key={heroSlides[index].id}
+              src={heroSlides[index].image}
+              // always painted from right to left
+              direction={-1}
+              onDone={() => setBaseIndex(index)}
+            />
+          )}
+          <div className="absolute inset-0 bg-black/5" />
+        </div>
 
         {/* Navigation UI */}
         <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between md:hidden z-40">
@@ -137,7 +124,7 @@ export const HeroSection: React.FC = () => {
           {heroSlides.map((_, i) => (
             <button
               key={i}
-              onClick={() => { setDirection(i > index ? 1 : -1); setIndex(i); }}
+              onClick={() => setIndex(i)}
               className={`h-1 transition-all duration-700 rounded-full ${index === i ? 'w-16 bg-white' : 'w-8 bg-white/30'}`}
               aria-label={`Go to slide ${i + 1}`}
             />
