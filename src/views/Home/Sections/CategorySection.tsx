@@ -152,10 +152,11 @@ export const CategorySection: React.FC = () => {
               delay: index * 0.2, // First card starts at 0s, second at 0.2s
               ease: [0.21, 0.47, 0.32, 0.98] 
             }}
-            className="flex flex-col md:relative group overflow-hidden h-auto md:h-[500px] 2xl:h-[500px] transition-all duration-500"
+            // fixed shape (not a fixed height), so the card and its image scale together with the screen / zoom
+            className="flex flex-col md:relative group overflow-hidden h-auto md:aspect-[3/4] transition-all duration-500"
           >
-            {/* Image Container with fixed aspect ratio on mobile */}
-            <div className="h-[300px] sm:h-[400px] md:h-full w-full overflow-hidden">
+            {/* Image: 4:3 on phones, fills the 3:4 card from tablets up */}
+            <div className="aspect-[4/3] md:aspect-auto md:h-full w-full overflow-hidden">
               <ProgressiveImg
                 src={cat.img}
                 alt={cat.title}
@@ -171,7 +172,7 @@ export const CategorySection: React.FC = () => {
               relative bg-white pt-6 pb-2 flex flex-col justify-between
               
               /* Desktop Styles (md and up) */
-              md:absolute md:inset-0 md:bg-white/95 md:p-12 md:2xl:p-20 
+              md:absolute md:inset-0 md:bg-white/95 md:p-6 lg:p-10 2xl:p-16 
               md:opacity-0 md:group-hover:opacity-100 md:transition-all md:duration-700 md:ease-in-out
             `}>
               
