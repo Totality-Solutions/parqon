@@ -131,7 +131,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
           
           {/* LEFT: GALLERY SECTION */}
           <div className="flex-[1.4]">
-            <div className="aspect-[16/10] bg-gray-50 overflow-hidden mb-6 relative">
+            <div className="aspect-[16/10] bg-white overflow-hidden mb-6 relative">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeImage}
@@ -143,7 +143,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
                 >
                   <ProgressiveImg
                     src={activeImage}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     wrapperClassName="w-full h-full"
                     alt={product.title}
                     priority
@@ -158,9 +158,9 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
                 <button 
                   key={i} 
                   onClick={() => setActiveImage(img)}
-                  className={`aspect-[4/3] border transition-all duration-300 ${activeImage === img ? 'border-black' : 'border-transparent opacity-50 hover:opacity-100'}`}
+                  className={`aspect-[4/3] bg-white border transition-all duration-300 ${activeImage === img ? 'border-black' : 'border-transparent opacity-50 hover:opacity-100'}`}
                 >
-                  <ProgressiveImg src={img} className="w-full h-full object-cover" wrapperClassName="w-full h-full" alt={`${product.title} view ${i}`} />
+                  <ProgressiveImg src={img} className="w-full h-full object-contain" wrapperClassName="w-full h-full" alt={`${product.title} view ${i}`} />
                 </button>
               ))}
             </div>
@@ -279,8 +279,8 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {recommendations.map((item) => (
                 <Link key={item.id} to={productLink ? productLink(item.id) : `/product/${item.id}`} preventScrollReset={embedded} className="group block">
-                  <div className="aspect-[4/5] overflow-hidden bg-gray-50 mb-4">
-                    <ProgressiveImg src={item.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" wrapperClassName="w-full h-full" alt={item.title} />
+                  <div className="aspect-[4/5] overflow-hidden bg-white mb-4">
+                    <ProgressiveImg src={item.image} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700" wrapperClassName="w-full h-full" alt={item.title} />
                   </div>
                   <h4 className="text-[11px] font-bold uppercase tracking-widest group-hover:text-gray-500 transition-colors">{item.title}</h4>
                   <p className="text-[9px] text-gray-400 uppercase mt-1">{item.collection}</p>
