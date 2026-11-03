@@ -24,7 +24,7 @@ const CertificationStrip = () => {
   if (!certifications.length) return null;
   return (
   <ul
-    className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 py-8 border-t border-gray-100"
+    className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 py-4 border-t border-gray-100"
     aria-label="Certifications"
   >
     {certifications.map((c) => (
@@ -33,7 +33,7 @@ const CertificationStrip = () => {
           src={c.logo}
           alt={`${c.name} – ${c.detail}`}
           title={`${c.name} – ${c.detail}`}
-          className="h-10 md:h-12 w-auto object-contain"
+          className="h-6 md:h-8 w-auto object-contain"
           loading="lazy"
         />
       </li>
@@ -173,7 +173,7 @@ export const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-[#924321] transition-colors"
                 >
-                  <address className="not-italic text-dynamic-body font-semibold leading-relaxed">
+                  <address className="not-italic text-sm font-normal leading-relaxed">
                     {address.lines.map((line) => <span key={line} className="block">{line}</span>)}
                   </address>
                 </a>

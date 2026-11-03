@@ -54,8 +54,8 @@ export const ProjectCallout: React.FC = () => {
   return (
     <div className="relative py-16 md:py-16 2xl:py-5 my-5 md:my-5 2xl:my-5 transition-all duration-500 overflow-hidden">
       {/* background photo with the beige colour laid over it */}
-      <img src="/images/pages/strip.jpg" alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-parqon-beige/5" aria-hidden="true" />
+      <img src="/images/products/oaken/spc/1.jpg" alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+      {/* <div className="absolute inset-0 bg-parqon-beige/10" aria-hidden="true" /> */}
       <Container className="relative flex flex-col md:flex-row justify-between items-center gap-10 md:gap-8">
         
         {/* Text Section with Slide-in from Left */}

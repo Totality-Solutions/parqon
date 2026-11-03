@@ -281,7 +281,7 @@ export const AppUsage: React.FC = () => {
         expandedHeight={220} 
       /> */}
 
-      <section className="pt-16 md:pt-24 overflow-hidden">
+      <section className="pt-5 md:pt-5 overflow-hidden">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 50 }}

@@ -29,6 +29,6 @@ export const mapLink = (address: Address) =>
 export const mapEmbed = (address: Address) =>
   `https://www.google.com/maps?q=${encodeURIComponent(address.lines.join(', '))}&output=embed`;
 
-export const EMAILS = ['bdm@parqon.co.in', 'horizoninterspace@gmail.com'];
+export const EMAILS = ['bdm@parqon.co.in'];
 
 export const PHONES = ['+91 79775 62130', '+91 88509 09817'];
