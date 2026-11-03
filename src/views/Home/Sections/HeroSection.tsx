@@ -12,6 +12,10 @@ import type { Variants } from 'framer-motion';
 // Uncomment these lines:
 import { useNavigate } from '@/lib/router';
 import { Button } from '../../../components/common/Button';
+import { useCatalog } from '../../../lib/catalog/context';
+import { categoryPath } from '../../../lib/catalog/helpers';
+import type { Brand } from '../../../lib/catalog/types';
+import { HERO_PRODUCTS } from '../heroProducts';
 
 // OPTION 2: Next.js (UNCOMMENT IF USING NEXT.JS)
 // import Link from 'next/link';
@@ -19,10 +23,10 @@ import { Button } from '../../../components/common/Button';
 // ============================================
 
 // Brand images are served from public/images/<brand>/ until they're uploaded to the CDN
-const heroSlides = [
+const heroSlides: { id: number; image: string; swatch: string; title: Brand; link: string }[] = [
   {
     id: 1,
-    image: '/images/oaken/hero.jpg',
+    image: '/images/pages/home/oaken.png',
     swatch: '/images/oaken/hero-swatch.jpg',
     title: 'Oaken',
     link: '/products?brand=Oaken', // ← CHANGE THIS TO YOUR FIRST PAGE URL
@@ -31,7 +35,7 @@ const heroSlides = [
   
   {
     id: 2,
-    image: '/images/nordwood/hero.jpg',
+    image: '/images/pages/home/nordwood.png',
     swatch: '/images/nordwood/hero-swatch.jpg',
     title: 'Nordwood',
     link: '/products?brand=Nordwood', // ← CHANGE THIS TO YOUR SECOND PAGE URL
@@ -40,7 +44,7 @@ const heroSlides = [
 
   {
     id: 3,
-    image: '/images/heatwood/hero.jpg',
+    image: '/images/pages/home/heatwood.png',
     swatch: '/images/heatwood/hero-swatch.jpg',
     title: 'Heatwood',
     link: '/products?brand=Heatwood',
@@ -86,9 +90,17 @@ export const HeroSection: React.FC = () => {
     })
   };
 
-  // OPTION 1: React Router - Handle CTA button click
+  // Each slide features one product (src/views/Home/heroProducts.ts): its photo, name and page.
+  // Without it (hidden or deleted in the CMS) the slide shows the brand swatch and opens the brand page.
+  const { products, categories } = useCatalog();
+  const slide = heroSlides[index];
+  const featured = products.find((p) => p.id === HERO_PRODUCTS[slide.title]);
+  const featuredCategory = featured && categories.find((c) => c.brand === featured.brand && c.slug === featured.categorySlug);
+  const ctaLink = featured && featuredCategory ? `${categoryPath(featuredCategory, featured.type)}?product=${featured.id}` : slide.link;
+  const swatch = featured?.image || slide.swatch;
+
   const handleCtaClick = () => {
-    navigate(heroSlides[index].link);
+    navigate(ctaLink);
   };
 
   return (
@@ -159,7 +171,7 @@ export const HeroSection: React.FC = () => {
         <div className="w-24 sm:w-32 md:w-30 lg:w-30 aspect-square overflow-hidden flex-shrink-0 bg-gray-100">
           <AnimatePresence mode="wait">
             <motion.div
-              key={heroSlides[index].swatch}
+              key={swatch}
               initial={{ opacity: 0, scale: 1.1 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
@@ -167,8 +179,8 @@ export const HeroSection: React.FC = () => {
               className="w-full h-full"
             >
               <ProgressiveImg
-                src={heroSlides[index].swatch}
-                alt={heroSlides[index].title}
+                src={swatch}
+                alt={featured?.title ?? slide.title}
                 className="w-full h-full object-cover"
                 wrapperClassName="w-full h-full"
                 priority
@@ -187,8 +199,11 @@ export const HeroSection: React.FC = () => {
               exit={{ x: -10, opacity: 0 }}
               className="flex-grow"
             >
-              <h2 className="text-gray-900 text-base sm:text-lg md:text-xl font-bold tracking-tight leading-tight truncate">
-                {heroSlides[index].title}
+              {featured && (
+                <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-[#924321] mb-1">{slide.title}</p>
+              )}
+              <h2 className="text-gray-900 text-base sm:text-lg md:text-xl font-bold tracking-tight leading-tight line-clamp-2">
+                {featured?.title ?? slide.title}
               </h2>
             </motion.div>
           </AnimatePresence>
