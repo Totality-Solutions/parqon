@@ -186,6 +186,10 @@ export interface Product {
    */
   gallery?: (number | Media)[] | null;
   /**
+   * The product laid in a room. Shown in an "Application" section on the product page.
+   */
+  application?: (number | null) | Media;
+  /**
    * Optional colour / finish options.
    */
   finishes?:
@@ -530,6 +534,7 @@ export interface ProductsSelect<T extends boolean = true> {
       };
   image?: T;
   gallery?: T;
+  application?: T;
   finishes?:
     | T
     | {

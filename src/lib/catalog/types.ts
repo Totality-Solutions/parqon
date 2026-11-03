@@ -31,6 +31,8 @@ export interface Product {
   collection?: string;
   description?: string;
   gallery?: string[];
+  // the product laid in a room, shown in the "Application" section
+  application?: string;
   finishes?: Finish[];
   specs?: Spec[];
 }

@@ -1,0 +1,134 @@
+[
+ {
+  "id": 111,
+  "title": "Slate (OAKWD-204)",
+  "slug": "spc-flooring-spc-collection-slate-oakwd-204",
+  "brand": "Oaken",
+  "category": 4,
+  "type": null,
+  "visible": true,
+  "order": 110,
+  "collection": "SPC Collection",
+  "environment": null,
+  "description": "Parqon SPC Flooring is designed for spaces that demand superior durability without compromising on style. Made with a rigid stone polymer core, it offers exceptional strength, stability, and moisture resistance. Easy to install and built for long-term performance, it is a smart choice for modern, high-usage environments.",
+  "specs": [
+   {
+    "id": "6ae1f0895aa00d5454930c80",
+    "label": "Code",
+    "value": "OAKWD-204-PL / OAKWD-204-HB"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c81",
+    "label": "Plank",
+    "value": "228 x 1220 x 5 mm"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c82",
+    "label": "Herringbone",
+    "value": "150 x 750 x 5 mm"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c83",
+    "label": "Wear Layer",
+    "value": "0.3 mm"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c84",
+    "label": "Underlay (IXPE)",
+    "value": "1 mm"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c85",
+    "label": "Edge",
+    "value": "Micro bevel"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c86",
+    "label": "Surface",
+    "value": "Ultra matte, antislip"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c87",
+    "label": "Features",
+    "value": "100% water resistant, pet friendly, underfloor heating"
+   },
+   {
+    "id": "6ae1f0895aa00d5454930c88",
+    "label": "Tone",
+    "value": "Light"
+   }
+  ],
+  "image": 130,
+  "gallery": [],
+  "application": null,
+  "finishes": [],
+  "updatedAt": "2026-10-28T12:54:34.147Z",
+  "createdAt": "2026-10-28T12:54:34.146Z"
+ },
+ {
+  "id": 114,
+  "title": "Slate (OAKWD-207)",
+  "slug": "spc-flooring-spc-collection-slate-oakwd-207",
+  "brand": "Oaken",
+  "category": 4,
+  "type": null,
+  "visible": true,
+  "order": 113,
+  "collection": "SPC Collection",
+  "environment": null,
+  "description": "Parqon SPC Flooring is designed for spaces that demand superior durability without compromising on style. Made with a rigid stone polymer core, it offers exceptional strength, stability, and moisture resistance. Easy to install and built for long-term performance, it is a smart choice for modern, high-usage environments.",
+  "specs": [
+   {
+    "id": "6ae1f0975aa00d5454930c9b",
+    "label": "Code",
+    "value": "OAKWD-207-PL / OAKWD-207-HB"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930c9c",
+    "label": "Plank",
+    "value": "228 x 1220 x 5 mm"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930c9d",
+    "label": "Herringbone",
+    "value": "150 x 750 x 5 mm"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930c9e",
+    "label": "Wear Layer",
+    "value": "0.3 mm"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930c9f",
+    "label": "Underlay (IXPE)",
+    "value": "1 mm"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930ca0",
+    "label": "Edge",
+    "value": "Micro bevel"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930ca1",
+    "label": "Surface",
+    "value": "Ultra matte, antislip"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930ca2",
+    "label": "Features",
+    "value": "100% water resistant, pet friendly, underfloor heating"
+   },
+   {
+    "id": "6ae1f0975aa00d5454930ca3",
+    "label": "Tone",
+    "value": "Light"
+   }
+  ],
+  "image": 133,
+  "gallery": [],
+  "application": null,
+  "finishes": [],
+  "updatedAt": "2026-10-28T12:54:48.106Z",
+  "createdAt": "2026-10-28T12:54:48.106Z"
+ }
+]

@@ -270,6 +270,21 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
           </div>
         </div>
 
+        {/* APPLICATION: the product laid in a room */}
+        {product.application && (
+          <div className={`border-t border-gray-100 ${embedded ? 'pt-12 mb-12' : 'pt-24 mb-24'}`}>
+            <h2 className="text-xl font-bold uppercase tracking-tight mb-8">Application</h2>
+            <div className="w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-gray-50">
+              <ProgressiveImg
+                src={product.application}
+                className="w-full h-full object-cover"
+                wrapperClassName="w-full h-full"
+                alt={`${product.title} laid in a room`}
+              />
+            </div>
+          </div>
+        )}
+
         {!embedded && <FeaturesGrid />}
 
         {/* RELATED PRODUCTS */}

@@ -54,6 +54,7 @@ const toProduct = (doc: Doc, categories: Map<string, Doc>): Product | null => {
     collection: doc.collection || undefined,
     description: doc.description || category.description || undefined,
     gallery: gallery.length ? gallery : undefined,
+    application: fileUrl(doc.application) || undefined,
     specs: doc.specs?.length ? doc.specs.map((s: Doc) => ({ label: s.label, value: s.value })) : undefined,
     finishes: doc.finishes?.length
       ? doc.finishes.map((f: Doc, i: number) => ({ id: f.id ?? String(i), name: f.name, color: f.color ?? '', img: fileUrl(f.image) }))
@@ -119,7 +120,8 @@ const loadProducts = unstable_cache(
     const categoryById = new Map(categories.docs.map((c) => [String(c.id), c as Doc]));
     return products.docs.map((d) => toProduct(d as Doc, categoryById)).filter((p): p is Product => !!p);
   },
-  ['catalog-products', cacheScope],
+  // bump the version when the shape of Product changes, so old cached copies are not reused
+  ['catalog-products', 'v2', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 

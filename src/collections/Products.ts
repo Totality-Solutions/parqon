@@ -64,7 +64,8 @@ export const Products: CollectionConfig = {
           label: 'Images',
           fields: [
             { name: 'image', type: 'upload', relationTo: 'media', admin: { description: 'Main image.' } },
-            { name: 'gallery', type: 'upload', relationTo: 'media', hasMany: true, admin: { description: 'Extra images shown as thumbnails.' } }
+            { name: 'gallery', type: 'upload', relationTo: 'media', hasMany: true, admin: { description: 'Extra images shown as thumbnails.' } },
+            { name: 'application', type: 'upload', relationTo: 'media', label: 'Application photo', admin: { description: 'The product laid in a room. Shown in an "Application" section on the product page.' } }
           ]
         },
         {
