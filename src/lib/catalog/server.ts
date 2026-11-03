@@ -92,7 +92,8 @@ const loadSite = unstable_cache(
       contact: {
         addresses: (c.addresses ?? []).map((a: Doc) => ({
           label: a.label,
-          lines: String(a.lines ?? '').split('\n').map((l: string) => l.trim()).filter(Boolean)
+          lines: String(a.lines ?? '').split('\n').map((l: string) => l.trim()).filter(Boolean),
+          showOnMap: a.showOnMap !== false
         })),
         emails: (c.emails ?? []).map((e: Doc) => e.email),
         phones: (c.phones ?? []).map((p: Doc) => p.number).filter(Boolean),
@@ -103,7 +104,7 @@ const loadSite = unstable_cache(
     };
   },
   // bump the version when the shape of SiteCatalog changes, so old cached copies are not reused
-  ['catalog-site', 'v2', cacheScope],
+  ['catalog-site', 'v3', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 

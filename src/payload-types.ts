@@ -751,6 +751,10 @@ export interface ContactSetting {
          * One line per row.
          */
         lines: string;
+        /**
+         * Gives this address a tab on the Contact page map.
+         */
+        showOnMap?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -813,6 +817,7 @@ export interface ContactSettingsSelect<T extends boolean = true> {
     | {
         label?: T;
         lines?: T;
+        showOnMap?: T;
         id?: T;
       };
   emails?:

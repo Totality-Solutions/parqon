@@ -82,6 +82,8 @@ export const ContactPage: React.FC = () => {
   const [mapIndex, setMapIndex] = useState(0);
   const { contact } = useCatalog();
   const ADDRESSES = contact.addresses;
+  // addresses switched off for the map in the CMS are still listed under "Visit us"
+  const MAP_ADDRESSES = ADDRESSES.filter((a) => a.showOnMap);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -217,7 +219,7 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* Full-width map of the selected address */}
-        <motion.div
+        {MAP_ADDRESSES.length > 0 && <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -225,7 +227,7 @@ export const ContactPage: React.FC = () => {
           className="mt-24 w-full"
         >
           <div className="flex gap-2 mb-3">
-            {ADDRESSES.map((address, i) => (
+            {MAP_ADDRESSES.map((address, i) => (
               <button
                 key={address.label}
                 type="button"
@@ -240,14 +242,14 @@ export const ContactPage: React.FC = () => {
           </div>
           <iframe
             key={mapIndex}
-            title={`Map: ${ADDRESSES[mapIndex].label}`}
-            src={mapEmbed(ADDRESSES[mapIndex])}
+            title={`Map: ${MAP_ADDRESSES[mapIndex]?.label ?? ''}`}
+            src={mapEmbed(MAP_ADDRESSES[mapIndex] ?? MAP_ADDRESSES[0])}
             className="w-full h-[320px] md:h-[450px] border border-gray-100"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
-        </motion.div>
+        </motion.div>}
 
         {/* Office & showroom addresses */}
         <div className="mt-12 w-full">

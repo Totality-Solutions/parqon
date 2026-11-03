@@ -70,6 +70,7 @@ export interface Brochure {
 export interface Address {
   label: string;
   lines: string[];
+  showOnMap: boolean; // gets a tab on the Contact page map
 }
 
 export interface ContactInfo {

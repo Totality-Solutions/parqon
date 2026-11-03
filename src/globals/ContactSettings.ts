@@ -16,7 +16,8 @@ export const ContactSettings: GlobalConfig = {
       admin: { description: 'Shown on the Contact page (with map) and in the footer.' },
       fields: [
         { name: 'label', type: 'text', required: true, admin: { description: 'e.g. Corporate Office, Display Centre' } },
-        { name: 'lines', type: 'textarea', required: true, admin: { description: 'One line per row.' } }
+        { name: 'lines', type: 'textarea', required: true, admin: { description: 'One line per row.' } },
+        { name: 'showOnMap', type: 'checkbox', defaultValue: true, label: 'Show on map', admin: { description: 'Gives this address a tab on the Contact page map.' } }
       ]
     },
     {
