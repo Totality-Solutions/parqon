@@ -89,7 +89,7 @@ export const ProductHero: React.FC = () => {
         <section className="w-full bg-white pb-16 overflow-hidden">
             <Container>
                 {/* Main Image Container with Zoom Reveal */}
-                <div className="w-full h-[60vh] md:h-[75vh] overflow-hidden mb-12">
+                <div className="w-full hero-full overflow-hidden mb-12">
                     <motion.img
                         initial={{ scale: 1.2, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}

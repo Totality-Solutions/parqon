@@ -7,7 +7,7 @@ export const AboutHero: React.FC = () => {
   return (
     <section className="mb-16 md:mb-24">
       <Container>
-        <div className="w-full h-[50vh] md:h-[70vh] overflow-hidden bg-gray-100">
+        <div className="w-full hero-full overflow-hidden bg-gray-100">
           <ProgressiveImg
             src={'/images/pages/about/banner.jpg'}
             className="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-1000"

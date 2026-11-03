@@ -85,7 +85,7 @@ export const AppHero: React.FC<AppHeroProps> = ({
 }) => {
   const leadForm = useLeadForm();
   return (
-    <section className="w-full lg:h-[75vh] flex flex-col lg:flex-row items-stretch overflow-hidden">
+    <section className="w-full lg-hero-full flex flex-col lg:flex-row items-stretch overflow-hidden">
       
       {/* Left Column: Media with Zoom-in Reveal */}
       <motion.div 

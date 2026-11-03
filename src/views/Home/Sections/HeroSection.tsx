@@ -94,7 +94,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section id="hero" className="relative w-full overflow-hidden">
       {/* Background Slider */}
-      <div className="w-full h-[70vh] md:h-[85vh] 2xl:h-[82vh] bg-[#F1F1F1] relative overflow-hidden">
+      <div className="w-full hero-full bg-[#F1F1F1] relative overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={heroSlides[index].id}

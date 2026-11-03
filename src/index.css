@@ -70,6 +70,26 @@
 
 @layer components {
 
+  /* Hero that fills the screen below the fixed header (64px, 80px from 781px wide).
+     svh = the visible height on phones, without the browser's toolbars; vh is the fallback. */
+  .hero-full {
+    height: calc(100vh - 4rem);
+    height: calc(100svh - 4rem);
+  }
+  @media (min-width: 781px) {
+    .hero-full {
+      height: calc(100vh - 5rem);
+      height: calc(100svh - 5rem);
+    }
+  }
+  /* Same, from large screens only (for heroes that stack on phones) */
+  @media (min-width: 1024px) {
+    .lg-hero-full {
+      height: calc(100vh - 5rem);
+      height: calc(100svh - 5rem);
+    }
+  }
+
   /* DEFAULT: Desktop / Large Screens (1440px+) */
   .btn-responsive-cta {
     --btn-px: 1.8rem;
