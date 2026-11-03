@@ -93,7 +93,7 @@ export const PanelSlider: React.FC<PanelSliderProps> = ({ images, interval = 500
                 alt=""
                 aria-hidden="true"
                 className="w-full h-full object-cover"
-                initial={{ scale: 1.35 + i * 0.12 }}
+                initial={{ scale: 1.12 + i * 0.05 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: DURATION + 0.3, delay, ease: EASE }}
               />

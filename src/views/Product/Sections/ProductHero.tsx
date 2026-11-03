@@ -85,12 +85,9 @@ import { motion } from 'framer-motion';
 import { Button } from '../../../components/common/Button';
 import { PanelSlider } from '../../../components/common/PanelSlider';
 
-// public/images/products/all
-const HERO_IMAGES = [
-    '1.jpg', '2.jpg', '3.jpg', '4.png', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg',
-    '11.png', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg',
-    '21.webp', '22.jpg', '23.jpg', '24.jpg', '25.jpg', '26.jpg', '27.jpg', '28.jpg', '29.jpg', '30.jpg', '31.jpg',
-].map((f) => `/images/products/all/${f}`);
+// public/images/products/all - only files big enough for a full-screen hero (about 1600x1100 px or more);
+// smaller ones get stretched and look blurry
+const HERO_IMAGES = ['8.jpg', '6.jpg', '9.jpg', '24.jpg'].map((f) => `/images/products/all/${f}`);
 
 export const ProductHero: React.FC = () => {
     return (
