@@ -58,7 +58,6 @@ const MOBILE_STYLE_DATA = [
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
@@ -74,14 +73,6 @@ export const Navbar: React.FC = () => {
   }, [searchOpen]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 80);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : 'unset';
   }, [isOpen]);
 
@@ -94,40 +85,26 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <div className="h-24 sm:h-32 [@media(min-width:781px)]:h-40 w-full bg-white border-b border-gray-50" />
+      {/* space for the fixed header below */}
+      <div className="h-16 [@media(min-width:781px)]:h-20 w-full bg-white" />
 
       <nav
-        className={`fixed top-0 left-0 w-full z-[999] bg-white transition-all duration-500 ease-in-out ${
-          isScrolled
-            ? 'h-16 [@media(min-width:781px)]:h-20 shadow-md border-b border-gray-100'
-            : 'h-20 [@media(min-width:781px)]:h-40 border-b border-transparent'
-        }`}
+        className="fixed top-0 left-0 w-full z-[999] bg-white h-16 [@media(min-width:781px)]:h-20 border-b border-gray-100"
       >
         <Container className="h-full relative flex items-center justify-between px-4 sm:px-6">
-          {/* z-10 keeps the logo above the (transformed) menu row so it stays clickable */}
-          <div
-            className={`relative z-10 transition-all duration-500 ease-in-out flex items-center ${
-              isScrolled
-                ? '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-7 lg:left-8 [@media(min-width:781px)]:translate-x-0'
-                : '[@media(min-width:781px)]:absolute [@media(min-width:781px)]:left-1/2 [@media(min-width:781px)]:-translate-x-1/2 [@media(min-width:781px)]:top-8'
-            }`}
-          >
+          {/* Logo on the left */}
+          <div className="relative z-10 flex items-center shrink-0">
             <Link to="/" aria-label="Go to home page" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="block">
               <img
                 src={PAROONLogo}
                 alt="Logo"
-                className={`w-auto object-contain transition-all duration-500 h-8 [@media(min-width:781px)]:${isScrolled ? 'h-10' : 'h-12'}`}
+                className="w-auto object-contain h-8 [@media(min-width:781px)]:h-10"
               />
             </Link>
           </div>
 
-          <div
-            className={`flex items-center transition-all duration-500 flex-1 ${
-              isScrolled
-                ? 'justify-end [@media(min-width:781px)]:translate-y-0'
-                : 'justify-end [@media(min-width:781px)]:justify-center [@media(min-width:781px)]:translate-y-10'
-            }`}
-          >
+          {/* Menu on the right */}
+          <div className="flex items-center justify-end flex-1 h-full">
             <div className="hidden [@media(min-width:781px)]:flex items-center gap-4 lg:gap-5 xl:gap-8 h-full">
               {navItems.map((item) => {
                 const isProducts = item.name === 'Products';
@@ -218,9 +195,7 @@ export const Navbar: React.FC = () => {
               exit={{ opacity: 0 }}
               onMouseEnter={() => setShowSubmenu(true)}
               onMouseLeave={() => setShowSubmenu(false)}
-              className={`fixed left-0 w-full z-[1000] bg-white shadow-[0_30px_60px_rgba(0,0,0,0.08)] border-t border-gray-100 transition-all duration-500 hidden [@media(min-width:781px)]:block ${
-                isScrolled ? 'top-16 [@media(min-width:781px)]:top-20' : 'top-20 [@media(min-width:781px)]:top-40'
-              }`}
+              className="fixed left-0 w-full z-[1000] bg-white shadow-[0_30px_60px_rgba(0,0,0,0.08)] border-t border-gray-100 hidden [@media(min-width:781px)]:block top-16 [@media(min-width:781px)]:top-20"
             >
               <ProductSubmenu onClose={() => setShowSubmenu(false)} />
             </motion.div>
