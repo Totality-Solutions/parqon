@@ -381,6 +381,8 @@ export const ProductSection: React.FC = () => {
                   <Button
                     label="Explore"
                     variant="primary"
+                    // opens the products of the selected brand, like the arrow above
+                    to={`/products?brand=${activeTab.trim()}`}
                     className="w-fit scale-[0.9]"
                     arrowDirection="ne"
                     arrowColor="fill-white"
