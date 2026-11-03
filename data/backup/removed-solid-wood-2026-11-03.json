@@ -1,0 +1,122 @@
+[
+ {
+  "id": 339,
+  "title": "AbSoalho Maple (Maple)",
+  "slug": "solid-wood-absoalho-solid-wood-flooring-absoalho-maple-maple",
+  "brand": "Oaken",
+  "category": 2,
+  "type": null,
+  "visible": false,
+  "order": 338,
+  "collection": "AbSoalho solid wood flooring · Tongue & groove board",
+  "environment": null,
+  "description": null,
+  "specs": [
+   {
+    "id": "6ae1f59b5aa00d5454931156",
+    "label": "Wood Specie",
+    "value": "Maple"
+   },
+   {
+    "id": "6ae1f59b5aa00d5454931157",
+    "label": "Format",
+    "value": "Tongue & groove board"
+   },
+   {
+    "id": "6ae1f59b5aa00d5454931158",
+    "label": "Series",
+    "value": "AbSoalho solid wood flooring"
+   },
+   {
+    "id": "6ae1f59b5aa00d5454931159",
+    "label": "Details",
+    "value": "20 mm × 90–140 mm × 600–3100 mm; ~12% moisture"
+   }
+  ],
+  "image": null,
+  "gallery": [],
+  "finishes": [],
+  "updatedAt": "2026-11-03T12:49:39.925Z",
+  "createdAt": "2026-10-28T13:16:11.822Z"
+ },
+ {
+  "id": 340,
+  "title": "AbSoalho Nogueira (Walnut)",
+  "slug": "solid-wood-absoalho-solid-wood-flooring-absoalho-nogueira-walnut",
+  "brand": "Oaken",
+  "category": 2,
+  "type": null,
+  "visible": false,
+  "order": 339,
+  "collection": "AbSoalho solid wood flooring · Tongue & groove board",
+  "environment": null,
+  "description": null,
+  "specs": [
+   {
+    "id": "6ae1f59d5aa00d545493115a",
+    "label": "Wood Specie",
+    "value": "Walnut"
+   },
+   {
+    "id": "6ae1f59d5aa00d545493115b",
+    "label": "Format",
+    "value": "Tongue & groove board"
+   },
+   {
+    "id": "6ae1f59d5aa00d545493115c",
+    "label": "Series",
+    "value": "AbSoalho solid wood flooring"
+   },
+   {
+    "id": "6ae1f59d5aa00d545493115d",
+    "label": "Details",
+    "value": "20 mm × 90–140 mm × 600–3100 mm; ~12% moisture"
+   }
+  ],
+  "image": null,
+  "gallery": [],
+  "finishes": [],
+  "updatedAt": "2026-11-03T12:50:32.840Z",
+  "createdAt": "2026-10-28T13:16:13.469Z"
+ },
+ {
+  "id": 341,
+  "title": "AbSoalho Pau Rosa (Rosewood)",
+  "slug": "solid-wood-absoalho-solid-wood-flooring-absoalho-pau-rosa-rosewood",
+  "brand": "Oaken",
+  "category": 2,
+  "type": null,
+  "visible": false,
+  "order": 340,
+  "collection": "AbSoalho solid wood flooring · Tongue & groove board",
+  "environment": null,
+  "description": null,
+  "specs": [
+   {
+    "id": "6ae1f59e5aa00d545493115e",
+    "label": "Wood Specie",
+    "value": "Rosewood"
+   },
+   {
+    "id": "6ae1f59e5aa00d545493115f",
+    "label": "Format",
+    "value": "Tongue & groove board"
+   },
+   {
+    "id": "6ae1f59e5aa00d5454931160",
+    "label": "Series",
+    "value": "AbSoalho solid wood flooring"
+   },
+   {
+    "id": "6ae1f59e5aa00d5454931161",
+    "label": "Details",
+    "value": "20 mm × 90–140 mm × 600–3100 mm; ~12% moisture"
+   }
+  ],
+  "image": null,
+  "gallery": [],
+  "finishes": [],
+  "updatedAt": "2026-11-03T12:50:32.839Z",
+  "createdAt": "2026-10-28T13:16:15.105Z"
+ }
+]
