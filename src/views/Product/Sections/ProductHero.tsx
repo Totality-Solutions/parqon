@@ -83,24 +83,21 @@ import React from 'react';
 import { Container } from '../../../components/common/Container';
 import { motion } from 'framer-motion';
 import { Button } from '../../../components/common/Button';
+import { PanelSlider } from '../../../components/common/PanelSlider';
+
+// public/images/products/all
+const HERO_IMAGES = [
+    '1.jpg', '2.jpg', '3.jpg', '4.png', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg',
+    '11.png', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg',
+    '21.webp', '22.jpg', '23.jpg', '24.jpg', '25.jpg', '26.jpg', '27.jpg', '28.jpg', '29.jpg', '30.jpg', '31.jpg',
+].map((f) => `/images/products/all/${f}`);
 
 export const ProductHero: React.FC = () => {
     return (
         <section className="w-full bg-white pb-16 overflow-hidden">
             <Container>
-                {/* Main Image Container with Zoom Reveal */}
-                <div className="w-full hero-full overflow-hidden mb-12">
-                    <motion.img
-                        initial={{ scale: 1.2, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                        src="/images/pages/products/banner.jpg"
-                        className="w-full h-full object-cover"
-                        alt="Product Styles Showcase"
-                        // Change lowercase 'p' to uppercase 'P'
-                        fetchPriority="high"
-                    />
-                </div>
+                {/* Main image slider: each new image comes in as staggered panels */}
+                <PanelSlider images={HERO_IMAGES} alt="Product Styles Showcase" className="w-full hero-full mb-12" />
 
                 {/* Content Row */}
                 <div className="flex flex-col md:flex-row justify-between items-start gap-8">
