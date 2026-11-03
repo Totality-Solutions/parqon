@@ -3,7 +3,7 @@
 import type { Brand } from '../../lib/catalog/types';
 
 export const HERO_PRODUCTS: Record<Brand, string> = {
-  Oaken: 'engineered-flooring-designer-collections-oak-herringbone',
-  Nordwood: 'deckwood-decking-thermo-ash-deck',
+  Oaken: 'engineered-designer-trendtime-3-oak-bardolino-natural-1748884',
+  Nordwood: 'deck-wood-decking-nova-ash-decking',
   Heatwood: 'aurum-mosaico-aurum-mosaico-parquet-aurum-mosaico-am106-am106'
 };
