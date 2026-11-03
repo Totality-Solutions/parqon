@@ -152,11 +152,13 @@ export const Footer: React.FC = () => {
                   </a>
                 </li>
               ))}
-              <li>
-                <a href={phoneLink(contact)} className="text-gray-400 hover:text-[#924321] transition-colors">
-                  {contact.phone}
-                </a>
-              </li>
+              {contact.phones.map((phone) => (
+                <li key={phone}>
+                  <a href={phoneLink(phone)} className="text-gray-400 hover:text-[#924321] transition-colors">
+                    {phone}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 

@@ -95,14 +95,15 @@ const loadSite = unstable_cache(
           lines: String(a.lines ?? '').split('\n').map((l: string) => l.trim()).filter(Boolean)
         })),
         emails: (c.emails ?? []).map((e: Doc) => e.email),
-        phone: c.phone ?? '',
+        phones: (c.phones ?? []).map((p: Doc) => p.number).filter(Boolean),
         whatsappHours: c.whatsappHours ?? '',
         social: c.social ?? {}
       },
       settings: { showBrochures: Boolean((settings as Doc).showBrochures) }
     };
   },
-  ['catalog-site', cacheScope],
+  // bump the version when the shape of SiteCatalog changes, so old cached copies are not reused
+  ['catalog-site', 'v2', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 

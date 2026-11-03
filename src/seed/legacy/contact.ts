@@ -31,6 +31,4 @@ export const mapEmbed = (address: Address) =>
 
 export const EMAILS = ['bdm@parqon.co.in', 'horizoninterspace@gmail.com'];
 
-export const PHONE ='+91 96631 02951';
-export const PHONE_LINK = `tel:${PHONE.replace(/\s/g, '')}`;
-export const WHATSAPP_LINK = `https://wa.me/${PHONE.replace(/\D/g, '')}`;
+export const PHONES = ['+91 79775 62130', '+91 88509 09817'];

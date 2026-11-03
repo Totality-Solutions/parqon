@@ -75,7 +75,7 @@ export interface Address {
 export interface ContactInfo {
   addresses: Address[];
   emails: string[];
-  phone: string;
+  phones: string[]; // the first one is also the WhatsApp number
   whatsappHours: string;
   social: { instagram?: string; linkedin?: string; facebook?: string };
 }

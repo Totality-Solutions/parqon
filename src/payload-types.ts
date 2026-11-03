@@ -761,9 +761,17 @@ export interface ContactSetting {
       }[]
     | null;
   /**
-   * e.g. +91 96631 02951. Also used for WhatsApp.
+   * All are shown on the Contact page and in the footer. The first one is also used for WhatsApp.
    */
-  phone: string;
+  phones?:
+    | {
+        /**
+         * e.g. +91 79775 62130
+         */
+        number: string;
+        id?: string | null;
+      }[]
+    | null;
   whatsappHours?: string | null;
   social?: {
     instagram?: string | null;
@@ -813,7 +821,12 @@ export interface ContactSettingsSelect<T extends boolean = true> {
         email?: T;
         id?: T;
       };
-  phone?: T;
+  phones?:
+    | T
+    | {
+        number?: T;
+        id?: T;
+      };
   whatsappHours?: T;
   social?:
     | T

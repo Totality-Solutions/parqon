@@ -134,8 +134,10 @@ export const ContactPage: React.FC = () => {
               {contact.emails.map((email, i) => (
                 <ContactInfoCard key={email} index={i} title="E-mail" detail={email} imageSrc={emailIconImg} href={`mailto:${email}`} />
               ))}
-              <ContactInfoCard index={contact.emails.length} title="Call us" detail={contact.phone} imageSrc={phoneIconImg} href={phoneLink(contact)} />
-              <ContactInfoCard index={contact.emails.length + 1} title="Msg on Whatsapp" detail={contact.whatsappHours} imageSrc={whatsappIconImg} href={whatsappLink(contact)} />
+              {contact.phones.map((phone, i) => (
+                <ContactInfoCard key={phone} index={contact.emails.length + i} title="Call us" detail={phone} imageSrc={phoneIconImg} href={phoneLink(phone)} />
+              ))}
+              <ContactInfoCard index={contact.emails.length + contact.phones.length} title="Msg on Whatsapp" detail={contact.whatsappHours} imageSrc={whatsappIconImg} href={whatsappLink(contact)} />
             </div>
           </div>
 

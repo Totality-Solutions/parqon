@@ -25,7 +25,13 @@ export const ContactSettings: GlobalConfig = {
       labels: { singular: 'E-mail', plural: 'E-mails' },
       fields: [{ name: 'email', type: 'email', required: true }]
     },
-    { name: 'phone', type: 'text', required: true, admin: { description: 'e.g. +91 96631 02951. Also used for WhatsApp.' } },
+    {
+      name: 'phones',
+      type: 'array',
+      labels: { singular: 'Phone number', plural: 'Phone numbers' },
+      admin: { description: 'All are shown on the Contact page and in the footer. The first one is also used for WhatsApp.' },
+      fields: [{ name: 'number', type: 'text', required: true, admin: { description: 'e.g. +91 79775 62130' } }]
+    },
     { name: 'whatsappHours', type: 'text', defaultValue: '10:00 am to 6:00 pm' },
     {
       name: 'social',

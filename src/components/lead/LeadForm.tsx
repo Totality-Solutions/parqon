@@ -144,7 +144,7 @@ const LeadFormModal = ({ context, onClose }: { context: LeadContext; onClose: ()
               {status === 'error' && (
                 <p className="text-sm text-red-600" role="alert">
                   Sorry, we couldn't send your request. Please try again, or call{' '}
-                  <a href={phoneLink(contact)} className="underline font-semibold">{contact.phone}</a> /{' '}
+                  <a href={phoneLink(contact.phones[0] ?? '')} className="underline font-semibold">{contact.phones[0]}</a> /{' '}
                   <a href={whatsappLink(contact)} target="_blank" rel="noopener noreferrer" className="underline font-semibold">WhatsApp us</a>.
                 </p>
               )}

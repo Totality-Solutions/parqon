@@ -13,7 +13,7 @@ import { getPayload, type Payload } from 'payload';
 import { CATEGORIES, CATEGORY_PRODUCTS } from './legacy/products';
 import { ALL_CERTIFICATIONS, certificationsFor } from './legacy/certifications';
 import { BROCHURES, SHOW_BROCHURES } from './legacy/brochures';
-import { ADDRESSES, EMAILS, PHONE } from './legacy/contact';
+import { ADDRESSES, EMAILS, PHONES } from './legacy/contact';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 
@@ -154,13 +154,13 @@ async function seed() {
 
   // Contact details and settings (only filled in when still empty)
   const contact = await payload.findGlobal({ slug: 'contact-settings' });
-  if (!contact.phone) {
+  if (!contact.phones?.length) {
     await payload.updateGlobal({
       slug: 'contact-settings',
       data: {
         addresses: ADDRESSES.map((a) => ({ label: a.label, lines: a.lines.join('\n') })),
         emails: EMAILS.map((email) => ({ email })),
-        phone: PHONE,
+        phones: PHONES.map((number) => ({ number })),
         whatsappHours: '10:00 am to 6:00 pm',
         social: {
           instagram: 'https://www.instagram.com/parqonofficial/',

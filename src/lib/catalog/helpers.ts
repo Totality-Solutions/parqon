@@ -34,8 +34,9 @@ export const certificationsFor = (catalog: Pick<Catalog, 'certifications'>, bran
 export const brochureFor = (catalog: Pick<Catalog, 'brochures'>, brand: Brand) => catalog.brochures.find((b) => b.brand === brand);
 
 // Contact links
-export const phoneLink = (contact: ContactInfo) => `tel:${contact.phone.replace(/\s/g, '')}`;
-export const whatsappLink = (contact: ContactInfo) => `https://wa.me/${contact.phone.replace(/\D/g, '')}`;
+export const phoneLink = (phone: string) => `tel:${phone.replace(/\s/g, '')}`;
+// WhatsApp uses the first phone number
+export const whatsappLink = (contact: ContactInfo) => `https://wa.me/${(contact.phones[0] ?? '').replace(/\D/g, '')}`;
 
 // Opens the address in Google Maps
 export const mapLink = (address: Address) =>
