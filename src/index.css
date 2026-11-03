@@ -48,6 +48,17 @@
 }
 
 @layer base {
+  /* The fixed header covers the top 64px (80px from 781px wide): page navigation and anchor links
+     scroll content to just below it instead of behind it */
+  html {
+    scroll-padding-top: 4rem;
+  }
+  @media (min-width: 781px) {
+    html {
+      scroll-padding-top: 5rem;
+    }
+  }
+
   body {
     @apply font-sans;
     font-size: var(--fs-body);
