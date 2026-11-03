@@ -131,7 +131,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
           
           {/* LEFT: GALLERY SECTION */}
           <div className="flex-[1.4]">
-            <div className="aspect-[16/10] bg-white overflow-hidden mb-6 relative">
+            <div className="aspect-[16/10] bg-gray-100 overflow-hidden mb-6 relative">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeImage}
@@ -158,7 +158,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
                 <button 
                   key={i} 
                   onClick={() => setActiveImage(img)}
-                  className={`aspect-[4/3] bg-white border transition-all duration-300 ${activeImage === img ? 'border-black' : 'border-transparent opacity-50 hover:opacity-100'}`}
+                  className={`aspect-[4/3] bg-gray-100 border transition-all duration-300 ${activeImage === img ? 'border-black' : 'border-transparent opacity-50 hover:opacity-100'}`}
                 >
                   <ProgressiveImg src={img} className="w-full h-full object-contain" wrapperClassName="w-full h-full" alt={`${product.title} view ${i}`} />
                 </button>

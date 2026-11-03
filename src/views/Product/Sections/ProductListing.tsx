@@ -644,7 +644,7 @@ export const ProductListing: React.FC = () => {
   const productCard = (p: Product) => (
     <motion.div layout key={p.id} className="w-full">
       <Link to={productLink(p.id)} preventScrollReset className="group block w-full">
-        <div className="aspect-[3/4] overflow-hidden bg-white mb-6 relative">
+        <div className="aspect-[3/4] overflow-hidden bg-gray-100 mb-6 relative">
           <ProgressiveImg src={p.image} className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={p.title} />
         </div>
         <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4>
