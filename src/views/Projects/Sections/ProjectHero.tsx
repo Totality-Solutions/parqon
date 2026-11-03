@@ -99,7 +99,7 @@ export const ProjectHero: React.FC<ProjectHeroProps> = ({ onSearch }) => {
   };
 
   return (
-    <section className="relative pt-0 md:pt-30 pb-10 overflow-hidden bg-white">
+    <section className="relative pt-12 md:pt-16 pb-10 overflow-hidden bg-white">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           

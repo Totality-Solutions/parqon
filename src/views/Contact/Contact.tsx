@@ -113,7 +113,7 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen pt-32 pb-32 overflow-hidden">
+    <div className="bg-white min-h-screen pt-12 md:pt-16 pb-32 overflow-hidden">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           

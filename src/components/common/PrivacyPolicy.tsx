@@ -37,7 +37,7 @@ const BulletList = ({ items }: { items: string[] }) => (
 
 export const PrivacyPolicy: React.FC = () => {
   return (
-    <div className="bg-white min-h-screen pt-36 pb-32">
+    <div className="bg-white min-h-screen pt-12 md:pt-16 pb-32">
       <Container>
         <div className="max-w-full">
 
