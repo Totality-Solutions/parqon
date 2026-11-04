@@ -20,7 +20,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     return {
       title: `${product.title} | ${product.brand} ${product.category}`,
       description: product.description ?? `${product.title} from the Parqon ${product.brand} ${product.category} range.`,
-      openGraph: product.image ? { images: [product.image] } : undefined
+      openGraph: product.image ? { images: [product.image.split('#')[0]] } : undefined
     };
   }
   const category = findCategory(catalog.categories, brandParam, categoryParam);
@@ -30,7 +30,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     return {
       title: `${typeName ? `${typeName} ` : ''}${category.title} | ${category.brand}`,
       description: category.description,
-      openGraph: category.image ? { images: [category.image] } : undefined
+      openGraph: category.image ? { images: [category.image.split('#')[0]] } : undefined
     };
   }
   return { title: brand ? `${brand} Products` : 'Products', description: 'Explore Parqon flooring, decking, cladding and inlay parquet collections.' };

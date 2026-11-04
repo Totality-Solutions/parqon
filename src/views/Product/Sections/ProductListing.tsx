@@ -645,7 +645,7 @@ export const ProductListing: React.FC = () => {
     <motion.div layout key={p.id} className="w-full">
       <Link to={productLink(p.id)} preventScrollReset className="group block w-full">
         <div className="aspect-[3/4] overflow-hidden bg-gray-100 mb-6 relative">
-          <ProgressiveImg src={p.image} className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={p.title} />
+          <ProgressiveImg sizes="(min-width: 1280px) 25vw, (min-width: 640px) 45vw, 100vw" src={p.image} className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={p.title} />
         </div>
         <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{p.title}</h4>
         {p.collection && <p className="text-[11px] text-slate-400 font-bold capitalize">{p.collection}</p>}
@@ -657,7 +657,7 @@ export const ProductListing: React.FC = () => {
     <motion.div layout key={`${c.brand}-${c.slug}`} className="w-full">
       <Link to={categoryPath(c)} className="group block w-full">
         <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
-          <ProgressiveImg src={c.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={c.title} />
+          <ProgressiveImg sizes="(min-width: 1280px) 25vw, (min-width: 640px) 45vw, 100vw" src={c.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={c.title} />
         </div>
         <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{c.title}</h4>
         <p className="text-[11px] text-slate-400 font-bold capitalize">
@@ -674,7 +674,7 @@ export const ProductListing: React.FC = () => {
       <motion.div layout key={t.slug} className="w-full">
         <Link to={categoryPath(activeCategory!, t.slug)} className="group block w-full">
           <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-6 relative">
-            <ProgressiveImg src={typeImage(catalog, activeCategory!, t.slug)} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={t.name} />
+            <ProgressiveImg sizes="(min-width: 1280px) 25vw, (min-width: 640px) 45vw, 100vw" src={typeImage(catalog, activeCategory!, t.slug)} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" wrapperClassName="w-full h-full" alt={t.name} />
           </div>
           <h4 className="font-medium text-xl tracking-tight leading-snug mb-1 capitalize">{t.name}</h4>
           <p className="text-[11px] text-slate-400 font-bold">{count} {count === 1 ? 'product' : 'products'}</p>

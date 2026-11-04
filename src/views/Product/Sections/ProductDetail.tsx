@@ -143,6 +143,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
                 >
                   <ProgressiveImg
                     src={activeImage}
+                    sizes="(min-width: 1024px) 60vw, 100vw"
                     className="w-full h-full object-contain"
                     wrapperClassName="w-full h-full"
                     alt={product.title}
@@ -160,7 +161,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
                   onClick={() => setActiveImage(img)}
                   className={`aspect-[4/3] bg-gray-100 border transition-all duration-300 ${activeImage === img ? 'border-black' : 'border-transparent opacity-50 hover:opacity-100'}`}
                 >
-                  <ProgressiveImg src={img} className="w-full h-full object-contain" wrapperClassName="w-full h-full" alt={`${product.title} view ${i}`} />
+                  <ProgressiveImg src={img} sizes="(min-width: 1024px) 15vw, 25vw" className="w-full h-full object-contain" wrapperClassName="w-full h-full" alt={`${product.title} view ${i}`} />
                 </button>
               ))}
             </div>
@@ -296,7 +297,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
               {recommendations.map((item) => (
                 <Link key={item.id} to={productLink ? productLink(item.id) : `/product/${item.id}`} preventScrollReset={embedded} className="group block">
                   <div className="aspect-[4/5] overflow-hidden bg-white mb-4">
-                    <ProgressiveImg src={item.image} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700" wrapperClassName="w-full h-full" alt={item.title} />
+                    <ProgressiveImg sizes="(min-width: 768px) 25vw, 50vw" src={item.image} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700" wrapperClassName="w-full h-full" alt={item.title} />
                   </div>
                   <h4 className="text-[11px] font-bold uppercase tracking-widest group-hover:text-gray-500 transition-colors">{item.title}</h4>
                   <p className="text-[9px] text-gray-400 uppercase mt-1">{item.collection}</p>

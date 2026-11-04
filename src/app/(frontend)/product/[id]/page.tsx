@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${product.title} | ${product.brand} ${product.category}`,
     description: product.description ?? `${product.title} from the Parqon ${product.brand} ${product.category} range.`,
-    openGraph: product.image ? { images: [product.image] } : undefined
+    openGraph: product.image ? { images: [product.image.split('#')[0]] } : undefined
   };
 }
 

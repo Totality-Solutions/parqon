@@ -8,11 +8,21 @@ import { cache } from 'react';
 import { CATALOG_TAG } from '../../collections/revalidate';
 import type { Brand, Catalog, Category, Product, SiteCatalog } from './types';
 
-type Upload = { url?: string | null } | string | number | null | undefined;
+type Upload =
+  | { url?: string | null; width?: number | null; sizes?: { card?: { filename?: string | null; width?: number | null } } }
+  | string | number | null | undefined;
 type Doc = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-// Uploaded file URL (relationships come back populated at depth >= 1)
-const fileUrl = (upload: Upload) => (upload && typeof upload === 'object' ? upload.url ?? '' : '');
+// Uploaded file URL (relationships come back populated at depth >= 1). When the CMS made a smaller copy
+// ("card", 900px wide), its name rides along after "#" so ProgressiveImg can let phones and slow networks
+// download that one instead (browsers ignore the "#" part when fetching).
+const fileUrl = (upload: Upload) => {
+  if (!upload || typeof upload !== 'object' || !upload.url) return '';
+  const card = upload.sizes?.card;
+  return card?.filename && card.width && upload.width && upload.width > card.width
+    ? `${upload.url}#w=${upload.width}&card=${encodeURIComponent(card.filename)}`
+    : upload.url;
+};
 
 // public read rules (visible items only), everything in one go, CMS order
 const common = { overrideAccess: false, pagination: false, sort: 'order' } as const;
@@ -105,7 +115,7 @@ const loadSite = unstable_cache(
     };
   },
   // bump the version when the shape of SiteCatalog changes, so old cached copies are not reused
-  ['catalog-site', 'v3', cacheScope],
+  ['catalog-site', 'v4', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 
@@ -121,7 +131,7 @@ const loadProducts = unstable_cache(
     return products.docs.map((d) => toProduct(d as Doc, categoryById)).filter((p): p is Product => !!p);
   },
   // bump the version when the shape of Product changes, so old cached copies are not reused
-  ['catalog-products', 'v3', cacheScope],
+  ['catalog-products', 'v4', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 

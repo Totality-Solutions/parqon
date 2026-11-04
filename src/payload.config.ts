@@ -15,6 +15,7 @@ import { Media } from './collections/Media'
 import { Products } from './collections/Products'
 import { Users } from './collections/Users'
 import { ContactSettings } from './globals/ContactSettings'
+import { storageCachePlugin } from './lib/storageCache'
 import { migrations } from './migrations'
 import { SiteSettings } from './globals/SiteSettings'
 
@@ -63,7 +64,9 @@ export default buildConfig({
               secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || ''
             }
           }
-        })
+        }),
+        // after s3Storage: sets a 30-day cache header on each file it uploads
+        storageCachePlugin('media')
       ]
     : []
 })
