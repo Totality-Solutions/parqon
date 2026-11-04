@@ -26,8 +26,13 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || ''
 // Postgres tables come only from the migrations in src/migrations (npm run payload migrate);
 // the live site applies any new ones when it starts
+// On Vercel every server instance has its own pool, and Supabase's pooler allows only a few connections:
+// keep each instance small and give idle connections back quickly (use the pooler's port 6543, transaction mode)
+const pool = process.env.VERCEL
+  ? { connectionString: databaseUrl, max: 3, idleTimeoutMillis: 10_000 }
+  : { connectionString: databaseUrl }
 const db = databaseUrl.startsWith('postgres')
-  ? postgresAdapter({ pool: { connectionString: databaseUrl }, push: false, prodMigrations: migrations })
+  ? postgresAdapter({ pool, push: false, prodMigrations: migrations })
   : sqliteAdapter({ client: { url: databaseUrl || `file:${path.resolve(dirname, '../parqon.db')}` } })
 
 // Uploads go to S3-compatible storage (Supabase Storage or AWS S3) once its keys are set, to ./media on disk otherwise
