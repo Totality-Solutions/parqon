@@ -274,11 +274,12 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ productId, embedde
         {product.application && (
           <div className={`border-t border-gray-100 ${embedded ? 'pt-12 mb-12' : 'pt-24 mb-24'}`}>
             <h2 className="text-xl font-bold uppercase tracking-tight mb-8">Application</h2>
-            <div className="w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-gray-50">
+            {/* full width, natural height: the whole photo is shown, never cropped */}
+            <div className="w-full bg-white">
               <ProgressiveImg
                 src={product.application}
-                className="w-full h-full object-cover"
-                wrapperClassName="w-full h-full"
+                className="block w-full h-auto"
+                wrapperClassName="w-full min-h-[200px]"
                 alt={`${product.title} laid in a room`}
               />
             </div>

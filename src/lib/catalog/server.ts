@@ -121,7 +121,7 @@ const loadProducts = unstable_cache(
     return products.docs.map((d) => toProduct(d as Doc, categoryById)).filter((p): p is Product => !!p);
   },
   // bump the version when the shape of Product changes, so old cached copies are not reused
-  ['catalog-products', 'v2', cacheScope],
+  ['catalog-products', 'v3', cacheScope],
   { tags: [CATALOG_TAG] }
 );
 
